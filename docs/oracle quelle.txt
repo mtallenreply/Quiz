@@ -1,0 +1,444 @@
+
+Java SE 25 Programming Complete
+All Users
+21 Modules
+40h 17m
+Java SE 25 Programming CompleteCourse
+
+This new course on Java SE 25 (latest Long-Term Support release) equips you with the latest tools and knowledge to build secure, efficient, and maintainable applications. It positions you well for career advancement, ensures your skills remain relevant, and allows you to take full advantage of the ongoing improvements in the Java platform.
+
+It provides an in-depth coverage for all core Java topics and most frequently used APIs. It also offers a set of practical exercises teaching how to build a fully functioning Java application from scratch.
+
+
+Benefits to you
+
+After completing this course, you should be able to:
+
+    Describe the object-oriented programming approach
+    Explain Java syntax and coding conventions
+    Use Java constructs and operators
+    Use core Java APIs, such as Collections, Streams, IO, and Concurrency
+    Deploy Java SE applications
+
+Course Information
+
+    AudienceAll Users
+    Number of Modules21
+    Duration40h 17m
+
+1. Introduction to Java
+
+    Course Overview
+    New
+    6m
+    Java History
+    New
+    4m
+    Explain Java Features and Object-Oriented Concepts
+    New
+    30m
+    Define a Java Program
+    New
+    13m
+    Compile and Execute your first Java Program
+    New
+    10m
+    Code snippets and Summary
+    New
+    4m
+    Practice 1-1: Verify the JDK Installation
+    5m
+    Practice 1-2: Create, Compile, and Execute a Java Application
+    10m
+    Skill Check: Introduction to Java
+    Score 80% or higher to Pass
+    Not Attempted
+
+2. Primitive Types, Operators, and Flow Control Statements
+
+    Declare, Initilize Primitives and Understand Restrictions
+    15m
+    Describe Java Operators, Assignment, Arithmetic Operators and TypeCasting
+    15m
+    Demo: Using Operators
+    18m
+    Binary Number Representation and Bitwise Logical Operators
+    9m
+    Equality, Relational, Conditional, Ternary Operators and If/Else
+    17m
+    Flow Control using Switch Construct
+    15m
+    Demo: Using Switch Construct
+    7m
+    Describe Jshell
+    8m
+    Practice 2-1: Manipulate with Primitive Types
+    32m
+    Practice 2-2: Use the If/else and Switch Constructs and the Ternary Operator
+    27m
+    Skill Check: Primitive Types, Operators, and Flow Control Statements
+    Score 80% or higher to Pass
+    Not Attempted
+
+3. Text, Date, Time, and Numeric Objects
+
+    String Initialization and Operations
+    15m
+    String Indexing, Mutable Text Objects and Blocks
+    22m
+    Describe Primitive Wrapper, BigDecimal Classes and Method Chaining
+    14m
+    Handle Date and Time Values
+    13m
+    Represent Languages and Countries, Format and Parse Numeric, Date Time Values
+    13m
+    Describe Localization and Formatting Classes
+    12m
+    Practice 3-1: Explore String and StringBuilder Objects
+    33m
+    Practice 3-2: Use BigDecimal Class and Format Numeric Values
+    12m
+    Practice 3-3: Use and Format Date and Time Values
+    17m
+    Practice 3-4: Apply Localization and Format Messages
+    13m
+    Skill Check: Text, Date, Time, and Numeric Objects
+    Score 80% or higher to Pass
+    Not Attempted
+
+4. Classes and Objects
+
+    Java Classes and Objects: Part 1
+    19m
+    Java Classes and Objects: Part 2
+    20m
+    Java Classes and Objects: Part 3
+    10m
+    Java Classes and Objects: Part 4
+    12m
+    Practice 4-1: Create the Product Management Application
+    27m
+    Practice 4-2: Enhance the Product Class
+    16m
+    Practice 4-3: Document Classes
+    10m
+    Skill Check: Classes and Objects
+    Score 80% or higher to Pass
+    Not Attempted
+
+5. Improved Class Design
+
+    Overload Methods by Defining and Reusing Constructors
+    17m
+    Define Encapsulation and Immutability using Access Modifiers
+    15m
+    Define and Use Enums
+    19m
+    Explain Java Memory Allocation and Parameter Passing
+    11m
+    Explain Java Memory Cleanup
+    11m
+    Practice 5-1: Create Enumeration to Represent Product Rating
+    11m
+    Practice 5-2: Add Custom Constructors to the Product Class
+    20m
+    Practice 5-3: Make Product Objects Immutable
+    10m
+    Skill Check: Improved Class Design
+    Score 80% or higher to Pass
+    Not Attempted
+
+6. Implement Inheritance and Use Records
+
+    Extend Classes and Reuse Code through Inheritance
+    11m
+    Instantiate Classes and Access Objects, Rules of Reference Type Casting
+    15m
+    Verify Object Type using the instanceof Operator, Perform Reference Type Casting
+    10m
+    Reference Code within Object
+    New
+    3m
+    Define Subclass Constructors and Flexible Constructor Bodies
+    New
+    4m
+    Class Object and Initizalization summary
+    New
+    5m
+    Override Methods and Using Polymorphism
+    12m
+    Define Abstract, Final, Sealed Classes and Interfaces
+    15m
+    Override Object Class Operations
+    20m
+    Define Record Classes, Pattern Matching for Switch
+    13m
+    Define and Use Factory Methods
+    8m
+    Practice 6-1: Create Food and Drink Classes That Extend Product
+    19m
+    Practice 6-2: Override Methods and Use Polymorphism
+    1h 12m
+    Practice 6-3: Create Factory Methods
+    16m
+    Practice 6-4: Implement Sealed Classes
+    4m
+    Practice 6-5: Explore Java Records
+    16m
+    Skill Check: Implement Inheritance and Use Records
+    Score 80% or higher to Pass
+    Not Attempted
+
+7. Interfaces and Generics
+
+    Describe Java interfaces
+    9m
+    Implement Interfaces
+    17m
+    Extend Interfaces and Use Functional Interfaces
+    13m
+    Use Generics
+    11m
+    Explore Commonly Used Java Interfaces and Use a Composition Pattern
+    20m
+    Practice 7-1: Design the Rateable Interface
+    26m
+    Practice 7-2: Process Products Review and Rating
+    23m
+    Skill Check: Interfaces and Generics
+    Score 80% or higher to Pass
+    Not Attempted
+
+8. Arrays and Loops
+
+    Declare, Create, and Initialize Arrays
+    13m
+    Use Multidimensional Arrays and Arrays Class
+    15m
+    Process Arrays in a Loop and Complex for Loops
+    18m
+    Use Embedded Loops, Break and Continue Operators
+    12m
+    Practice 8-1: Allow Multiple Reviews for a Product
+    30m
+    Skill Check: Arrays and Loops
+    Score 80% or higher to Pass
+    Not Attempted
+
+9. Collections
+
+    Introduce Java Collection API Interfaces and Implementation classes
+    20m
+    Create and Manage List, Set, Deque, HashMap Objects and Contents
+    35m
+    Iterate through Collections, Use Sequenced Collections and Collections Class
+    21m
+    Access Collections Concurrently and Prevent Collections Corruption
+    15m
+    Practice 9-1: Organize Products and Reviews into a HashMap
+    25m
+    Practice 9-2: Implement Review Sort and Product Search Features
+    17m
+    Skill Check: Collections
+    Score 80% or higher to Pass
+    Not Attempted
+
+10. Nested Classes and Lambda Expressions
+
+    Introduce Nested and Inner Classes
+    20m
+    Anonymous Inner Classes and Functional Interfaces
+    9m
+    Understanding Lambda Expressions
+    New
+    9m
+    Define Lambda Expression Parameters and Body
+    New
+    4m
+    Use Method References and Nonabstract Methods in Interfaces
+    21m
+    Practice 10-1: Refactor Product Manager to Use a Nested Class
+    41m
+    Practice 10-2: Produce Customized Product Reports
+    19m
+    Skill Check: Nested Classes and Lambda Expressions
+    Score 80% or higher to Pass
+    Not Attempted
+
+11. Java Streams API
+
+    Describe Java Streams API and Process Stream Pipelines
+    18m
+    Implement Functional Interfaces and Primitive, Bi-argument Variants
+    11m
+    Process Stream Pipelines and Perform Stream Operations
+    New
+    15m
+    Advanced Stream Processing in Java: Gatherers and Short-Circuiting
+    New
+    6m
+    Process Stream and Aggregate Stream Data
+    12m
+    Use Collectors, Perform Grouping and Partitioning of Stream Content
+    12m
+    Describe Parallel Stream Processing, Guidelines and Restrictions
+    13m
+    Use Spliterator
+    8m
+    Practice 11-1: Modify Product Manager to Use Streams
+    31m
+    Practice 11-2: Add Discount Per Rating Calculation
+    10m
+    Skill Check: Java Streams API
+    Score 80% or higher to Pass
+    Not Attempted
+
+12. Exception Handling, Logging, and Debugging
+
+    Java Logging
+    18m
+    Exception Handling: Part 1
+    10m
+    Exception Handling: Part 2
+    20m
+    Exception Handling: Part 3
+    18m
+    Debugging: Part 1
+    11m
+    Debugging: Part 2
+    16m
+    Practice 12-1: Use Exception Handling to Fix Logical Errors
+    29m
+    Practice 12-2: Add Text Parsing Operations
+    42m
+    Skill Check: Exception Handling, Logging, and Debugging
+    Score 80% or higher to Pass
+    Not Attempted
+
+13. Java IO API
+
+    Explore Java IO API
+    14m
+    Read and Write Binary and Character Data
+    14m
+    Use Standard Input, Output and a Console Class
+    9m
+    Understand Serialization, Serializable Object Graph and Object Serialization
+    15m
+    Customize Serialization and Deserialization
+    15m
+    Constructing Filesystem Paths and Navigating Filesystem
+    18m
+    Operate on Path objects and Properties, Handle Temporary Files and Folders
+    16m
+    Explore I/O examples: Work with Zip Archives and Accesss HTTP resources
+    8m
+    Practice 13-1: Print Product Report to a File
+    22m
+    Practice 13-2: Bulk-Load Data from Files
+    42m
+    Practice 13-3: Implement Memory Swap Mechanism
+    25m
+    Skill Check: Java IO API
+    Score 80% or higher to Pass
+    Not Attempted
+
+14. Java Concurrency and Multithreading
+
+    Java Concurrency Concepts and Thread Implementation
+    14m
+    Manage Thread Life Cycle, Interrupt and Block Thread
+    20m
+    Thread Wait and Thread Properties
+    11m
+    Manage and Implement Executor Service
+    17m
+    Discuss Locking Problems and Ensure Thread Safety
+    20m
+    Nonblocking Atomic Actions, Intrinsic Lock and Concurrency Automation
+    16m
+    CPU Versus IO Bound Concurrent Tasks and Usage of Virtual Threads
+    New
+    14m
+    Scoped Values
+    New
+    5m
+    Practice 14-1: Redesign Product Manager as a Singleton
+    23m
+    Practice 14-2: Ensure Product Manager Memory Safety
+    31m
+    Practice 14-3: Simulate Concurrent Callers
+    33m
+    Skill Check: Java Concurrency and Multithreading
+    Score 80% or higher to Pass
+    Not Attempted
+
+15. Modules and Deployment
+
+    Compile, Package, and Execute Nonmodular Applications
+    13m
+    Describe Java Module System
+    13m
+    Module Import Declarations and Create Module Dependencies
+    New
+    4m
+    Export Module Content
+    New
+    8m
+    Create Module Dependencies and Export Module Content
+    11m
+    Define and Use Module Services
+    11m
+    Compile, Package, Execute and Migrate Modular Applications
+    23m
+    Create and Execute Custom Runtime Image
+    13m
+    Practice 15-1: Convert Product Management Application into a Module
+    36m
+    Practice 15-2: Separate Application into Several Modules
+    45m
+    Skill Check: Modules and Deployment
+    Score 80% or higher to Pass
+    Not Attempted
+
+16. Annotations
+
+    Java Annotations: Part 1
+    20m
+    Java Annotations: Part 2
+    19m
+
+17. Java Database Connectivity
+
+    Java Database Connectivity (JDBC): Part 1
+    36m
+    Java Database Connectivity (JDBC): Part 2
+    19m
+
+18. Java Security
+
+    Java Security: Part 1
+    19m
+    Java Security: Part 2
+    24m
+
+19. Advanced Generics
+
+    Describe Generics Erasure and Use Generics
+    35m
+
+20. Java Applications on Oracle Cloud
+
+    Describe Cloud Application Design Principles
+    38m
+    Demo: Implementing a Java SE Application as a Web Service
+    22m
+
+21. Miscellaneous Java Topics
+Course Duration
+40h 17m
+
+
+
+
+
