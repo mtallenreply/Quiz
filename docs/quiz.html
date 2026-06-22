@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<style>
+body { background: #f0f2f5; }
+
+/* progress strip */
+#progress-strip { display: flex; flex-wrap: wrap; gap: .3rem; }
+.prog-btn {
+  width: 34px; height: 34px; border-radius: 50%;
+  border: none; font-size: .75rem; font-weight: 700; cursor: pointer;
+  background: #dee2e6; color: #495057;
+}
+.prog-btn.current  { background: #0d6efd; color: #fff; }
+.prog-btn.correct  { background: #198754; color: #fff; }
+.prog-btn.wrong    { background: #dc3545; color: #fff; }
+.prog-btn.answered { background: #9ec5fe; color: #084298; }
+
+/* options */
+.option-label {
+  display: flex; align-items: flex-start; gap: .6rem;
+  padding: .65rem .9rem; border: 1.5px solid #dee2e6;
+  border-radius: .5rem; cursor: pointer; margin-bottom: .4rem;
+  transition: border-color .12s, background .12s;
+}
+.option-label:hover:not(.correct):not(.wrong)
+                       { border-color: #9ec5fe; background: #f0f4ff; }
+.option-label.selected { border-color: #0d6efd; background: #f0f4ff; }
+.option-label.correct  { border-color: #198754; background: #f0fdf4; }
+.option-label.wrong    { border-color: #dc3545; background: #fff5f5; }
+.option-label input    { margin-top: .2rem; flex-shrink: 0; }
+
+/* question text — keep newlines from JSON */
+#q-text { white-space: pre-wrap; }
+
+/* results */
+.result-pct { font-size: 3rem; font-weight: 800; }
+.pct-bar-wrap { background: #e9ecef; border-radius: 99px; height: 8px; width: 100px; overflow: hidden; }
+.pct-bar { height: 100%; border-radius: 99px; background: #0d6efd; }
+
+.review-q { white-space: pre-wrap; font-weight: 600; }
+.review-opt { padding: .25rem .6rem; border-radius: .4rem; font-size: .88rem; margin-bottom: .2rem; }
+
+#screens > div { display: none; }
+#screens > div.active { display: block; }
+</style>
+</head>
+<body>
+<div class="container py-4" style="max-width:800px">
+<div id="screens">
+
+<!-- ===== START ===== -->
+<div id="screen-start" class="active">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Quiz</h2>
+    <div class="btn-group btn-group-sm">
+      <button class="btn btn-primary" data-lang="en" onclick="setLang('en')">EN</button>
+      <button class="btn btn-outline-primary" data-lang="de" onclick="setLang('de')">DE</button>
+    </div>
+  </div>
+
+  <div class="card shadow-sm mb-3">
+    <div class="card-body">
+      <label class="form-label fw-semibold" id="lbl-load">Load questions.json</label>
+      <input type="file" id="file-input" accept=".json" class="form-control" onchange="loadFile(this)">
+      <p id="file-status" class="mt-2 mb-0 small"></p>
+    </div>
+  </div>
+
+  <div class="card shadow-sm mb-3 d-none" id="filter-card">
+    <div class="card-body">
+      <div class="mb-3">
+        <label class="form-label fw-semibold" id="lbl-modules">Modules</label>
+        <div class="d-flex flex-column gap-1" id="module-checks"></div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label fw-semibold" id="lbl-diff">Difficulty</label>
+        <div class="d-flex gap-3" id="diff-checks">
+          <div class="form-check"><input class="form-check-input" type="checkbox" value="easy" checked id="d-easy"><label class="form-check-label" for="d-easy">Easy</label></div>
+          <div class="form-check"><input class="form-check-input" type="checkbox" value="medium" checked id="d-med"><label class="form-check-label" for="d-med">Medium</label></div>
+          <div class="form-check"><input class="form-check-input" type="checkbox" value="hard" checked id="d-hard"><label class="form-check-label" for="d-hard">Hard</label></div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label fw-semibold" id="lbl-count">Number of questions</label>
+        <input type="number" id="q-count" class="form-control" style="width:100px" min="1" placeholder="all">
+      </div>
+      <button class="btn btn-primary" onclick="startQuiz()" id="btn-start">Start</button>
+      <div class="d-none mt-3" id="retry-section">
+        <label class="form-label fw-semibold mb-1">
+          Schwache Fragen — max. Trefferquote:
+          <span id="threshold-val" class="text-warning fw-bold">95%</span>
+        </label>
+        <input type="range" class="form-range" id="threshold-slider"
+               min="50" max="100" step="5" value="95"
+               oninput="onThresholdChange(this.value)">
+        <button class="btn btn-warning w-100 mt-1" id="btn-retry" onclick="startRetry()">
+          Schwache Fragen üben (<span id="retry-count">0</span>)
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== QUIZ ===== -->
+<div id="screen-quiz">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0" id="quiz-title">Quiz</h2>
+    <div class="btn-group btn-group-sm">
+      <button class="btn btn-primary" data-lang="en" onclick="setLang('en')">EN</button>
+      <button class="btn btn-outline-primary" data-lang="de" onclick="setLang('de')">DE</button>
+    </div>
+  </div>
+
+  <div class="card shadow-sm mb-3">
+    <div class="card-body py-2">
+      <div id="progress-strip"></div>
+    </div>
+  </div>
+
+  <div class="card shadow-sm mb-3">
+    <div class="card-body">
+      <div class="d-flex flex-wrap gap-1 mb-2" id="q-meta"></div>
+      <p id="q-text" class="mb-3"></p>
+      <p class="text-muted small mb-2" id="q-hint"></p>
+      <div id="q-options"></div>
+      <hr>
+      <div class="d-flex justify-content-between align-items-center">
+        <button class="btn btn-outline-secondary" onclick="navigate(-1)" id="btn-prev">← Back</button>
+        <span class="text-muted small" id="q-counter"></span>
+        <button class="btn btn-primary" onclick="navigate(1)" id="btn-next">Next →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== RESULTS ===== -->
+<div id="screen-results">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0" id="res-title">Results</h2>
+    <div class="btn-group btn-group-sm">
+      <button class="btn btn-primary" data-lang="en" onclick="setLang('en')">EN</button>
+      <button class="btn btn-outline-primary" data-lang="de" onclick="setLang('de')">DE</button>
+    </div>
+  </div>
+
+  <div class="card shadow-sm mb-3 text-center">
+    <div class="card-body py-4">
+      <div class="result-pct" id="res-pct"></div>
+      <div class="text-muted" id="res-sub"></div>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-3">
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title" id="res-by-module-title">By Module</h5>
+          <table class="table table-sm mb-0">
+            <thead><tr>
+              <th id="th-module">Module</th>
+              <th id="th-correct">Correct</th>
+              <th id="th-pct">%</th>
+            </tr></thead>
+            <tbody id="res-module-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title" id="res-by-diff-title">By Difficulty</h5>
+          <table class="table table-sm mb-0">
+            <thead><tr>
+              <th id="th-diff">Difficulty</th>
+              <th id="th-correct2">Correct</th>
+              <th id="th-pct2">%</th>
+            </tr></thead>
+            <tbody id="res-diff-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow-sm mb-3" id="res-review-card">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+        <h5 class="card-title mb-0" id="res-review-title">Review</h5>
+        <div class="btn-group btn-group-sm" role="group">
+          <button class="btn btn-danger active"     id="filter-btn-wrong"   onclick="filterReview('wrong')">Falsch</button>
+          <button class="btn btn-outline-success"   id="filter-btn-correct" onclick="filterReview('correct')">Richtig</button>
+          <button class="btn btn-outline-secondary" id="filter-btn-all"     onclick="filterReview('all')">Alle</button>
+        </div>
+      </div>
+      <div id="res-review"></div>
+    </div>
+  </div>
+
+  <div class="text-center mb-4">
+    <button class="btn btn-outline-secondary" onclick="resetToStart()">← New Quiz</button>
+  </div>
+</div>
+
+</div><!-- #screens -->
+</div><!-- .container -->
+
+<script>
+// ── state ──────────────────────────────────────────────────────────────────
+let allQuestions = [];
+let questions    = [];
+let answers      = [];
+let current      = 0;
+let submitted    = false;
+let lang         = localStorage.getItem('quiz-lang') || 'en';
+
+// ── i18n ───────────────────────────────────────────────────────────────────
+const T = {
+  en: {
+    load: 'Load questions.json', modules: 'Modules', diff: 'Difficulty',
+    count: 'Number of questions', start: 'Start', back: '← Back',
+    next: 'Next →', submit: 'Submit',
+    results: 'Results', byModule: 'By Module', byDiff: 'By Difficulty',
+    review: 'Wrong answers — review', newQuiz: '← New Quiz',
+    thModule: 'Module', thCorrect: 'Correct', thPct: '%', thDiff: 'Difficulty',
+    choose: 'Choose', answers: 'answer(s)', correct: 'correct', of: 'of',
+    fileBtn: 'Select file', fileAuto: 'Trying to load questions.json…',
+    fileFail: 'Could not auto-load. Select file manually:',
+    allCorrect: 'All answers correct!',
+  },
+  de: {
+    load: 'questions.json laden', modules: 'Module', diff: 'Schwierigkeit',
+    count: 'Anzahl Fragen', start: 'Starten', back: '← Zurück',
+    next: 'Weiter →', submit: 'Auswerten',
+    results: 'Ergebnisse', byModule: 'Nach Modul', byDiff: 'Nach Schwierigkeit',
+    review: 'Falsche Antworten – Überprüfung', newQuiz: '← Neues Quiz',
+    thModule: 'Modul', thCorrect: 'Richtig', thPct: '%', thDiff: 'Schwierigkeit',
+    choose: 'Wähle', answers: 'Antwort(en)', correct: 'richtig', of: 'von',
+    fileBtn: 'Datei wählen', fileAuto: 'Versuche questions.json zu laden…',
+    fileFail: 'Konnte nicht laden. Bitte Datei wählen:',
+    allCorrect: 'Alles richtig!',
+  }
+};
+
+function t(key) { return T[lang]?.[key] ?? T.en[key] ?? key; }
+
+function setLang(l) {
+  lang = l;
+  localStorage.setItem('quiz-lang', l);
+  document.querySelectorAll('[data-lang]').forEach(b => {
+    const active = b.dataset.lang === l;
+    b.classList.toggle('btn-primary', active);
+    b.classList.toggle('btn-outline-primary', !active);
+  });
+  applyTranslations();
+}
+
+function applyTranslations() {
+  const ids = {
+    'lbl-load': 'load', 'lbl-modules': 'modules', 'lbl-diff': 'diff', 'lbl-count': 'count',
+    'btn-start': 'start',
+    'res-title': 'results', 'res-by-module-title': 'byModule',
+    'res-by-diff-title': 'byDiff', 'res-review-title': 'review',
+    'th-module': 'thModule', 'th-correct': 'thCorrect', 'th-pct': 'thPct',
+    'th-diff': 'thDiff', 'th-correct2': 'thCorrect', 'th-pct2': 'thPct',
+    'btn-prev': 'back',
+  };
+  Object.entries(ids).forEach(([id, key]) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = t(key);
+  });
+  if (questions.length) renderQuestion();
+}
+
+// ── load ───────────────────────────────────────────────────────────────────
+function loadFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try { onLoaded(JSON.parse(e.target.result)); }
+    catch { alert('Invalid JSON'); }
+  };
+  reader.readAsText(file);
+}
+
+function onLoaded(data) {
+  allQuestions = data.questions || [];
+  if (!allQuestions.length) { alert('No questions found'); return; }
+  document.getElementById('file-status').innerHTML =
+    `<span class="text-success">✓ ${allQuestions.length} questions loaded</span>`;
+  buildFilters();
+  document.getElementById('filter-card').classList.remove('d-none');
+  updateRetryBtn();
+  applyTranslations();
+}
+
+function buildFilters() {
+  const modules = [...new Set(allQuestions.map(q => q.module))].sort((a,b)=>a-b);
+  const moduleNames = {};
+  allQuestions.forEach(q => { moduleNames[q.module] = q.module_name; });
+  const c = document.getElementById('module-checks');
+  c.innerHTML = '';
+  modules.forEach(m => {
+    c.innerHTML += `
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="${m}" checked id="m-${m}">
+        <label class="form-check-label" for="m-${m}">${moduleNames[m] || 'Module ' + m}</label>
+      </div>`;
+  });
+}
+
+// ── start ──────────────────────────────────────────────────────────────────
+function startQuiz() {
+  const selMods = [...document.querySelectorAll('#module-checks input:checked')].map(i => +i.value);
+  const selDiff = [...document.querySelectorAll('#diff-checks input:checked')].map(i => i.value);
+  const countVal = parseInt(document.getElementById('q-count').value) || 0;
+
+  questions = allQuestions.filter(q => selMods.includes(q.module) && selDiff.includes(q.difficulty));
+  if (!questions.length) { alert('No questions match filters'); return; }
+  if (countVal > 0) questions = shuffle(questions).slice(0, countVal);
+
+  answers   = questions.map(() => new Set());
+  current   = 0;
+  submitted = false;
+  showScreen('screen-quiz');
+  renderStrip();
+  renderQuestion();
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ── strip ──────────────────────────────────────────────────────────────────
+function renderStrip() {
+  const strip = document.getElementById('progress-strip');
+  strip.innerHTML = '';
+  questions.forEach((_, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'prog-btn';
+    btn.textContent = i + 1;
+    btn.title = `Question ${i + 1}`;
+    btn.onclick = () => { current = i; renderQuestion(); renderStrip(); };
+    if (submitted)            btn.classList.add(isCorrect(i) ? 'correct' : 'wrong');
+    else if (i === current)   btn.classList.add('current');
+    else if (answers[i].size) btn.classList.add('answered');
+    strip.appendChild(btn);
+  });
+}
+
+// ── question ───────────────────────────────────────────────────────────────
+function renderQuestion() {
+  const q = questions[current];
+
+  const diffBadge = { easy: 'success', medium: 'warning text-dark', hard: 'danger' };
+  const modLabel = q.module_name || `Module ${q.module}`;
+  document.getElementById('q-meta').innerHTML = `
+    <span class="badge bg-primary">${escHtml(modLabel)}</span>
+    <span class="badge bg-${diffBadge[q.difficulty] || 'secondary'}">${q.difficulty}</span>
+    ${q.answer_count > 1 ? `<span class="badge bg-purple" style="background:#6f42c1">${t('choose')} ${q.answer_count} ${t('answers')}</span>` : ''}
+  `;
+
+  document.getElementById('q-text').textContent = q.question;
+  document.getElementById('q-counter').textContent = `${current + 1} / ${questions.length}`;
+  document.getElementById('q-hint').textContent =
+    q.answer_count > 1 ? `${t('choose')} ${q.answer_count} ${t('answers')}` : '';
+
+  const opts = document.getElementById('q-options');
+  opts.innerHTML = '';
+  q.options.forEach((opt, idx) => {
+    const isChosen  = answers[current].has(idx);
+    const isRight   = q.correct_answers.includes(idx);
+    const type      = q.answer_count > 1 ? 'checkbox' : 'radio';
+
+    let cls = 'option-label';
+    if (submitted) {
+      if (isRight)                   cls += ' correct';
+      else if (isChosen && !isRight) cls += ' wrong';
+    } else if (isChosen)             cls += ' selected';
+
+    const lbl = document.createElement('label');
+    lbl.className = cls;
+    lbl.innerHTML = `
+      <input type="${type}" name="opt" value="${idx}" ${isChosen ? 'checked' : ''} ${submitted ? 'disabled' : ''}>
+      <span>${escHtml(opt)}</span>`;
+    lbl.querySelector('input').addEventListener('change', e =>
+      onSelect(idx, e.target.checked, q.answer_count));
+    opts.appendChild(lbl);
+  });
+
+  const isLast = current === questions.length - 1;
+  const prev   = document.getElementById('btn-prev');
+  const next   = document.getElementById('btn-next');
+  prev.disabled = current === 0;
+  prev.textContent = t('back');
+
+  if (submitted) {
+    next.textContent = isLast ? t('results') : t('next');
+    next.className   = isLast ? 'btn btn-success' : 'btn btn-primary';
+    next.onclick     = isLast ? showResults : () => navigate(1);
+  } else {
+    next.textContent = isLast ? t('submit') : t('next');
+    next.className   = isLast ? 'btn btn-danger' : 'btn btn-primary';
+    next.onclick     = isLast ? submitQuiz : () => navigate(1);
+  }
+}
+
+function onSelect(idx, checked, answerCount) {
+  if (submitted) return;
+  const sel = answers[current];
+  if (answerCount === 1) { sel.clear(); if (checked) sel.add(idx); }
+  else { checked ? sel.add(idx) : sel.delete(idx); }
+  renderStrip();
+}
+
+function navigate(dir) {
+  current = Math.max(0, Math.min(questions.length - 1, current + dir));
+  renderStrip();
+  renderQuestion();
+}
+
+// ── submit ─────────────────────────────────────────────────────────────────
+function isCorrect(i) {
+  const chosen = [...answers[i]].sort((a,b)=>a-b);
+  const right  = [...questions[i].correct_answers].sort((a,b)=>a-b);
+  return chosen.length === right.length && chosen.every((v,j)=>v===right[j]);
+}
+
+function submitQuiz() {
+  submitted = true;
+  renderStrip();
+  renderQuestion();
+}
+
+// ── results ────────────────────────────────────────────────────────────────
+function showResults() {
+  showScreen('screen-results');
+  applyTranslations();
+
+  const total   = questions.length;
+  const correct = questions.filter((_,i) => isCorrect(i)).length;
+  const pct     = total ? Math.round(correct * 100 / total) : 0;
+
+  const pctEl = document.getElementById('res-pct');
+  pctEl.textContent = `${pct}%`;
+  pctEl.className = `result-pct ${pct >= 70 ? 'text-success' : 'text-danger'}`;
+  document.getElementById('res-sub').textContent =
+    `${correct} ${t('correct')} ${t('of')} ${total}`;
+
+  buildBreakdown('res-module-body', 'module_name', v => v || `Module ?`);
+  buildBreakdown('res-diff-body', 'difficulty', v => v);
+
+  renderReview('wrong');
+  saveResults();
+}
+
+let reviewFilter = 'wrong';
+
+function filterReview(mode) {
+  reviewFilter = mode;
+  const btnMap = { wrong: 'filter-btn-wrong', correct: 'filter-btn-correct', all: 'filter-btn-all' };
+  // reset all buttons
+  [['filter-btn-wrong','btn-danger','btn-outline-danger'],
+   ['filter-btn-correct','btn-success','btn-outline-success'],
+   ['filter-btn-all','btn-secondary','btn-outline-secondary']].forEach(([id, act, inact]) => {
+    const el = document.getElementById(id);
+    el.classList.remove('active', act, inact);
+    el.classList.add(id === btnMap[mode] ? act : inact);
+    if (id === btnMap[mode]) el.classList.add('active');
+  });
+  renderReview(mode);
+}
+
+function renderReview(mode) {
+  const reviewEl = document.getElementById('res-review');
+  reviewEl.innerHTML = '';
+
+  const filtered = questions.map((q,i) => ({q,i})).filter(({i}) => {
+    if (mode === 'wrong')   return !isCorrect(i);
+    if (mode === 'correct') return  isCorrect(i);
+    return true;
+  });
+
+  if (!filtered.length) {
+    reviewEl.innerHTML = `<p class="text-muted fst-italic mt-2">—</p>`;
+    return;
+  }
+
+  const diffBadge = { easy: 'success', medium: 'warning text-dark', hard: 'danger' };
+
+  filtered.forEach(({q, i}) => {
+    const correct = isCorrect(i);
+    const expl    = lang === 'de' && q.explanation_de ? q.explanation_de : q.explanation_en;
+    const div     = document.createElement('div');
+    div.className = 'border rounded p-3 mb-3';
+    div.dataset.correct = correct ? '1' : '0';
+
+    // header: question number + badges + status icon
+    let html = `
+      <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+        <span class="fw-bold text-muted small">#${i+1}</span>
+        <span class="badge bg-primary">${escHtml(q.module_name || 'Module ' + q.module)}</span>
+        <span class="badge bg-${diffBadge[q.difficulty] || 'secondary'}">${q.difficulty}</span>
+        <span class="ms-auto">${correct
+          ? '<span class="text-success fw-bold">✓ Richtig</span>'
+          : '<span class="text-danger fw-bold">✗ Falsch</span>'}</span>
+      </div>
+      <p class="review-q mb-3">${escHtml(q.question)}</p>`;
+
+    // all options — highlight correct green, chosen-wrong red, rest neutral
+    q.options.forEach((opt, idx) => {
+      const isRight  = q.correct_answers.includes(idx);
+      const isChosen = answers[i].has(idx);
+      let bg = '';
+      if (isRight && isChosen)  bg = 'bg-success bg-opacity-25 text-success fw-semibold';
+      else if (isRight)         bg = 'bg-success bg-opacity-10 text-success';
+      else if (isChosen)        bg = 'bg-danger  bg-opacity-10 text-danger';
+      else                      bg = 'text-muted';
+      const icon = isRight ? '✓ ' : isChosen && !isRight ? '✗ ' : '  ';
+      html += `<div class="review-opt ${bg} mb-1">${icon}${escHtml(opt)}</div>`;
+    });
+
+    // explanation
+    if (expl) {
+      html += `
+        <div class="mt-3 p-3 rounded bg-light border-start border-4 border-info">
+          <div class="text-muted small fw-semibold mb-1">Erklärung</div>
+          <div class="small lh-lg">${escHtml(expl)}</div>
+        </div>`;
+    }
+
+    div.innerHTML = html;
+    reviewEl.appendChild(div);
+  });
+}
+
+function buildBreakdown(tbodyId, field, label) {
+  const groups = {};
+  questions.forEach((q,i) => {
+    const k = q[field];
+    if (!groups[k]) groups[k] = {correct:0, total:0};
+    groups[k].total++;
+    if (isCorrect(i)) groups[k].correct++;
+  });
+  const tbody = document.getElementById(tbodyId);
+  tbody.innerHTML = '';
+  Object.keys(groups).sort().forEach(key => {
+    const g   = groups[key];
+    const pct = Math.round(g.correct * 100 / g.total);
+    tbody.innerHTML += `
+      <tr>
+        <td>${label(key)}</td>
+        <td>${g.correct} / ${g.total}</td>
+        <td>
+          <div class="d-flex align-items-center gap-2">
+            <div class="pct-bar-wrap"><div class="pct-bar" style="width:${pct}%"></div></div>
+            <span>${pct}%</span>
+          </div>
+        </td>
+      </tr>`;
+  });
+}
+
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function showScreen(id) {
+  document.querySelectorAll('#screens > div').forEach(d => d.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function resetToStart() {
+  questions = []; answers = []; submitted = false;
+  showScreen('screen-start');
+}
+
+// ── result tracking ────────────────────────────────────────────────────────
+function saveResults() {
+  const stored = JSON.parse(localStorage.getItem('quiz-results') || '{"questions":{},"history":[]}');
+  const qStats = stored.questions;
+  let correct = 0;
+  questions.forEach((q, i) => {
+    const id = String(q.id);
+    if (!qStats[id]) qStats[id] = { correct: 0, wrong: 0 };
+    if (isCorrect(i)) { qStats[id].correct++; correct++; }
+    else               qStats[id].wrong++;
+  });
+  stored.history.push({
+    date: new Date().toISOString().slice(0, 10),
+    total: questions.length, correct,
+    pct: Math.round(correct * 100 / questions.length)
+  });
+  localStorage.setItem('quiz-results', JSON.stringify(stored));
+  updateRetryBtn();
+}
+
+function getThreshold() {
+  const slider = document.getElementById('threshold-slider');
+  return slider ? Number(slider.value) / 100 : 0.95;
+}
+
+function onThresholdChange(val) {
+  document.getElementById('threshold-val').textContent = val + '%';
+  updateRetryBtn();
+}
+
+function updateRetryBtn() {
+  const stored = JSON.parse(localStorage.getItem('quiz-results') || '{"questions":{}}');
+  const t = getThreshold();
+  const weak = Object.entries(stored.questions)
+    .filter(([, s]) => s.wrong > 0 && s.correct / (s.correct + s.wrong) < t);
+  document.getElementById('retry-count').textContent = weak.length;
+  const section = document.getElementById('retry-section');
+  const hasAny = Object.keys(stored.questions).length > 0;
+  if (section) section.classList.toggle('d-none', !hasAny);
+}
+
+function startRetry() {
+  const stored = JSON.parse(localStorage.getItem('quiz-results') || '{"questions":{}}');
+  const t = getThreshold();
+  const weakIds = new Set(
+    Object.entries(stored.questions)
+      .filter(([, s]) => s.wrong > 0 && s.correct / (s.correct + s.wrong) < t)
+      .map(([id]) => Number(id))
+  );
+  questions = allQuestions.filter(q => weakIds.has(q.id));
+  if (!questions.length) { alert(`Keine Fragen unter ${Math.round(t*100)}% Trefferquote.`); return; }
+  answers = questions.map(() => new Set());
+  current = 0; submitted = false;
+  showScreen('screen-quiz');
+  renderStrip();
+  renderQuestion();
+}
+
+// ── init ───────────────────────────────────────────────────────────────────
+setLang(lang);
+</script>
+</body>
+</html>
