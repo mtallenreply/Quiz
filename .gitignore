@@ -34,3 +34,10 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### PSLive Quelldokumente (Copyright) ###
+quizzes/PSLive/*.txt
+quizzes/PSLive/*.pdf
+quizzes/PSLive/*.md
+quizzes/PSLive/*.png
+!quizzes/PSLive/questions.json
