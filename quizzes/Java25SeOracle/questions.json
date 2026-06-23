@@ -1,4 +1,4 @@
-﻿{
+{
     "meta": {
         "last_updated": "2026-06-23",
         "notes": "KI-generiert auf Basis der Oracle-Schulungsagenda. Kein Anspruch auf Vollständigkeit oder Korrektheit — Fragen sind abgeleitet, nicht aus offiziellem Kursmaterial entnommen."
@@ -104,7 +104,7 @@
                           "id":  6,
                           "module":  1,
                           "difficulty":  "medium",
-                          "question":  "Given the following Java 25 code snippet, what will be the output?\n\npublic class Hello {\n    void main() {\n        System.out.println(\"Hello, Java 25!\");\n    }\n}",
+                          "question":  "Given the following Java 25 code snippet, what will be the output?\n\n```java\npublic class Hello {\n    void main() {\n        System.out.println(\\n```"Hello, Java 25!\");\n    }\n}",
                           "options":  [
                                           "A. Compilation error: main must be static",
                                           "B. Hello, Java 25!",
@@ -162,7 +162,7 @@
                           "id":  9,
                           "module":  1,
                           "difficulty":  "hard",
-                          "question":  "What will happen when this Java 25 code is compiled and run?\n\nclass Greeter {\n    String name;\n    Greeter(String name) { this.name = name; }\n    void main() {\n        System.out.println(\"Hi, \" + name);\n    }\n    public static void main(String[] args) {\n        new Greeter(\"World\").main();\n    }\n}",
+                          "question":  "What will happen when this Java 25 code is compiled and run?\n\n```java\nclass Greeter {\n    String name;\n    Greeter(String name) { this.name = name; }\n    void main() {\n        System.out.println(\\n```"Hi, \" + name);\n    }\n    public static void main(String[] args) {\n        new Greeter(\"World\").main();\n    }\n}",
                           "options":  [
                                           "A. Compilation error: duplicate main method",
                                           "B. The JVM launches and calls void main() directly, printing \u0027Hi, null\u0027",
@@ -239,7 +239,7 @@
                           "id":  13,
                           "module":  2,
                           "difficulty":  "easy",
-                          "question":  "What is the result of the following code snippet?\n\nint a = 10;\nint b = 3;\nSystem.out.println(a % b);",
+                          "question":  "What is the result of the following code snippet?\n\n```java\nint a = 10;\nint b = 3;\nSystem.out.println(a % b);\n```",
                           "options":  [
                                           "A. 3",
                                           "B. 3.33",
@@ -277,7 +277,7 @@
                           "id":  15,
                           "module":  2,
                           "difficulty":  "easy",
-                          "question":  "What does the following code print?\n\nint x = 5;\nSystem.out.println(x++);\nSystem.out.println(x);",
+                          "question":  "What does the following code print?\n\n```java\nint x = 5;\nSystem.out.println(x++);\nSystem.out.println(x);\n```",
                           "options":  [
                                           "A. 6 then 6",
                                           "B. 5 then 5",
@@ -296,7 +296,7 @@
                           "id":  16,
                           "module":  2,
                           "difficulty":  "medium",
-                          "question":  "What is the output of the following switch expression using arrow syntax?\n\nint day = 3;\nString name = switch (day) {\n    case 1 -\u003e \"Monday\";\n    case 2 -\u003e \"Tuesday\";\n    case 3 -\u003e \"Wednesday\";\n    default -\u003e \"Other\";\n};\nSystem.out.println(name);",
+                          "question":  "What is the output of the following switch expression using arrow syntax?\n\n```java\nint day = 3;\nString name = switch (day) {\n    case 1 -\u003e \\n```"Monday\";\n    case 2 -\u003e \"Tuesday\";\n    case 3 -\u003e \"Wednesday\";\n    default -\u003e \"Other\";\n};\nSystem.out.println(name);",
                           "options":  [
                                           "A. Other",
                                           "B. Tuesday",
@@ -334,7 +334,7 @@
                           "id":  18,
                           "module":  2,
                           "difficulty":  "medium",
-                          "question":  "What is the output of this code?\n\nfor (int i = 0; i \u003c 5; i++) {\n    if (i == 3) continue;\n    if (i == 4) break;\n    System.out.print(i + \" \");\n}",
+                          "question":  "What is the output of this code?\n\n```java\nfor (int i = 0; i \u003c 5; i++) {\n    if (i == 3) continue;\n    if (i == 4) break;\n    System.out.print(i + \\n```" \");\n}",
                           "options":  [
                                           "A. 0 1 2 3 4",
                                           "B. 0 1 2 4",
@@ -353,7 +353,7 @@
                           "id":  19,
                           "module":  2,
                           "difficulty":  "hard",
-                          "question":  "What is the output of the following code involving narrowing cast?\n\nbyte b = (byte) 200;\nSystem.out.println(b);",
+                          "question":  "What is the output of the following code involving narrowing cast?\n\n```java\nbyte b = (byte) 200;\nSystem.out.println(b);\n```",
                           "options":  [
                                           "A. 200",
                                           "B. -56",
@@ -372,7 +372,7 @@
                           "id":  20,
                           "module":  2,
                           "difficulty":  "hard",
-                          "question":  "What is the output of this code?\n\nint x = 0b1010;\nint y = 0b1100;\nSystem.out.println(Integer.toBinaryString(x \u0026 y));\nSystem.out.println(Integer.toBinaryString(x | y));\nSystem.out.println(Integer.toBinaryString(x ^ y));",
+                          "question":  "What is the output of this code?\n\n```java\nint x = 0b1010;\nint y = 0b1100;\nSystem.out.println(Integer.toBinaryString(x \u0026 y));\nSystem.out.println(Integer.toBinaryString(x | y));\nSystem.out.println(Integer.toBinaryString(x ^ y));\n```",
                           "options":  [
                                           "A. 1000 / 1110 / 110",
                                           "B. 1010 / 1100 / 110",
@@ -429,7 +429,7 @@
                           "id":  23,
                           "module":  3,
                           "difficulty":  "easy",
-                          "question":  "What is the output of the following code?\n\nString s = \"Hello World\";\nSystem.out.println(s.substring(6));",
+                          "question":  "What is the output of the following code?\n\n```java\nString s = \\n```"Hello World\";\nSystem.out.println(s.substring(6));",
                           "options":  [
                                           "A. Hello",
                                           "B. World",
@@ -467,7 +467,7 @@
                           "id":  25,
                           "module":  3,
                           "difficulty":  "easy",
-                          "question":  "What does the following code print?\n\nString result = String.format(\"%.2f\", 3.14159);\nSystem.out.println(result);",
+                          "question":  "What does the following code print?\n\n```java\nString result = String.format(\\n```"%.2f\", 3.14159);\nSystem.out.println(result);",
                           "options":  [
                                           "A. 3.14159",
                                           "B. 3.14",
@@ -524,7 +524,7 @@
                           "id":  28,
                           "module":  3,
                           "difficulty":  "medium",
-                          "question":  "What is the output of the following code?\n\nSystem.out.println(Math.max(Math.abs(-7), Math.pow(2, 2)));\n",
+                          "question":  "What is the output of the following code?\n\n```java\nSystem.out.println(Math.max(Math.abs(-7), Math.pow(2, 2)));\n\n```",
                           "options":  [
                                           "A. 4.0",
                                           "B. 7.0",
@@ -543,7 +543,7 @@
                           "id":  29,
                           "module":  3,
                           "difficulty":  "hard",
-                          "question":  "What is the output of the following code?\n\nString a = \"Java\";\nString b = \"Java\";\nString c = new String(\"Java\");\nSystem.out.println(a == b);\nSystem.out.println(a == c);\nSystem.out.println(a.equals(c));",
+                          "question":  "What is the output of the following code?\n\n```java\nString a = \\n```"Java\";\nString b = \"Java\";\nString c = new String(\"Java\");\nSystem.out.println(a == b);\nSystem.out.println(a == c);\nSystem.out.println(a.equals(c));",
                           "options":  [
                                           "A. true / true / true",
                                           "B. true / false / true",
@@ -658,7 +658,7 @@
                           "id":  35,
                           "module":  4,
                           "difficulty":  "easy",
-                          "question":  "Consider the following code:\n\npublic class Counter {\n    private int count = 0;\n    public void increment() { count++; }\n    public int getCount() { return count; }\n}\n\nWhich keyword would you use to refer to the instance field \u0027count\u0027 explicitly when a local variable of the same name exists?",
+                          "question":  "Consider the following code:\n\n```java\npublic class Counter {\n    private int count = 0;\n    public void increment() { count++; }\n    public int getCount() { return count; }\n}\n```\n\nWhich keyword would you use to refer to the instance field \u0027count\u0027 explicitly when a local variable of the same name exists?",
                           "options":  [
                                           "A. super",
                                           "B. self",
@@ -696,7 +696,7 @@
                           "id":  37,
                           "module":  4,
                           "difficulty":  "medium",
-                          "question":  "Given the following class, what happens when the JVM determines the object is no longer reachable?\n\npublic class Resource {\n    public Resource() { System.out.println(\"Created\"); }\n}\n\nResource r = new Resource();\nr = null;",
+                          "question":  "Given the following class, what happens when the JVM determines the object is no longer reachable?\n\n```java\npublic class Resource {\n    public Resource() { System.out.println(\\n```"Created\"); }\n}\n\nResource r = new Resource();\nr = null;",
                           "options":  [
                                           "A. The object is immediately destroyed.",
                                           "B. The object becomes eligible for garbage collection.",
@@ -734,7 +734,7 @@
                           "id":  39,
                           "module":  4,
                           "difficulty":  "hard",
-                          "question":  "What is the output of the following code?\n\npublic class MyClass {\n    static int x = 5;\n    int y = 10;\n\n    public static void modify() {\n        x = 20;\n    }\n\n    public static void main(String[] args) {\n        MyClass a = new MyClass();\n        MyClass b = new MyClass();\n        MyClass.modify();\n        System.out.println(a.x + \" \" + b.x);\n    }\n}",
+                          "question":  "What is the output of the following code?\n\n```java\npublic class MyClass {\n    static int x = 5;\n    int y = 10;\n\n    public static void modify() {\n        x = 20;\n    }\n\n    public static void main(String[] args) {\n        MyClass a = new MyClass();\n        MyClass b = new MyClass();\n        MyClass.modify();\n        System.out.println(a.x + \\n```" \" + b.x);\n    }\n}",
                           "options":  [
                                           "A. 5 5",
                                           "B. 20 5",
@@ -868,7 +868,7 @@
                           "id":  46,
                           "module":  5,
                           "difficulty":  "medium",
-                          "question":  "What is the output of the following code?\n\npublic class Person {\n    private String name;\n    public Person(String name) { this.name = name; }\n    public Person() { this(\"Unknown\"); }\n    public String getName() { return name; }\n}\n\nPerson p = new Person();\nSystem.out.println(p.getName());",
+                          "question":  "What is the output of the following code?\n\n```java\npublic class Person {\n    private String name;\n    public Person(String name) { this.name = name; }\n    public Person() { this(\\n```"Unknown\"); }\n    public String getName() { return name; }\n}\n\nPerson p = new Person();\nSystem.out.println(p.getName());",
                           "options":  [
                                           "A. null",
                                           "B. Unknown",
@@ -945,7 +945,7 @@
                           "id":  50,
                           "module":  5,
                           "difficulty":  "hard",
-                          "question":  "Consider this sealed hierarchy:\n\npublic sealed interface Expr permits Num, Add {}\npublic record Num(int value) implements Expr {}\npublic record Add(Expr left, Expr right) implements Expr {}\n\nWhich modifier must a class use if it directly implements a sealed interface but is not in the permits list?",
+                          "question":  "Consider this sealed hierarchy:\n\n```java\npublic sealed interface Expr permits Num, Add {}\npublic record Num(int value) implements Expr {}\npublic record Add(Expr left, Expr right) implements Expr {}\n```\n\nWhich modifier must a class use if it directly implements a sealed interface but is not in the permits list?",
                           "options":  [
                                           "A. abstract",
                                           "B. final or sealed or non-sealed",
@@ -1059,7 +1059,7 @@
                           "id":  56,
                           "module":  6,
                           "difficulty":  "medium",
-                          "question":  "What is the output of the following code?\n\n```java\npublic class Animal {\n    public Animal() { System.out.println(\"Animal created\"); }\n}\npublic class Dog extends Animal {\n    public Dog() {\n        super();\n        System.out.println(\"Dog created\");\n    }\n}\n\nnew Dog();\n```",
+                          "question":  "What is the output of the following code?\n\n```java\npublic class Animal {\n    public Animal() { System.out.println(\"Animal created\"); }\n}\npublic class Dog extends Animal {\n    public Dog() {\n        super();\n        System.out.println(\"Dog created\");\n    }\n}\n\n```java\nnew Dog();\n```\n```",
                           "options":  [
                                           "A. Dog created",
                                           "B. Animal created",
@@ -1116,7 +1116,7 @@
                           "id":  59,
                           "module":  6,
                           "difficulty":  "hard",
-                          "question":  "What is the output of this polymorphic method dispatch?\n\npublic class Base {\n    public String name() { return \"Base\"; }\n    public void print() { System.out.println(name()); }\n}\npublic class Derived extends Base {\n    @Override\n    public String name() { return \"Derived\"; }\n}\n\nBase obj = new Derived();\nobj.print();",
+                          "question":  "What is the output of this polymorphic method dispatch?\n\n```java\npublic class Base {\n    public String name() { return \\n```"Base\"; }\n    public void print() { System.out.println(name()); }\n}\npublic class Derived extends Base {\n    @Override\n    public String name() { return \"Derived\"; }\n}\n\nBase obj = new Derived();\nobj.print();",
                           "options":  [
                                           "A. Base",
                                           "B. Derived",
@@ -4087,7 +4087,7 @@
                           "module":  2,
                           "module_name":  "2 – Primitive Types \u0026 Type Conversion",
                           "difficulty":  "medium",
-                          "question":  "What is printed by the following code?\n\nint x = Integer.MAX_VALUE;\nx++;\nSystem.out.println(x);",
+                          "question":  "What is printed by the following code?\n\n```java\nint x = Integer.MAX_VALUE;\nx++;\nSystem.out.println(x);\n```",
                           "options":  [
                                           "A. 2147483648",
                                           "B. -2147483648",
@@ -4106,7 +4106,7 @@
                           "module":  2,
                           "module_name":  "2 – Primitive Types \u0026 Type Conversion",
                           "difficulty":  "medium",
-                          "question":  "What is the output of this code?\n\nchar c = \u0027A\u0027;\nint i = c;\nSystem.out.println(i);",
+                          "question":  "What is the output of this code?\n\n```java\nchar c = \u0027A\u0027;\nint i = c;\nSystem.out.println(i);\n```",
                           "options":  [
                                           "A. A",
                                           "B. 64",
@@ -4125,7 +4125,7 @@
                           "module":  2,
                           "module_name":  "2 – Primitive Types \u0026 Type Conversion",
                           "difficulty":  "medium",
-                          "question":  "What is the result of trying to compile and run this code?\n\nbyte b1 = 10;\nbyte b2 = 20;\nbyte b3 = b1 + b2;",
+                          "question":  "What is the result of trying to compile and run this code?\n\n```java\nbyte b1 = 10;\nbyte b2 = 20;\nbyte b3 = b1 + b2;\n```",
                           "options":  [
                                           "A. Prints 30",
                                           "B. Prints 0 due to overflow",
@@ -4163,7 +4163,7 @@
                           "module":  2,
                           "module_name":  "2 – Primitive Types \u0026 Type Conversion",
                           "difficulty":  "hard",
-                          "question":  "What is the output of this code?\n\nint x = 10;\nx += 1.9;\nSystem.out.println(x);",
+                          "question":  "What is the output of this code?\n\n```java\nint x = 10;\nx += 1.9;\nSystem.out.println(x);\n```",
                           "options":  [
                                           "A. 11.9",
                                           "B. 12",
@@ -4182,7 +4182,7 @@
                           "module":  2,
                           "module_name":  "2 – Primitive Types \u0026 Type Conversion",
                           "difficulty":  "hard",
-                          "question":  "What is the output of the following code, and why?\n\nSystem.out.println(0.1 + 0.2 == 0.3);",
+                          "question":  "What is the output of the following code, and why?\n\n```java\nSystem.out.println(0.1 + 0.2 == 0.3);\n```",
                           "options":  [
                                           "A. true — floating point addition is exact",
                                           "B. false — 0.1 and 0.2 cannot be represented exactly in IEEE 754 binary floating point",
@@ -4277,7 +4277,7 @@
                           "module":  22,
                           "module_name":  "22 – Date \u0026 Time API",
                           "difficulty":  "medium",
-                          "question":  "What does the following code print?\n\nlong days = ChronoUnit.DAYS.between(\n    LocalDate.of(2024, 1, 1),\n    LocalDate.of(2024, 3, 1)\n);\nSystem.out.println(days);",
+                          "question":  "What does the following code print?\n\n```java\nlong days = ChronoUnit.DAYS.between(\n    LocalDate.of(2024, 1, 1),\n    LocalDate.of(2024, 3, 1)\n);\nSystem.out.println(days);\n```",
                           "options":  [
                                           "A. 59",
                                           "B. 60",
@@ -4448,7 +4448,7 @@
                           "module":  3,
                           "module_name":  "3 – Strings \u0026 StringBuilder",
                           "difficulty":  "medium",
-                          "question":  "What is the output?\n\nString s = \"abcabc\";\nSystem.out.println(s.indexOf(\"c\"));",
+                          "question":  "What is the output?\n\n```java\nString s = \\n```"abcabc\";\nSystem.out.println(s.indexOf(\"c\"));",
                           "options":  [
                                           "A. 2",
                                           "B. 5",
@@ -4467,7 +4467,7 @@
                           "module":  3,
                           "module_name":  "3 – Strings \u0026 StringBuilder",
                           "difficulty":  "medium",
-                          "question":  "What does this print?\n\nSystem.out.println(String.format(\"%05d\", 42));",
+                          "question":  "What does this print?\n\n```java\nSystem.out.println(String.format(\\n```"%05d\", 42));",
                           "options":  [
                                           "A. \"42000\"",
                                           "B. \"   42\"",
@@ -4486,7 +4486,7 @@
                           "module":  3,
                           "module_name":  "3 – Strings \u0026 StringBuilder",
                           "difficulty":  "medium",
-                          "question":  "What is the output?\n\nSystem.out.println(\"hello world\".replace(\"l\", \"r\"));",
+                          "question":  "What is the output?\n\n```java\nSystem.out.println(\\n```"hello world\".replace(\"l\", \"r\"));",
                           "options":  [
                                           "A. \"herlo world\"",
                                           "B. \"hello worrd\"",
@@ -4524,7 +4524,7 @@
                           "module":  3,
                           "module_name":  "3 – Strings \u0026 StringBuilder",
                           "difficulty":  "medium",
-                          "question":  "Why is StringBuilder preferred over String += inside a loop?\n\nString result = \"\";\nfor (int i = 0; i \u003c 1000; i++) { result += i; }",
+                          "question":  "Why is StringBuilder preferred over String += inside a loop?\n\n```java\nString result = \\n```"\";\nfor (int i = 0; i \u003c 1000; i++) { result += i; }",
                           "options":  [
                                           "A. StringBuilder is thread-safe; String is not",
                                           "B. Each += creates a new immutable String object; StringBuilder mutates its buffer in-place",
@@ -4543,7 +4543,7 @@
                           "module":  3,
                           "module_name":  "3 – Strings \u0026 StringBuilder",
                           "difficulty":  "hard",
-                          "question":  "What does this print?\n\nlong count = \"Java Programming\".chars()\n    .filter(c -\u003e c == (int)\u0027a\u0027)\n    .count();\nSystem.out.println(count);",
+                          "question":  "What does this print?\n\n```java\nlong count = \\n```"Java Programming\".chars()\n    .filter(c -\u003e c == (int)\u0027a\u0027)\n    .count();\nSystem.out.println(count);",
                           "options":  [
                                           "A. 1",
                                           "B. 2",
@@ -4676,7 +4676,7 @@
                           "module":  23,
                           "module_name":  "23 – Java 25 New Features",
                           "difficulty":  "hard",
-                          "question":  "Which of the following is ILLEGAL before the super() call under Flexible Constructor Bodies rules?\n\nclass Child extends Parent {\n    Child(int x) {\n        // which line is illegal here?\n        super(x);\n    }\n}",
+                          "question":  "Which of the following is ILLEGAL before the super() call under Flexible Constructor Bodies rules?\n\n```java\nclass Child extends Parent {\n    Child(int x) {\n        // which line is illegal here?\n        super(x);\n    }\n}\n```",
                           "options":  [
                                           "A. int validated = Math.abs(x);",
                                           "B. if (x \u003c 0) throw new IllegalArgumentException();",
@@ -4771,7 +4771,7 @@
                           "module":  23,
                           "module_name":  "23 – Java 25 New Features",
                           "difficulty":  "easy",
-                          "question":  "What is the correct interpolation syntax used by the STR template processor (Java 21-22 preview)?\n\nString name = \"Java\";\nString s = STR.\"Hello ?(name)!\"; // fill in ?",
+                          "question":  "What is the correct interpolation syntax used by the STR template processor (Java 21-22 preview)?\n\n```java\nString name = \\n```"Java\";\nString s = STR.\"Hello ?(name)!\"; // fill in ?",
                           "options":  [
                                           "A. STR.\"Hello ${name}!\"",
                                           "B. STR.\"Hello \\{name}!\"",
@@ -5037,7 +5037,7 @@
                           "module":  24,
                           "module_name":  "24 – OO Design \u0026 Trade-offs",
                           "difficulty":  "hard",
-                          "question":  "Why does Square extending Rectangle violate the Liskov Substitution Principle?\n\nvoid test(Rectangle r) {\n    r.setWidth(5);\n    r.setHeight(10);\n    assert r.area() == 50;\n}",
+                          "question":  "Why does Square extending Rectangle violate the Liskov Substitution Principle?\n\n```java\nvoid test(Rectangle r) {\n    r.setWidth(5);\n    r.setHeight(10);\n    assert r.area() == 50;\n}\n```",
                           "options":  [
                                           "A. Square has fewer fields than Rectangle",
                                           "B. Square must keep width == height, so setWidth(5) followed by setHeight(10) gives area 100, not 50 — the assertion fails, breaking Rectangle\u0027s contract",
