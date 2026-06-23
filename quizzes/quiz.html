@@ -647,7 +647,20 @@ function startRetry() {
 }
 
 // ── init ───────────────────────────────────────────────────────────────────
+async function tryAutoLoad() {
+  const status = document.getElementById('file-status');
+  status.textContent = t('fileAuto');
+  try {
+    const res = await fetch('./questions.json');
+    if (res.ok) { onLoaded(await res.json()); }
+    else         { status.textContent = t('fileFail'); }
+  } catch {
+    status.textContent = t('fileFail');
+  }
+}
+
 setLang(lang);
+tryAutoLoad();
 </script>
 </body>
 </html>
