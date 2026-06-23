@@ -1059,7 +1059,7 @@
                           "id":  56,
                           "module":  6,
                           "difficulty":  "medium",
-                          "question":  "What is the output of the following code?\n\npublic class Animal {\n    public Animal() { System.out.println(\"Animal created\"); }\n}\npublic class Dog extends Animal {\n    public Dog() {\n        super();\n        System.out.println(\"Dog created\");\n    }\n}\n\nnew Dog();",
+                          "question":  "What is the output of the following code?\n\n```java\npublic class Animal {\n    public Animal() { System.out.println(\"Animal created\"); }\n}\npublic class Dog extends Animal {\n    public Dog() {\n        super();\n        System.out.println(\"Dog created\");\n    }\n}\n\nnew Dog();\n```",
                           "options":  [
                                           "A. Dog created",
                                           "B. Animal created",
@@ -4638,7 +4638,7 @@
                           "module":  23,
                           "module_name":  "23 – Java 25 New Features",
                           "difficulty":  "medium",
-                          "question":  "Which of the following is a valid use of an unnamed pattern in Java 22+?\n\nObject obj = \"hello\";",
+                          "question":  "Which of the following is a valid use of an unnamed pattern in Java 22+?\n\n```java\nObject obj = \"hello\";\n```",
                           "options":  [
                                           "A. if (obj instanceof String _) { System.out.println(\"is string\"); }",
                                           "B. if (obj instanceof _) { System.out.println(\"matches\"); }",
