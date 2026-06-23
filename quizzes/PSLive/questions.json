@@ -1,0 +1,2498 @@
+{
+    "meta":  {
+                 "last_updated":  "2026-06-23",
+                 "notes":  "KI-generiert aus PSLive Schulungsunterlagen (Neurons). Kein Anspruch auf Vollständigkeit oder Korrektheit."
+             },
+    "questions":  [
+                      {
+                          "id":  1,
+                          "module":  1,
+                          "difficulty":  "easy",
+                          "question":  "Welche Versicherungsbereiche werden durch die Softwareprodukte der in|sure Ecosphere bedient?",
+                          "options":  [
+                                          "A. Gesetzliche Krankenversicherung (GKV)",
+                                          "B. Private Krankenversicherung (PKV)",
+                                          "C. Lebensversicherung (LV) sowie betriebliche Altersvorsorge (bAV)",
+                                          "D. Schaden-, Unfall-, Haftpflicht- und Kaskoversicherung (SHUK)",
+                                          "E. Kfz-Haftpflichtversicherung als eigenständige Sparte",
+                                          "F. Spartenübergreifende Lösungen"
+                                      ],
+                          "correct_answers":  [
+                                                  1,
+                                                  2,
+                                                  3,
+                                                  5
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "1 – in|sure Ecosphere"
+                      },
+                      {
+                          "id":  2,
+                          "module":  2,
+                          "difficulty":  "easy",
+                          "question":  "Aus welchen drei Schichten bestehen die Produkte der in|sure Ecosphere?",
+                          "options":  [
+                                          "A. Backend – Middleware – Frontend",
+                                          "B. Framework – Kern – Kundenindividueller Teil",
+                                          "C. Datenbank – Applikationsserver – Benutzeroberfläche",
+                                          "D. Basis – Standard – Premium",
+                                          "E. Infrastruktur – Plattform – Anwendung"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "2 – in|sure Produktebenen"
+                      },
+                      {
+                          "id":  3,
+                          "module":  2,
+                          "difficulty":  "medium",
+                          "question":  "Welche Arten von Softwarewartung werden unterschieden?",
+                          "options":  [
+                                          "A. Korrektiv – Beseitigung von Fehlern",
+                                          "B. Perfektionierend – Verbesserung von Performanz oder Wartbarkeit",
+                                          "C. Präventiv – Vorbeugung zukünftiger Fehler durch proaktive Maßnahmen",
+                                          "D. Adaptiv – Anpassung der Software an veränderte technische Bedingungen",
+                                          "E. Evolutionär – Hinzufügen neuer Funktionalitäten auf Kundenwunsch"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  3
+                                              ],
+                          "answer_count":  3,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "2 – in|sure Produktebenen"
+                      },
+                      {
+                          "id":  4,
+                          "module":  3,
+                          "difficulty":  "easy",
+                          "question":  "Welche Browser werden von den in|sure Produkten unterstützt?",
+                          "options":  [
+                                          "A. Safari",
+                                          "B. Google Chrome",
+                                          "C. Opera",
+                                          "D. Mozilla Firefox",
+                                          "E. Microsoft Edge",
+                                          "F. Internet Explorer"
+                                      ],
+                          "correct_answers":  [
+                                                  1,
+                                                  3,
+                                                  4
+                                              ],
+                          "answer_count":  3,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "3 – Oberflächen"
+                      },
+                      {
+                          "id":  5,
+                          "module":  4,
+                          "difficulty":  "easy",
+                          "question":  "Wie oft liefert die ais Major-Releases pro Jahr aus?",
+                          "options":  [
+                                          "A. Einmal pro Jahr (im Herbst)",
+                                          "B. Zweimal pro Jahr (Frühjahr und Herbst)",
+                                          "C. Viermal pro Jahr (quartalsweise)",
+                                          "D. Nach Bedarf, ohne festen Rhythmus",
+                                          "E. Dreimal pro Jahr (Frühjahr, Sommer, Herbst)"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "4 – in|sure Release Notes"
+                      },
+                      {
+                          "id":  6,
+                          "module":  5,
+                          "difficulty":  "easy",
+                          "question":  "Wie viele verschiedene Handbuchtypen gibt es maximal je in|sure Produkt?",
+                          "options":  [
+                                          "A. Vier Handbücher",
+                                          "B. Sechs Handbücher",
+                                          "C. Acht Handbücher",
+                                          "D. Zehn Handbücher",
+                                          "E. Es gibt keine feste Anzahl – je nach Bedarf"
+                                      ],
+                          "correct_answers":  2,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "5 – in|sure Handbücher"
+                      },
+                      {
+                          "id":  7,
+                          "module":  6,
+                          "difficulty":  "easy",
+                          "question":  "Was versteht man unter dem „Datenhaushalt\"?",
+                          "options":  [
+                                          "A. Die Hardware-Infrastruktur eines Rechenzentrums",
+                                          "B. Eine abstrakte Beschreibung der Datenfelder sowie die dazugehörigen konkreten Ausprägungen (Daten)",
+                                          "C. Das Layout und Design der Benutzeroberfläche",
+                                          "D. Die Gesamtheit aller Softwaretests eines Systems",
+                                          "E. Die Dokumentation aller Schnittstellen eines Systems"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "6 – Software"
+                      },
+                      {
+                          "id":  8,
+                          "module":  7,
+                          "difficulty":  "medium",
+                          "question":  "Welche Anforderungsebenen werden im Lehrmaterial unterschieden?",
+                          "options":  [
+                                          "A. Geschäftsanforderungen",
+                                          "B. Domänenanforderungen",
+                                          "C. Stakeholder-Anforderungen",
+                                          "D. Benutzeranforderungen",
+                                          "E. Systemanforderungen",
+                                          "F. Technische Anforderungen",
+                                          "G. Infrastrukturanforderungen"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  3,
+                                                  4
+                                              ],
+                          "answer_count":  5,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "7 – Anforderungsmanagement"
+                      },
+                      {
+                          "id":  9,
+                          "module":  8,
+                          "difficulty":  "easy",
+                          "question":  "Wie lautet die Definition von Qualität nach DIN ISO 9126?",
+                          "options":  [
+                                          "A. Qualität ist die Abwesenheit von Fehlern in einem Produkt",
+                                          "B. Qualität ist der Grad der Übereinstimmung zwischen den Ansprüchen bzw. Erwartungen (Soll) an ein Produkt und dessen Eigenschaften (Ist)",
+                                          "C. Qualität ist die Zufriedenheit des Entwicklungsteams mit dem eigenen Code",
+                                          "D. Qualität ist die Einhaltung aller gesetzlichen Vorgaben",
+                                          "E. Qualität ist das Verhältnis von Kosten zu Nutzen eines Produkts"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "8 – Qualitätsmanagement"
+                      },
+                      {
+                          "id":  10,
+                          "module":  9,
+                          "difficulty":  "medium",
+                          "question":  "Was ist der Unterschied zwischen synchroner und asynchroner Kommunikation bei Schnittstellen?",
+                          "options":  [
+                                          "A. Bei synchroner Kommunikation wird die Verarbeitung gestoppt, bis eine Rückmeldung erfolgt; bei asynchroner Kommunikation sendet das System, ohne auf eine Rückmeldung zu warten.",
+                                          "B. Synchrone Kommunikation ist immer schneller als asynchrone Kommunikation.",
+                                          "C. Asynchrone Kommunikation erfordert immer eine REST-Schnittstelle.",
+                                          "D. Bei asynchroner Kommunikation muss das empfangende System sofort antworten.",
+                                          "E. Synchrone Kommunikation erfolgt immer über Datenbanktabellen."
+                                      ],
+                          "correct_answers":  0,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "9 – Systemkontext"
+                      },
+                      {
+                          "id":  11,
+                          "module":  10,
+                          "difficulty":  "easy",
+                          "question":  "Was ist die Insuria?",
+                          "options":  [
+                                          "A. Ein reales Versicherungsunternehmen, das die ais-Software einsetzt",
+                                          "B. Eine fiktive Versicherung, die als Template für das Aufsetzen von Kundensystemen dient",
+                                          "C. Ein Testframework zur automatisierten Qualitätssicherung",
+                                          "D. Eine Datenbank, in der alle Kundendaten zentral gespeichert werden",
+                                          "E. Ein eigenständiges Produkt der in|sure Ecosphere für Rückversicherungen"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "10 – Anpassungen"
+                      },
+                      {
+                          "id":  12,
+                          "module":  11,
+                          "difficulty":  "medium",
+                          "question":  "Welche Auslieferungsartefakte werden mit jedem Release zur Verfügung gestellt?",
+                          "options":  [
+                                          "A. Software",
+                                          "B. Model Docs",
+                                          "C. Release Notes",
+                                          "D. Handbücher (nur bei Majorrelease)",
+                                          "E. Migrationsskripte für Datenbanken",
+                                          "F. Modellskripte",
+                                          "G. Known Issues"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  3,
+                                                  4,
+                                                  5,
+                                                  6
+                                              ],
+                          "answer_count":  7,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "11 – Auslieferungsartefakte"
+                      },
+                      {
+                          "id":  13,
+                          "module":  12,
+                          "difficulty":  "medium",
+                          "question":  "Welche Dimensionen bilden das „magische Fünfeck\" im Projektmanagement?",
+                          "options":  [
+                                          "A. Zeit",
+                                          "B. Kosten",
+                                          "C. Qualität",
+                                          "D. Leistungsumfang (Scope)",
+                                          "E. Ressourcen",
+                                          "F. Kundenzufriedenheit",
+                                          "G. Innovation"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  3,
+                                                  4
+                                              ],
+                          "answer_count":  5,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "12 – Projektmanagement"
+                      },
+                      {
+                          "id":  14,
+                          "module":  13,
+                          "difficulty":  "easy",
+                          "question":  "Was versteht man nach PMI unter einem \"Risiko\"?",
+                          "options":  [
+                                          "A. Ein Risiko ist immer etwas Negatives, das vermieden werden muss.",
+                                          "B. Ein Risiko ist etwas Unbekanntes, dessen Auswirkung bewertet werden muss – es kann sowohl positiv (Chance) als auch negativ sein.",
+                                          "C. Ein Risiko ist ein Fehler, der bereits eingetreten ist.",
+                                          "D. Ein Risiko betrifft ausschließlich technische Probleme in der Softwareentwicklung.",
+                                          "E. Ein Risiko ist eine Abweichung vom Budget, die nicht geplant war."
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "13 – Risikomanagement"
+                      },
+                      {
+                          "id":  15,
+                          "module":  14,
+                          "difficulty":  "easy",
+                          "question":  "Welche zwei Migrationstermine werden bei einer Datenmigration unterschieden?",
+                          "options":  [
+                                          "A. Migrationsstichtag (MST) und Migrationswirksamkeitstermin (MWT)",
+                                          "B. Migrationsstart (MS) und Migrationsende (ME)",
+                                          "C. Go-Live-Termin und Cut-Over-Termin",
+                                          "D. Datenextraktionstermin und Datenladetermin",
+                                          "E. Planungstermin und Durchführungstermin"
+                                      ],
+                          "correct_answers":  0,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "14 – Migration"
+                      },
+                      {
+                          "id":  16,
+                          "module":  15,
+                          "difficulty":  "medium",
+                          "question":  "Wer ist verantwortlich für das \"WAS\" (welche Features umgesetzt werden) und wer für das \"WIE\" (technische Umsetzung)?",
+                          "options":  [
+                                          "A. Leiter der Produktentwicklung / Produktmanager",
+                                          "B. Produktmanager / Leiter der Produktentwicklung",
+                                          "C. Product Owner / Scrum Master",
+                                          "D. Projektleiter / Entwicklungsteam",
+                                          "E. QS-Manager / Produktarchitekt"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "15 – Rollen"
+                      },
+                      {
+                          "id":  17,
+                          "module":  16,
+                          "difficulty":  "medium",
+                          "question":  "Welche Führungsebenen gibt es bei der ais?",
+                          "options":  [
+                                          "A. Teamleitung",
+                                          "B. Competence Center Leitung",
+                                          "C. Bereichsleitung",
+                                          "D. Geschäftsführung",
+                                          "E. Abteilungsleitung",
+                                          "F. Vorstand"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  3
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "16 – Kultur"
+                      },
+                      {
+                          "id":  18,
+                          "module":  4,
+                          "difficulty":  "easy",
+                          "question":  "Wie ist die Versionsnummer eines in|sure Releases aufgebaut? (Beispiel: 2025.1.0)",
+                          "options":  [
+                                          "A. 2025 = Hauptversionsnummer (Jahr), 1 = Frühjahrsrelease, 0 = Majorrelease (Revisionsnummer null)",
+                                          "B. 2025 = laufende Nummer des Releases, 1 = erstes Minorrelease, 0 = Patchnummer",
+                                          "C. 2025 = Anzahl aller bisherigen Releases, 1 = Produktkennzahl, 0 = Fehlerbehebungsnummer",
+                                          "D. 2025 = Jahr der Planung, 1 = Quartal, 0 = Sprint-Nummer",
+                                          "E. 2025 = Kundennummer, 1 = Produktnummer, 0 = Buildnummer"
+                                      ],
+                          "correct_answers":  0,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "4 – in|sure Release Notes"
+                      },
+                      {
+                          "id":  19,
+                          "module":  12,
+                          "difficulty":  "hard",
+                          "question":  "Szenario:",
+                          "options":  [
+                                          "A. Ein Werkvertrag schuldet den Arbeitserfolg, erfordert aber vorab detaillierte Vereinbarungen – das steht im Konflikt mit Flexibilität.",
+                                          "B. Ein Dienstvertrag schuldet den Arbeitseinsatz, nicht den Erfolg – die Verantwortung liegt beim Auftraggeber, was maximale Kontrolle für den Kunden bietet.",
+                                          "C. Bei einem Werkvertrag mit Festpreis ist die häufigste Abrechnungsform T\u0026M (Time and Material).",
+                                          "D. T\u0026M-Rechnungen werden auf Basis von Meilensteinen erstellt.",
+                                          "E. Bei einem Dienstvertrag liegt die Projektverantwortung beim Auftragnehmer (ais).",
+                                          "F. Die Vertragsform definiert nicht zwingend die Abrechnungsform."
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  5
+                                              ],
+                          "answer_count":  3,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "12 – Projektmanagement"
+                      },
+                      {
+                          "id":  20,
+                          "module":  14,
+                          "difficulty":  "medium",
+                          "question":  "Szenario:",
+                          "options":  [
+                                          "A. Big-Bang-Migration, weil alle Verträge danach in einem System sind und nur eine Migrationsbilanz erstellt werden muss.",
+                                          "B. Tranchenbasierte Migration, weil sie kurze Laufzeiten zur Realisierung von Teilergebnissen bietet, Lerneffekte nutzt und einen kontinuierlichen Systemwechsel inkl. Einarbeitung Sachbearbeitender ermöglicht.",
+                                          "C. Big-Bang-Migration, weil heterogene Daten immer auf einmal migriert werden müssen.",
+                                          "D. Tranchenbasierte Migration, weil sie das Risiko der „Lumpensammlertranche\" automatisch eliminiert.",
+                                          "E. Beide Strategien sind gleichwertig und führen immer zum gleichen Ergebnis."
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "14 – Migration"
+                      },
+                      {
+                          "id":  21,
+                          "module":  10,
+                          "difficulty":  "medium",
+                          "question":  "Ein Kunde hat ein Release-Upgrade erhalten. Im Kern wurden 3 Klassen geändert. Der Kunde hat 2 dieser Klassen um eigene Attribute erweitert. Was passiert in MoVE?",
+                          "options":  [
+                                          "A. MoVE löscht automatisch alle Kundenattribute und ersetzt sie durch die neuen Kernattribute.",
+                                          "B. MoVE hebt die durch das neue Release veränderten Kernelemente hervor. Der Kunde kann für jedes Element entscheiden, ob es übernommen oder als Kundendelta beibehalten wird.",
+                                          "C. MoVE verweigert das Upgrade, da Konflikte vorliegen.",
+                                          "D. MoVE erstellt automatisch ein neues Kundenmodell und verwirft das alte.",
+                                          "E. MoVE erfordert eine komplette Neumodellierung aller kundenindividuellen Klassen."
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "10 – Anpassungen"
+                      },
+                      {
+                          "id":  22,
+                          "module":  8,
+                          "difficulty":  "hard",
+                          "question":  "Szenario:",
+                          "options":  [
+                                          "A. Die Kosten der Behebung sind im UAT ca. 10.000x höher als in der Anforderungsphase.",
+                                          "B. Die Kosten steigen mit jeder Phase um den Faktor 10 – daher ist Fehlerverhütung günstiger als Fehlerentdeckung.",
+                                          "C. Es gibt keine fehlerfreien Produkte – daher ist 100% Qualitätssicherung wirtschaftlich sinnvoll.",
+                                          "D. In besonders kritischen Bereichen können die Prüfkosten die Herstellungskosten um ein Vielfaches übersteigen.",
+                                          "E. Der Kunde als Tester ist teuer und führt zu Unzufriedenheit.",
+                                          "F. Geringe Prüfkosten führen zu einem hohen Qualitätsgrad mit geringen Fehlerkosten."
+                                      ],
+                          "correct_answers":  [
+                                                  1,
+                                                  3,
+                                                  4
+                                              ],
+                          "answer_count":  3,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "8 – Qualitätsmanagement"
+                      },
+                      {
+                          "id":  23,
+                          "module":  9,
+                          "difficulty":  "medium",
+                          "question":  "Ein Versicherungsunternehmen möchte die nächtliche Beitragsberechnung für 200.000 Verträge automatisieren. Die Verarbeitung soll in Bündeln erfolgen und keine manuelle Auslösung erfordern.",
+                          "options":  [
+                                          "A. Batches können durch Zeitpunkte, Intervalle oder Events ausgelöst werden.",
+                                          "B. Batches dienen ausschließlich der Fehlerkorrektur.",
+                                          "C. Batches verwenden synchrone REST-Schnittstellen zur Kommunikation.",
+                                          "D. Durch die Automatisierung mittels Batches werden Fehler reduziert.",
+                                          "E. Batches unterstützen die Skalierung durch das Schnüren größerer und kleinerer Bündel.",
+                                          "F. Batches können nur einmal täglich ausgeführt werden."
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  3,
+                                                  4
+                                              ],
+                          "answer_count":  3,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "9 – Systemkontext"
+                      },
+                      {
+                          "id":  24,
+                          "module":  7,
+                          "difficulty":  "hard",
+                          "question":  "Szenario:",
+                          "options":  [
+                                          "A. Notwendig und Eindeutig",
+                                          "B. Adäquat und Verständlich",
+                                          "C. Prüfbar und Vollständig",
+                                          "D. Konsistent und Nicht redundant",
+                                          "E. Modifizierbar und Verfolgbar"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "7 – Anforderungsmanagement"
+                      },
+                      {
+                          "id":  25,
+                          "module":  14,
+                          "difficulty":  "medium",
+                          "question":  "Szenario:",
+                          "options":  [
+                                          "A. Heterogene Quelldaten (unterschiedliche Formate \u0026 Systeme)",
+                                          "B. Geringe Datenqualität",
+                                          "C. Hohe Anzahl von Sonderfällen und Geschäftslogik",
+                                          "D. Gleichzeitige fachliche Veränderungen (z.B. Tarifwechsel)",
+                                          "E. Die Anzahl der beteiligten Projektleiter",
+                                          "F. Die Farbgebung der neuen Benutzeroberfläche"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  3
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "14 – Migration"
+                      },
+                      {
+                          "id":  26,
+                          "module":  12,
+                          "difficulty":  "medium",
+                          "question":  "Szenario:",
+                          "options":  [
+                                          "A. Product Owner priorisiert Features / Scrum Master erleichtert den Prozess / Entwicklungsteam setzt um.",
+                                          "B. Scrum Master priorisiert Features / Product Owner erleichtert den Prozess / Projektleiter setzt um.",
+                                          "C. Projektleiter priorisiert Features / Product Owner erleichtert den Prozess / Scrum Master setzt um.",
+                                          "D. Entwicklungsteam priorisiert Features / Product Owner dokumentiert / Scrum Master testet.",
+                                          "E. Product Owner und Scrum Master priorisieren gemeinsam / Entwicklungsteam entscheidet final."
+                                      ],
+                          "correct_answers":  0,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "12 – Projektmanagement"
+                      },
+                      {
+                          "id":  27,
+                          "module":  10,
+                          "difficulty":  "hard",
+                          "question":  "Szenario:",
+                          "options":  [
+                                          "A. i, iii, v, vi",
+                                          "B. i, ii, iii, iv, v, vi (alle)",
+                                          "C. i, iii, iv, v, vi",
+                                          "D. Nur i und v",
+                                          "E. i, ii, v, vi"
+                                      ],
+                          "correct_answers":  0,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "10 – Anpassungen"
+                      },
+                      {
+                          "id":  28,
+                          "module":  14,
+                          "difficulty":  "hard",
+                          "question":  "Szenario:",
+                          "options":  [
+                                          "A. MIGControl = Steuerung und Protokollierung / MIGReport = Anfertigung von Migrationsreports für Wirtschaftsprüfer, BaFin und Revisionsabteilungen / MIGPool = Visualisierung der Quellsystem-Datensätze",
+                                          "B. MIGControl = Visualisierung / MIGReport = Steuerung / MIGPool = Protokollierung",
+                                          "C. MIGTransform = Protokollierung / MIGControl = Transformation / MIGReport = Import",
+                                          "D. MIGImport = Steuerung / MIGTools = Transformation / MIGPool = Reporting",
+                                          "E. MIGReport = Steuerung und Protokollierung / MIGControl = Reporting / MIGPool = Transformation"
+                                      ],
+                          "correct_answers":  0,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "14 – Migration"
+                      },
+                      {
+                          "id":  29,
+                          "module":  12,
+                          "difficulty":  "medium",
+                          "question":  "Szenario:",
+                          "options":  [
+                                          "A. Die Deltaanalyse ist Teil der Durchführungsphase des Projekts.",
+                                          "B. Die Deltaanalyse ist Teil der Vorbereitungsphase und Grundlage/Bestandteil des Vertrags.",
+                                          "C. Im Rahmen der Deltaanalyse stellt nur die ais ihre Produkte vor – der Kunde zeigt sein Altsystem nicht.",
+                                          "D. Das Ergebnis der Deltaanalyse umfasst ein Soll-Zielbild inklusive eines ersten groben Projektplans.",
+                                          "E. Die Deltaanalyse dient ausschließlich der technischen Bewertung, nicht der Anforderungserfassung.",
+                                          "F. Durch die Deltaanalyse verbessert sich das gegenseitige Verständnis und die Transparenz wird erhöht."
+                                      ],
+                          "correct_answers":  [
+                                                  1,
+                                                  3,
+                                                  5
+                                              ],
+                          "answer_count":  3,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "12 – Projektmanagement"
+                      },
+                      {
+                          "id":  30,
+                          "module":  13,
+                          "difficulty":  "medium",
+                          "question":  "In welcher Reihenfolge läuft der Risikomanagementprozess ab?",
+                          "options":  [
+                                          "A. Risikoidentifikation → Risikobewertung (Wahrscheinlichkeit \u0026 Auswirkung) → Maßnahmen festlegen → Kontinuierliche Überwachung",
+                                          "B. Risikobewertung → Risikoidentifikation → Kontinuierliche Überwachung → Maßnahmen festlegen",
+                                          "C. Maßnahmen festlegen → Risikoidentifikation → Risikobewertung → Kontinuierliche Überwachung",
+                                          "D. Kontinuierliche Überwachung → Risikoidentifikation → Maßnahmen festlegen → Risikobewertung",
+                                          "E. Risikoidentifikation → Maßnahmen festlegen → Risikobewertung → Kontinuierliche Überwachung"
+                                      ],
+                          "correct_answers":  0,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "13 – Risikomanagement"
+                      },
+                      {
+                          "id":  31,
+                          "module":  12,
+                          "difficulty":  "hard",
+                          "question":  "Szenario:",
+                          "options":  [
+                                          "A. Der Scrum Master hat recht – agile Prinzipien verlangen, dass Änderungen jederzeit kostenlos umgesetzt werden.",
+                                          "B. Der Projektleiter hat recht – bei einem Werkvertrag muss vorab eine ausreichend konkrete Vereinbarung getroffen werden, Änderungen sind die Ausnahme.",
+                                          "C. Die Situation zeigt den typischen Widerspruch: Kunden wünschen Flexibilität UND Aufwandsschätzung – das ist widersprüchlich und erfordert ein Management der Erwartungshaltung.",
+                                          "D. Bei einem Dienstvertrag wäre diese Änderung unproblematischer, da die Verantwortung für das Projekt beim Auftraggeber liegt.",
+                                          "E. Agile Prinzipien ersetzen vertragliche Vereinbarungen.",
+                                          "F. Das agile Manifest sagt: „Zusammenarbeit mit dem Kunden hat Vorzug vor Vertragsverhandlungen\" – daher sind Verträge überflüssig."
+                                      ],
+                          "correct_answers":  [
+                                                  1,
+                                                  2,
+                                                  3
+                                              ],
+                          "answer_count":  3,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "12 – Projektmanagement"
+                      },
+                      {
+                          "id":  32,
+                          "module":  15,
+                          "difficulty":  "medium",
+                          "question":  "Szenario:",
+                          "options":  [
+                                          "A. Scrum Master",
+                                          "B. Product Owner",
+                                          "C. PMO (Projektmanagement-Büro)",
+                                          "D. Maître",
+                                          "E. Produktmanager",
+                                          "F. QS-Manager"
+                                      ],
+                          "correct_answers":  3,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "15 – Rollen"
+                      },
+                      {
+                          "id":  33,
+                          "module":  3,
+                          "difficulty":  "hard",
+                          "question":  "Szenario:",
+                          "options":  [
+                                          "A. Usability und User Experience sind Synonyme.",
+                                          "B. Usability ist ein Teilaspekt der User Experience, aber nicht der einzige Faktor.",
+                                          "C. User Experience umfasst auch die Wahrnehmungen und Reaktionen einer Person VOR, WÄHREND und NACH der Nutzung.",
+                                          "D. Gute Usability garantiert automatisch eine gute User Experience.",
+                                          "E. User Experience wird ausschließlich durch die Effizienz der Aufgabenerledigung bestimmt.",
+                                          "F. Ein System kann gute Usability haben, aber trotzdem eine schlechte User Experience erzeugen (z.B. durch schlechtes visuelles Design oder negative Markenwahrnehmung)."
+                                      ],
+                          "correct_answers":  [
+                                                  1,
+                                                  2,
+                                                  5
+                                              ],
+                          "answer_count":  3,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "3 – Oberflächen"
+                      },
+                      {
+                          "id":  34,
+                          "module":  8,
+                          "difficulty":  "medium",
+                          "question":  "Welche gehören zu den STATISCHEN Testverfahren?",
+                          "options":  [
+                                          "A. Anforderungsvalidierung, Feature-Review, Code-Review",
+                                          "B. Entwicklertest, Komponentenintegrationstest, Systemintegrationstest",
+                                          "C. Anforderungsvalidierung, Entwicklertest, Regressionstest",
+                                          "D. Code-Review, Performancetest, OWASP"
+                                      ],
+                          "correct_answers":  0,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "8 – Qualitätsmanagement"
+                      },
+                      {
+                          "id":  35,
+                          "module":  8,
+                          "difficulty":  "medium",
+                          "question":  "Welche der folgenden sind DYNAMISCHE Teststufen?",
+                          "options":  [
+                                          "A. Entwicklertest",
+                                          "B. Feature-Review",
+                                          "C. Regressionstest",
+                                          "D. Upgradetest",
+                                          "E. Code-Review",
+                                          "F. Performancetest",
+                                          "G. Anforderungsvalidierung"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  2,
+                                                  3,
+                                                  5
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "8 – Qualitätsmanagement"
+                      },
+                      {
+                          "id":  36,
+                          "module":  8,
+                          "difficulty":  "medium",
+                          "question":  "Welche Faktoren erhöhen die Fehlerquote laut Lehrmaterial?",
+                          "options":  [
+                                          "A. Termindruck",
+                                          "B. Aufgabenwechsel",
+                                          "C. Falsche Priorisierung",
+                                          "D. Große Bildschirme",
+                                          "E. Mangelndes fachliches Verständnis"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  4
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "8 – Qualitätsmanagement"
+                      },
+                      {
+                          "id":  37,
+                          "module":  8,
+                          "difficulty":  "medium",
+                          "question":  "Was beinhaltet der QS-Plan?",
+                          "options":  [
+                                          "A. Qualitätsmerkmale",
+                                          "B. Konstruktive QS-Maßnahmen",
+                                          "C. Analytische QS-Maßnahmen",
+                                          "D. Testinfrastruktur",
+                                          "E. Build-Prozess",
+                                          "F. Fehlerverfolgung",
+                                          "G. Berichtswesen und Testdokumentation"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  3,
+                                                  4,
+                                                  5,
+                                                  6
+                                              ],
+                          "answer_count":  7,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "8 – Qualitätsmanagement"
+                      },
+                      {
+                          "id":  38,
+                          "module":  8,
+                          "difficulty":  "medium",
+                          "question":  "Welche Aussage ist korrekt?",
+                          "options":  [
+                                          "A. Konstruktive Maßnahmen dienen der Fehleridentifikation.",
+                                          "B. Analytische Maßnahmen dienen der Fehlervermeidung.",
+                                          "C. Konstruktive Maßnahmen dienen der Fehlervermeidung, analytische der Fehleridentifikation.",
+                                          "D. Konstruktive und analytische Maßnahmen sind Synonyme."
+                                      ],
+                          "correct_answers":  2,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "8 – Qualitätsmanagement"
+                      },
+                      {
+                          "id":  39,
+                          "module":  8,
+                          "difficulty":  "medium",
+                          "question":  "Welche gehören zu den konstruktiven Maßnahmen?",
+                          "options":  [
+                                          "A. Vorgehensmodelle (z.B. Pair Programming)",
+                                          "B. Vorgaben zur Kommunikation",
+                                          "C. Spezielle Software zur Prüfung auf Redundanzen und Testabdeckung",
+                                          "D. Regressionstests",
+                                          "E. Feature-Reviews"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2
+                                              ],
+                          "answer_count":  3,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "8 – Qualitätsmanagement"
+                      },
+                      {
+                          "id":  40,
+                          "module":  8,
+                          "difficulty":  "medium",
+                          "question":  "Wer ist laut VAIT für die Inbetriebnahme und den Abnahmetest verantwortlich?",
+                          "options":  [
+                                          "A. Die ais",
+                                          "B. Der Kunde (Versicherungsunternehmen)",
+                                          "C. Die BaFin",
+                                          "D. Der Produktmanager der ais"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "8 – Qualitätsmanagement"
+                      },
+                      {
+                          "id":  41,
+                          "module":  8,
+                          "difficulty":  "medium",
+                          "question":  "Woraus setzen sich die Gesamtkosten einer Software zusammen?",
+                          "options":  [
+                                          "A. Herstellungskosten + Fehlerkosten + Qualitätskosten",
+                                          "B. Herstellungskosten + Lizenzkosten + Supportkosten",
+                                          "C. Personalkosten + Hardwarekosten + Lizenzkosten",
+                                          "D. Entwicklungskosten + Betriebskosten + Schulungskosten"
+                                      ],
+                          "correct_answers":  0,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "8 – Qualitätsmanagement"
+                      },
+                      {
+                          "id":  42,
+                          "module":  9,
+                          "difficulty":  "easy",
+                          "question":  "Was grenzt die Systemgrenze ab?",
+                          "options":  [
+                                          "A. Den relevanten vom irrelevanten Teil der Umgebung",
+                                          "B. Das System von seinem Systemkontext",
+                                          "C. Die Hardware von der Software",
+                                          "D. Die Akteure von den Umsystemen"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "9 – Systemkontext"
+                      },
+                      {
+                          "id":  43,
+                          "module":  9,
+                          "difficulty":  "medium",
+                          "question":  "Was grenzt die Systemkontextgrenze ab?",
+                          "options":  [
+                                          "A. Das System von seinem Systemkontext",
+                                          "B. Den relevanten vom irrelevanten Teil der Umgebung",
+                                          "C. Die Schnittstellen von den Adaptern",
+                                          "D. Die funktionalen von den nicht-funktionalen Anforderungen"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "9 – Systemkontext"
+                      },
+                      {
+                          "id":  44,
+                          "module":  9,
+                          "difficulty":  "easy",
+                          "question":  "Was ist die Funktion eines Adapters?",
+                          "options":  [
+                                          "A. Er speichert Daten in einer Datenbank",
+                                          "B. Er passt zwei Schnittstellen aneinander an",
+                                          "C. Er verschlüsselt die Kommunikation",
+                                          "D. Er generiert Testfälle automatisch"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "9 – Systemkontext"
+                      },
+                      {
+                          "id":  45,
+                          "module":  9,
+                          "difficulty":  "medium",
+                          "question":  "Welche Vorteile bringen Schnittstellen und Adapter?",
+                          "options":  [
+                                          "A. Struktur/Ordnung in den Programmen",
+                                          "B. Flexibilität – mehrere Umsysteme an gleiche Schnittstelle",
+                                          "C. Wiederverwendbarkeit bestehender Klassen",
+                                          "D. Automatische Fehlerbehebung",
+                                          "E. Datenhaushalt ist an Bedarf des Umsystems angepasst"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  4
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "9 – Systemkontext"
+                      },
+                      {
+                          "id":  46,
+                          "module":  9,
+                          "difficulty":  "medium",
+                          "question":  "Was ist das Prinzip einer transaktionalen asynchronen Schnittstelle?",
+                          "options":  [
+                                          "A. Daten können teilweise übermittelt werden",
+                                          "B. Alles-oder-nichts-Prinzip – sie wird entweder komplett ausgeführt oder abgebrochen",
+                                          "C. Nur synchrone Kommunikation ist möglich",
+                                          "D. Transaktionen können nicht rückgängig gemacht werden"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "9 – Systemkontext"
+                      },
+                      {
+                          "id":  47,
+                          "module":  9,
+                          "difficulty":  "medium",
+                          "question":  "Welche Systeme müssen ZWINGEND an alle in|sure Produkte angebunden werden?",
+                          "options":  [
+                                          "A. Berechtigungssystem",
+                                          "B. Partnersystem (außer in|sure Partner selbst)",
+                                          "C. Data Warehouse",
+                                          "D. Drucksystem",
+                                          "E. Inkassosystem"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1
+                                              ],
+                          "answer_count":  2,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "9 – Systemkontext"
+                      },
+                      {
+                          "id":  48,
+                          "module":  9,
+                          "difficulty":  "hard",
+                          "question":  "Welche der folgenden sind sowohl Input- als auch Output-Schnittstellen?",
+                          "options":  [
+                                          "A. In/Exkasso",
+                                          "B. Partner",
+                                          "C. Dokumenteneingang",
+                                          "D. Data-Warehouse",
+                                          "E. Druck/Text"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1
+                                              ],
+                          "answer_count":  2,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "9 – Systemkontext"
+                      },
+                      {
+                          "id":  49,
+                          "module":  2,
+                          "difficulty":  "easy",
+                          "question":  "Welche Vorteile hat Standardsoftware?",
+                          "options":  [
+                                          "A. Schnellere Inbetriebnahme",
+                                          "B. Geringere Anschaffungskosten je Kunde",
+                                          "C. Regelmäßige Updates",
+                                          "D. Maximale individuelle Anpassungsmöglichkeit ohne Einschränkung",
+                                          "E. Keine Wechselwirkung mit anderen Nutzenden"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2
+                                              ],
+                          "answer_count":  3,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "2 – in|sure Produktebenen"
+                      },
+                      {
+                          "id":  50,
+                          "module":  2,
+                          "difficulty":  "easy",
+                          "question":  "Wann eignet sich Individualsoftware besonders?",
+                          "options":  [
+                                          "A. Wenn die Software der Abgrenzung zum Wettbewerb dient",
+                                          "B. Wenn es kein Standardprodukt gibt, das den Bedarf bedient",
+                                          "C. Wenn möglichst geringe Kosten gewünscht sind",
+                                          "D. Wenn möglichst schnelle Inbetriebnahme gewünscht ist"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1
+                                              ],
+                          "answer_count":  2,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "2 – in|sure Produktebenen"
+                      },
+                      {
+                          "id":  51,
+                          "module":  2,
+                          "difficulty":  "easy",
+                          "question":  "Wer wartet welche Schicht?",
+                          "options":  [
+                                          "A. ais wartet alle drei Schichten",
+                                          "B. ais wartet Framework + Kern; Kunde wartet kundenindividuellen Teil",
+                                          "C. Kunde wartet alle drei Schichten",
+                                          "D. ais wartet nur das Framework; Kunde wartet Kern + kundenindividuell"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "2 – in|sure Produktebenen"
+                      },
+                      {
+                          "id":  52,
+                          "module":  2,
+                          "difficulty":  "easy",
+                          "question":  "Was ist Softwarewartung nach IEEE 610.12-1990?",
+                          "options":  [
+                                          "A. Die Erstellung neuer Software von Grund auf",
+                                          "B. Die Veränderung eines Softwareprodukts nach dessen Auslieferung",
+                                          "C. Die Planung eines neuen Softwareprojekts",
+                                          "D. Die Schulung von Anwendern"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "2 – in|sure Produktebenen"
+                      },
+                      {
+                          "id":  53,
+                          "module":  2,
+                          "difficulty":  "medium",
+                          "question":  "Zu welcher Wartungsart zählt die Behebung technischer Schulden?",
+                          "options":  [
+                                          "A. Korrektive Wartung",
+                                          "B. Perfektionierende Wartung",
+                                          "C. Adaptive Wartung",
+                                          "D. Keine – technische Schulden werden nicht im Rahmen der Wartung behandelt"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "2 – in|sure Produktebenen"
+                      },
+                      {
+                          "id":  54,
+                          "module":  3,
+                          "difficulty":  "medium",
+                          "question":  "Welche Elemente gehören zum einheitlichen Layout der in|sure Oberflächen?",
+                          "options":  [
+                                          "A. Kopfzeile mit Header und Infozeile",
+                                          "B. Fußzeile mit Aktionen",
+                                          "C. Menüleisten",
+                                          "D. Arbeitsbereich",
+                                          "E. Pop-up-Fenster für jede Aktion"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  3
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "3 – Oberflächen"
+                      },
+                      {
+                          "id":  55,
+                          "module":  3,
+                          "difficulty":  "easy",
+                          "question":  "Welche Meldungsarten gibt es in der Meldungszentrale?",
+                          "options":  [
+                                          "A. Erfolge",
+                                          "B. Hinweise",
+                                          "C. Warnungen",
+                                          "D. Fehler",
+                                          "E. Empfehlungen"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  3
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "3 – Oberflächen"
+                      },
+                      {
+                          "id":  56,
+                          "module":  3,
+                          "difficulty":  "easy",
+                          "question":  "Mit welchem Shortcut öffnet sich die Meldungszentrale?",
+                          "options":  [
+                                          "A. STRG+M",
+                                          "B. ALT+M",
+                                          "C. STRG+SHIFT+M",
+                                          "D. F5"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "3 – Oberflächen"
+                      },
+                      {
+                          "id":  57,
+                          "module":  3,
+                          "difficulty":  "easy",
+                          "question":  "Was ermöglicht die Brotkrumennavigation (Breadcrumb)?",
+                          "options":  [
+                                          "A. Orientierung im System und schnelle Rücknavigation",
+                                          "B. Automatisches Speichern aller Eingaben",
+                                          "C. Absprung in Umsysteme",
+                                          "D. Erstellung von Testfällen"
+                                      ],
+                          "correct_answers":  0,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "3 – Oberflächen"
+                      },
+                      {
+                          "id":  58,
+                          "module":  3,
+                          "difficulty":  "easy",
+                          "question":  "Warum werden Pop-ups in den in|sure Oberflächen weitestgehend vermieden?",
+                          "options":  [
+                                          "A. Weil sie die Performance verschlechtern",
+                                          "B. Weil sie sich mit anderen Fenstern überlagern können",
+                                          "C. Weil sie nicht browserkompatibel sind",
+                                          "D. Weil sie nicht barrierefrei sind"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "3 – Oberflächen"
+                      },
+                      {
+                          "id":  59,
+                          "module":  3,
+                          "difficulty":  "medium",
+                          "question":  "In welchem Kontext gibt es die Zeitachse als Navigationselement?",
+                          "options":  [
+                                          "A. Nur in der Leistungsbearbeitung",
+                                          "B. Nur in der Bestandsführung",
+                                          "C. In allen in|sure Produkten",
+                                          "D. Nur im Partnersystem"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "3 – Oberflächen"
+                      },
+                      {
+                          "id":  60,
+                          "module":  3,
+                          "difficulty":  "easy",
+                          "question":  "Was bedeutet „Customizing\"?",
+                          "options":  [
+                                          "A. Die Löschung nicht benötigter Standardfunktionen",
+                                          "B. Die Anpassung der Software an die Bedürfnisse der jeweiligen Kunden",
+                                          "C. Die Entwicklung komplett neuer Software",
+                                          "D. Die Schulung der Anwender"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "3 – Oberflächen"
+                      },
+                      {
+                          "id":  61,
+                          "module":  4,
+                          "difficulty":  "medium",
+                          "question":  "Was sind die Hauptbestandteile der Release Notes?",
+                          "options":  [
+                                          "A. Highlights",
+                                          "B. Weiterentwicklung",
+                                          "C. Fehlerbehebungen",
+                                          "D. Datenbankänderungen",
+                                          "E. Schnittstellen- und Adapteränderungen",
+                                          "F. Änderung an Erweiterungspunkten",
+                                          "G. Systemanforderungen"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  3,
+                                                  4,
+                                                  5,
+                                                  6
+                                              ],
+                          "answer_count":  7,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "4 – in|sure Release Notes"
+                      },
+                      {
+                          "id":  62,
+                          "module":  4,
+                          "difficulty":  "medium",
+                          "question":  "Wer ist verantwortlich für die Behebung von Bugs in der Kundenerweiterung?",
+                          "options":  [
+                                          "A. Die ais",
+                                          "B. Der Kunde",
+                                          "C. Die BaFin",
+                                          "D. Beide gemeinsam"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "4 – in|sure Release Notes"
+                      },
+                      {
+                          "id":  63,
+                          "module":  4,
+                          "difficulty":  "medium",
+                          "question":  "Wie oft muss der Zugang zur in|sure Knowledge Base erneuert werden?",
+                          "options":  [
+                                          "A. Monatlich",
+                                          "B. Quartalsweise",
+                                          "C. Halbjährlich",
+                                          "D. Jährlich"
+                                      ],
+                          "correct_answers":  2,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "4 – in|sure Release Notes"
+                      },
+                      {
+                          "id":  64,
+                          "module":  4,
+                          "difficulty":  "easy",
+                          "question":  "Was wird über die Knowledge Base veröffentlicht?",
+                          "options":  [
+                                          "A. Release Notes",
+                                          "B. Known Issues",
+                                          "C. in|sure Handbücher",
+                                          "D. Quellcode der Software",
+                                          "E. Kundenpräsentationen"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2
+                                              ],
+                          "answer_count":  3,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "4 – in|sure Release Notes"
+                      },
+                      {
+                          "id":  65,
+                          "module":  4,
+                          "difficulty":  "easy",
+                          "question":  "Was ist ein Patch?",
+                          "options":  [
+                                          "A. Ein neues Major-Release",
+                                          "B. Eine kurzfristig ausgelieferte Fehlerbehebung",
+                                          "C. Ein neues Feature",
+                                          "D. Eine Schulungsunterlage"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "4 – in|sure Release Notes"
+                      },
+                      {
+                          "id":  66,
+                          "module":  5,
+                          "difficulty":  "medium",
+                          "question":  "Was beinhaltet das Handbuch Prozesse?",
+                          "options":  [
+                                          "A. Maskenbeschreibungen und Benutzerdokumentation",
+                                          "B. Prozessorientierte Darstellung der relevanten Geschäftsvorgänge in mittlerer Detailstufe",
+                                          "C. Detaillierte Code-Dokumentation",
+                                          "D. Installationsanleitung"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "5 – in|sure Handbücher"
+                      },
+                      {
+                          "id":  67,
+                          "module":  5,
+                          "difficulty":  "medium",
+                          "question":  "Auf welchem Template basiert das Architekturhandbuch?",
+                          "options":  [
+                                          "A. TOGAF",
+                                          "B. arc42",
+                                          "C. IEEE 42010",
+                                          "D. C4-Modell"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "5 – in|sure Handbücher"
+                      },
+                      {
+                          "id":  68,
+                          "module":  0,
+                          "difficulty":  "medium",
+                          "question":  "Was ist der Unterschied zwischen Leistungsbeschreibung und Prozesshandbuch?",
+                          "options":  [
+                                          "A. Die Leistungsbeschreibung listet GeVos OHNE Details auf; die Vertiefung erfolgt im Prozesshandbuch",
+                                          "B. Das Prozesshandbuch ist kürzer als die Leistungsbeschreibung",
+                                          "C. Die Leistungsbeschreibung enthält Code-Beispiele",
+                                          "D. Es gibt keinen Unterschied"
+                                      ],
+                          "correct_answers":  0,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  69,
+                          "module":  0,
+                          "difficulty":  "easy",
+                          "question":  "Was ist eine Instanz?",
+                          "options":  [
+                                          "A. Eine leere Klasse ohne Daten",
+                                          "B. Die tatsächliche mit Daten befüllte Ausprägung einer Klasse",
+                                          "C. Ein Synonym für ein Attribut",
+                                          "D. Ein Datenbankserver"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  70,
+                          "module":  0,
+                          "difficulty":  "medium",
+                          "question":  "Welche Vorteile bietet Modellierung?",
+                          "options":  [
+                                          "A. Konsistenz der Softwarearchitektur wird sichergestellt",
+                                          "B. Wartung und Weiterentwicklung werden vereinfacht",
+                                          "C. Ein Generator kann aus dem Modell Code generieren",
+                                          "D. Modelle ersetzen komplett die Programmierung",
+                                          "E. Verständlichkeit wird durch Reduktion gefördert"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  4
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  71,
+                          "module":  0,
+                          "difficulty":  "easy",
+                          "question":  "Was ist das Backend?",
+                          "options":  [
+                                          "A. Der sichtbare Teil der Software für den Nutzer",
+                                          "B. Der unsichtbare Teil der Software – Speicherung, Verwaltung, Geschäftslogik",
+                                          "C. Die Benutzeroberfläche",
+                                          "D. Die Druckausgabe"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  72,
+                          "module":  0,
+                          "difficulty":  "easy",
+                          "question":  "Was kennzeichnet das Wasserfallmodell?",
+                          "options":  [
+                                          "A. Phasen werden iterativ und parallel durchlaufen",
+                                          "B. Eine Phase startet, sobald die vorangegangene Phase abgeschlossen ist",
+                                          "C. Es gibt keine festen Phasen",
+                                          "D. Nur Tests werden durchgeführt"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  73,
+                          "module":  0,
+                          "difficulty":  "easy",
+                          "question":  "Was beschreibt eine Anforderung?",
+                          "options":  [
+                                          "A. Die gewünschten Eigenschaften eines Systems zur Lösung eines Problems",
+                                          "B. Die Hardware-Spezifikation eines Servers",
+                                          "C. Den Sourcecode einer Anwendung",
+                                          "D. Den Zeitplan eines Projekts"
+                                      ],
+                          "correct_answers":  0,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  74,
+                          "module":  0,
+                          "difficulty":  "easy",
+                          "question":  "Welche drei Anforderungsarten werden unterschieden?",
+                          "options":  [
+                                          "A. Funktionale Anforderungen, Qualitätsanforderungen, Randbedingungen",
+                                          "B. Technische, Fachliche, Organisatorische",
+                                          "C. Kurz-, Mittel-, Langfristanforderungen",
+                                          "D. Muss-, Soll-, Kann-Anforderungen"
+                                      ],
+                          "correct_answers":  0,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  75,
+                          "module":  0,
+                          "difficulty":  "easy",
+                          "question":  "Welche Aufgaben beinhaltet das Anforderungsmanagement?",
+                          "options":  [
+                                          "A. Ermittlung",
+                                          "B. Dokumentation",
+                                          "C. Validierung",
+                                          "D. Verwaltung",
+                                          "E. Programmierung"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  3
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  76,
+                          "module":  0,
+                          "difficulty":  "medium",
+                          "question":  "Wie berechnet sich der Wert im Anforderungsmanagement?",
+                          "options":  [
+                                          "A. Wert = Kosten – Risiko",
+                                          "B. Wert = Nutzen – Kosten",
+                                          "C. Wert = Qualität × Zeit",
+                                          "D. Wert = Features ÷ Budget"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  77,
+                          "module":  0,
+                          "difficulty":  "medium",
+                          "question":  "Welche Qualitätskriterien gelten für MENGEN von Anforderungen?",
+                          "options":  [
+                                          "A. Konsistent",
+                                          "B. Nicht redundant",
+                                          "C. Vollständig",
+                                          "D. Modifizierbar",
+                                          "E. Verfolgbar",
+                                          "F. Konform",
+                                          "G. Adäquat"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  3,
+                                                  4,
+                                                  5
+                                              ],
+                          "answer_count":  6,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  78,
+                          "module":  0,
+                          "difficulty":  "medium",
+                          "question":  "Welche zwei Mengenkriterien sind BESONDERS wichtig?",
+                          "options":  [
+                                          "A. Vollständig und Modifizierbar",
+                                          "B. Konsistent und Nicht redundant",
+                                          "C. Verfolgbar und Konform",
+                                          "D. Adäquat und Verständlich"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  79,
+                          "module":  0,
+                          "difficulty":  "medium",
+                          "question":  "Was versteht man unter Releasefähigkeit?",
+                          "options":  [
+                                          "A. Die Fähigkeit, jederzeit ein neues Release zu erstellen",
+                                          "B. Kundenindividuelle Anpassungen bewegen sich innerhalb eines Rahmenwerks, sodass ein Upgrade keine Funktionalitäten zerstört",
+                                          "C. Die Möglichkeit, ein Release rückgängig zu machen",
+                                          "D. Die automatische Verteilung von Releases"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  80,
+                          "module":  0,
+                          "difficulty":  "medium",
+                          "question":  "Was kann mit Dialog-Masken im Kundenprojekt gemacht werden?",
+                          "options":  [
+                                          "A. Konfiguriert werden",
+                                          "B. Um neue Felder erweitert werden",
+                                          "C. Um neue Masken erweitert werden",
+                                          "D. Bestehende ausgetauscht werden",
+                                          "E. Aus dem Kern gelöscht werden"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  3
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  81,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Was wird bei der ecore-Modellierung definiert?",
+                          "options":  [
+                                          "A. Nur die Benutzeroberflächen",
+                                          "B. Klassen und ihre Beziehungen untereinander – alle datenbanknahen Informationen",
+                                          "C. Ausschließlich Schnittstellen zu Umsystemen",
+                                          "D. Nur die Testfälle"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  82,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Was ist ein „Prototype\" im in|sure Umfeld?",
+                          "options":  [
+                                          "A. Ein unfertiger Softwareentwurf zur Kundenpräsentation",
+                                          "B. Ein spezifischer Klassentyp, der als Basisklasse für konfigurierbare allgemeingültige Objekte dient",
+                                          "C. Ein Testdatensatz",
+                                          "D. Eine Vorlage für Release Notes"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  83,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Was ist der Unterschied zwischen zustandshistorisch und kenntnisstandshistorisch?",
+                          "options":  [
+                                          "A. Zustandshistorisch speichert mehrere Zeitlinien; kenntnisstandshistorisch nur eine",
+                                          "B. Zustandshistorisch hat genau eine Zeitlinie; kenntnisstandshistorisch hat mehrere Zeitlinien mit verschiedenen Kenntnisständen",
+                                          "C. Es gibt keinen Unterschied",
+                                          "D. Zustandshistorisch speichert gar keine Historie"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  84,
+                          "module":  0,
+                          "difficulty":  "easy",
+                          "question":  "An wen richten sich die in|sure Model Docs?",
+                          "options":  [
+                                          "A. Entwickler",
+                                          "B. Requirements Engineers",
+                                          "C. Fachexperten",
+                                          "D. Endkunden (Versicherungsnehmer)"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2
+                                              ],
+                          "answer_count":  3,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  85,
+                          "module":  0,
+                          "difficulty":  "medium",
+                          "question":  "Welche Funktionen bieten die Model Docs?",
+                          "options":  [
+                                          "A. Navigation durch Modelle über Browser",
+                                          "B. Volltextsuche",
+                                          "C. Ausgabe als Modellsicht oder Java-Code",
+                                          "D. Direkte Code-Bearbeitung",
+                                          "E. Automatischer Deploy"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2
+                                              ],
+                          "answer_count":  3,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  86,
+                          "module":  0,
+                          "difficulty":  "easy",
+                          "question":  "Wofür dient Artifactory?",
+                          "options":  [
+                                          "A. Als zentraler Speicherort für Artefakte der Softwareentwicklung",
+                                          "B. Als Testautomatisierungstool",
+                                          "C. Als Projektmanagement-Tool",
+                                          "D. Als E-Mail-Server"
+                                      ],
+                          "correct_answers":  0,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  87,
+                          "module":  0,
+                          "difficulty":  "easy",
+                          "question":  "Was ist ein Known Issue?",
+                          "options":  [
+                                          "A. Ein Feature, das noch nicht implementiert wurde",
+                                          "B. Ein Fehler mit dokumentierter Ursache und ggf. Workaround, dessen Behebung noch nicht abgeschlossen ist",
+                                          "C. Eine geplante Verbesserung für das nächste Release",
+                                          "D. Eine Kundenanforderung"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  88,
+                          "module":  0,
+                          "difficulty":  "medium",
+                          "question":  "Was sind Modellskripte?",
+                          "options":  [
+                                          "A. Skripte zur automatischen Testausführung",
+                                          "B. Das Pendant zu Migrationsskripten für Modelle (auch xslt-Skripte genannt)",
+                                          "C. Skripte zur Generierung von Release Notes",
+                                          "D. Skripte zur Benutzerverwaltung"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  89,
+                          "module":  0,
+                          "difficulty":  "easy",
+                          "question":  "Was ist ein Projekt nach PMBOK Guide (PMI)?",
+                          "options":  [
+                                          "A. Jede wiederkehrende Tätigkeit in einem Unternehmen",
+                                          "B. Ein zeitlich definiertes und begrenztes Vorhaben mit dem Ziel, ein einmaliges Produkt, eine Dienstleistung oder ein Ergebnis zu schaffen",
+                                          "C. Die regelmäßige Wartung einer Software",
+                                          "D. Der Betrieb eines IT-Systems"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  90,
+                          "module":  0,
+                          "difficulty":  "medium",
+                          "question":  "Was ist KEIN Projekt?",
+                          "options":  [
+                                          "A. Einführung eines Produkts der in|sure Ecosphere",
+                                          "B. Regelmäßige Wartung der Software",
+                                          "C. Betrieb der Software",
+                                          "D. Jahresabschluss",
+                                          "E. Bau des Berliner Flughafens"
+                                      ],
+                          "correct_answers":  [
+                                                  1,
+                                                  2,
+                                                  3
+                                              ],
+                          "answer_count":  3,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  91,
+                          "module":  0,
+                          "difficulty":  "medium",
+                          "question":  "Welche sind die vier agilen Werte des Manifests?",
+                          "options":  [
+                                          "A. Individuen und Interaktionen vor Prozessen und Werkzeugen",
+                                          "B. Funktionierende Software vor umfassender Dokumentation",
+                                          "C. Zusammenarbeit mit dem Kunden vor Vertragsverhandlungen",
+                                          "D. Reagieren auf Veränderung vor dem Befolgen eines Plans",
+                                          "E. Maximale Dokumentation vor funktionierender Software",
+                                          "F. Strikte Planverfolgung vor Veränderung"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  3
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  92,
+                          "module":  0,
+                          "difficulty":  "medium",
+                          "question":  "Welche regelmäßigen Meetings gehören zu Scrum?",
+                          "options":  [
+                                          "A. Daily Scrum",
+                                          "B. Sprint Planning",
+                                          "C. Sprint Review",
+                                          "D. Sprint Retrospective",
+                                          "E. Jahresplanung",
+                                          "F. Quartalsbericht"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  3
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  93,
+                          "module":  0,
+                          "difficulty":  "medium",
+                          "question":  "Nach welchem Prinzip arbeitet Kanban?",
+                          "options":  [
+                                          "A. Push-Prinzip – Aufgaben werden zugewiesen",
+                                          "B. Pull-Prinzip – Aufgaben werden nur bearbeitet, wenn Kapazität vorhanden ist",
+                                          "C. First-In-First-Out Prinzip",
+                                          "D. Zufallsprinzip"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  94,
+                          "module":  0,
+                          "difficulty":  "easy",
+                          "question":  "In welcher Reihenfolge verlaufen die Projektphasen?",
+                          "options":  [
+                                          "A. Durchführung → Planung → Vorbereitung → Abschluss",
+                                          "B. Vorbereitung → Planung → Durchführung → Abschluss",
+                                          "C. Planung → Vorbereitung → Abschluss → Durchführung",
+                                          "D. Abschluss → Durchführung → Planung → Vorbereitung"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  95,
+                          "module":  0,
+                          "difficulty":  "medium",
+                          "question":  "Was trifft auf das in|sure Partnerschaftsforum zu?",
+                          "options":  [
+                                          "A. Es findet halbjährlich statt",
+                                          "B. Es findet an wechselnden Standorten statt",
+                                          "C. Produktmanager laden Bestandskunden ein",
+                                          "D. Es dient der Vorstellung neuer Features zur Schärfung der Anforderungen",
+                                          "E. Es findet wöchentlich als Videokonferenz statt"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  3
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  96,
+                          "module":  0,
+                          "difficulty":  "easy",
+                          "question":  "Was ist Datenmigration?",
+                          "options":  [
+                                          "A. Die Löschung veralteter Daten",
+                                          "B. Die Überführung von Daten von einem Quellsystem in ein Zielsystem",
+                                          "C. Die Verschlüsselung von Daten",
+                                          "D. Die Visualisierung von Daten in einem Dashboard"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  97,
+                          "module":  0,
+                          "difficulty":  "medium",
+                          "question":  "Welche sind mögliche Gründe für eine Migration?",
+                          "options":  [
+                                          "A. Alterung von Software",
+                                          "B. Gesetzliche Anforderungen",
+                                          "C. Fehlender Hersteller-Support",
+                                          "D. Verlagerung in die Cloud",
+                                          "E. Konsolidierung nach Fusion",
+                                          "F. Ästhetische Gründe (neues Logo)"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  3,
+                                                  4
+                                              ],
+                          "answer_count":  5,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  98,
+                          "module":  0,
+                          "difficulty":  "medium",
+                          "question":  "Was ist ein Merkmal der Big-Bang-Migration?",
+                          "options":  [
+                                          "A. Die komplette Migration erfolgt an einem Termin",
+                                          "B. Die Migration erfolgt in kleinen Tranchen über Monate",
+                                          "C. Es werden nur ausgewählte Verträge migriert",
+                                          "D. Die Migration wird automatisch vom System durchgeführt"
+                                      ],
+                          "correct_answers":  0,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  99,
+                          "module":  0,
+                          "difficulty":  "medium",
+                          "question":  "Welche negativen Auswirkungen können Risiken haben?",
+                          "options":  [
+                                          "A. Erhebliche Kostenüberschreitungen",
+                                          "B. Verzögerung des Projektzeitplans",
+                                          "C. Beeinträchtigung der Produktqualität",
+                                          "D. Schädigung des Unternehmensansehens",
+                                          "E. Beeinträchtigung der Kundenzufriedenheit",
+                                          "F. Automatische Projektverlängerung um 6 Monate"
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  3,
+                                                  4
+                                              ],
+                          "answer_count":  5,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  100,
+                          "module":  0,
+                          "difficulty":  "easy",
+                          "question":  "Was ist ein „Impediment\" im Kontext des Risikomanagements?",
+                          "options":  [
+                                          "A. Ein identifiziertes, aber noch nicht eingetretenes Risiko",
+                                          "B. Eine Störung – ein Risiko, das bereits eingetroffen ist",
+                                          "C. Eine Chance, die genutzt wurde",
+                                          "D. Ein geplanter Meilenstein"
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  101,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Szenario:",
+                          "options":  [
+                                          "A. Die Insuria hat eine Abhängigkeit zum Produktkern – nicht umgekehrt.",
+                                          "B. Der Produktkern kennt die Insuria und ihre Konfigurationen.",
+                                          "C. Ohne die Insuria könnten die ais-eigenen Systeme nicht in Testsystemen verwendet werden.",
+                                          "D. Die Insuria ist ein reales Versicherungsunternehmen mit echten Verträgen.",
+                                          "E. Die Insuria-Packages müssen im Kundenprojekt zwingend auf eigene Bedürfnisse angepasst werden.",
+                                          "F. Der Produktkern alleine ist eine lauffähige Anwendung."
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  2,
+                                                  4
+                                              ],
+                          "answer_count":  3,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  102,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Szenario:",
+                          "options":  [
+                                          "A. Prüfregeln können kundenindividuell neu angelegt werden.",
+                                          "B. Bestehende Prüfregeln können deaktiviert werden.",
+                                          "C. Bestehende Prüfregeln können inhaltlich geändert werden.",
+                                          "D. Das Anlegen neuer Prüfregeln ist NICHT releasefähig.",
+                                          "E. Die Deaktivierung von Prüfregeln führt zum Verlust der Releasefähigkeit.",
+                                          "F. Weder Anlegen noch Deaktivieren von Prüfregeln ist erlaubt."
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1
+                                              ],
+                          "answer_count":  2,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  103,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Im Systemkontext-Modell gibt es ZWEI Grenzen. Welche Zuordnung ist KORREKT?",
+                          "options":  [
+                                          "A. Systemgrenze = trennt System vom Systemkontext / Systemkontextgrenze = trennt relevante von irrelevante Umgebung",
+                                          "B. Systemgrenze = trennt relevante von irrelevante Umgebung / Systemkontextgrenze = trennt System vom Systemkontext",
+                                          "C. Systemgrenze = trennt Akteure von Umsystemen / Systemkontextgrenze = trennt funktionale von nicht-funktionalen Anforderungen",
+                                          "D. Beide Begriffe sind Synonyme und beschreiben dasselbe"
+                                      ],
+                          "correct_answers":  0,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  104,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Ein Kollege zeigt dir die Version `2024.2.3`. Was bedeutet das?",
+                          "options":  [
+                                          "A. Das 3. Majorrelease im 2. Halbjahr 2024",
+                                          "B. Das Herbst-Majorrelease 2024, Revision 3 (also ein Minor/Patch)",
+                                          "C. Das 3. Minorrelease des 2. Produkts aus 2024",
+                                          "D. Das Frühlings-Majorrelease 2024, 3. Patch",
+                                          "E. Die Revisionsnummer 0 kennzeichnet das Majorrelease –"
+                                      ],
+                          "correct_answers":  4,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  105,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "",
+                          "options":  [
+                                          "A. MoVE löscht das Element aus dem Kundenmodell.",
+                                          "B. Das Element bleibt als Kundendelta im Kundenmodell unverändert beibehalten.",
+                                          "C. MoVE verweigert das Upgrade komplett.",
+                                          "D. Das Kundenmodell wird automatisch auf den Kernstand zurückgesetzt.",
+                                          "E. Der Kunde verliert dauerhaft die Releasefähigkeit."
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  106,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Welche der folgenden Aussagen zu Abrechnungsformen sind KORREKT?",
+                          "options":  [
+                                          "A. T\u0026M-Rechnungen werden auf Basis von Zeitnachweisen erstellt.",
+                                          "B. T\u0026M-Rechnungen werden auf Basis von Meilensteinen erstellt.",
+                                          "C. Festpreisabrechnung erfolgt zu festgelegten Zeitpunkten, z.B. bei (Teil-)Fertigstellung.",
+                                          "D. T\u0026M ist die häufigste Abrechnungsform für Werkverträge.",
+                                          "E. Die Zeitnachweise werden vom Auftraggeber geprüft.",
+                                          "F. Ein Werkvertrag kann NICHT nach T\u0026M abgerechnet werden."
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  2,
+                                                  4
+                                              ],
+                          "answer_count":  3,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  107,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "„Adäquat und Verständlich\" sind die wichtigsten Kriterien für...",
+                          "options":  [
+                                          "A. ...Mengen von Anforderungen",
+                                          "B. ...Einzelanforderungen",
+                                          "C. ...den QS-Plan",
+                                          "D. ...die Systemanforderungen",
+                                          "E. ...Einzelanforderungen",
+                                          "F. ...Mengen von Anforderungen",
+                                          "G. ...Qualitätsanforderungen"
+                                      ],
+                          "correct_answers":  [
+                                                  1,
+                                                  5
+                                              ],
+                          "answer_count":  2,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  108,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Welche Aussage ist KORREKT?",
+                          "options":  [
+                                          "A. Ja, die Anforderungsvalidierung ist dynamisch, weil Stakeholder eingebunden werden.",
+                                          "B. Nein, die Anforderungsvalidierung ist STATISCH – sie prüft Artefakte (Text) auf Korrektheit,",
+                                          "C. Die Anforderungsvalidierung gehört weder zu statisch noch zu dynamisch.",
+                                          "D. Die Anforderungsvalidierung ist ein Performancetest."
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  109,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Ein Fachexperte sagt: „Der MST liegt immer VOR dem MWT, weil wir erst migrieren und dann wirksam schalten.\"",
+                          "options":  [
+                                          "A. Ja, MST \u003c MWT ist die Regel.",
+                                          "B. Nein, es ist genau umgekehrt: MWT \u003c MST. Der MWT liegt VOR dem MST, weil rückwirkende Änderungen über den",
+                                          "C. MST und MWT sind immer identisch.",
+                                          "D. Der MWT wird erst nach der Migration festgelegt."
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  110,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Szenario:",
+                          "options":  [
+                                          "A. Beim Werkvertrag liegt die Verantwortung für Planung und Realisierung bei der ais (Auftragnehmer),",
+                                          "B. Bei einem Werkvertrag muss vorab eine ausreichend konkrete Vereinbarung getroffen werden",
+                                          "C. Die Aussage „Verantwortung liegt beim Auftraggeber\" gilt für den Dienstvertrag, nicht den Werkvertrag.",
+                                          "D. Bei einem Werkvertrag kann der Kunde jederzeit frei ändern, der PL hat recht.",
+                                          "E. Werkverträge erlauben keine Änderungen – niemals.",
+                                          "F. Die ais schuldet beim Werkvertrag den Arbeitserfolg – daher muss klar definiert sein, WAS geliefert wird."
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  5
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  111,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Welche Aussagen sind KORREKT?",
+                          "options":  [
+                                          "A. Der Produktkern alleine ist KEINE lauffähige Anwendung.",
+                                          "B. Erst der kundenindividuelle Teil vervollständigt den Produktkern zu einem lauffähigen System.",
+                                          "C. Die Insuria ist ein optionales Add-on und für den Betrieb nicht erforderlich.",
+                                          "D. Die Kundenimplementierung setzt auf der kundeneigenen ecore-Variante auf und",
+                                          "E. Der Produktkern kennt die kundenindividuellen Implementierungen und Konfigurationen.",
+                                          "F. Das Framework ist die gemeinsame Basis aller Produkte und wird von der Framework-Entwicklung bereitgestellt."
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  3,
+                                                  5
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  112,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Szenario:",
+                          "options":  [
+                                          "A. Datenaufbereitung im Quellsystem → Import in MIGSuite → Transformation → Transfer ins Zielsystem",
+                                          "B. Import in MIGSuite → Datenaufbereitung im Quellsystem → Transfer → Transformation → Kontrolle",
+                                          "C. Transformation → Import → Transfer → Fortschreibung → Kontrolle → Datenaufbereitung",
+                                          "D. Transfer ins Zielsystem → Transformation in MIGSuite → Import aus Quellsystem → Kontrolle",
+                                          "E. Import → Transfer → Transformation → Fortschreibung → Kontrolle"
+                                      ],
+                          "correct_answers":  0,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  113,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Szenario:",
+                          "options":  [
+                                          "A. Der PO legt fest, welche Features umgesetzt werden – das ist korrekt.",
+                                          "B. Das WIE entscheidet das Entwicklungsteam selbstorganisiert – NICHT der PO.",
+                                          "C. Der Scrum Master ist verantwortlich für den Erfolg des Produkts.",
+                                          "D. Der PO ist verantwortlich für den Erfolg des Produkts – NICHT der Scrum Master.",
+                                          "E. Der Scrum Master löst Konflikte und beseitigt Hindernisse – er ist NICHT für den Produkterfolg zuständig.",
+                                          "F. Das Entwicklungsteam entscheidet über die Feature-Priorisierung."
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  3,
+                                                  4
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  114,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Welche der folgenden Punkte sind Nachteile der BIG-BANG-Migration (NICHT der tranchenbasierten)?",
+                          "options":  [
+                                          "A. Drohende Lumpensammlertranche",
+                                          "B. Hohe Lastspitzen bei Mitarbeitern",
+                                          "C. Späte Migration",
+                                          "D. Keine Lernmöglichkeit",
+                                          "E. Spätes Erkennen einer „no go\" Situation",
+                                          "F. Blockierung des Gesamtbestandes über längeren Zeitraum für Bestandsbereinigung",
+                                          "G. Mehrere Migrationen, mehrere Zugangs- und Abgangsbilanzen"
+                                      ],
+                          "correct_answers":  [
+                                                  1,
+                                                  2,
+                                                  3,
+                                                  4,
+                                                  5
+                                              ],
+                          "answer_count":  5,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  115,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Welche Aussagen sind KORREKT?",
+                          "options":  [
+                                          "A. Der Berater beschreibt fälschlicherweise das PRÄSKRIPTIVE Vorgehen, nicht das explorative.",
+                                          "B. Exploratives Vorgehen definiert vorab Ziele, die Anforderungen werden erst während der Umsetzung konkretisiert.",
+                                          "C. Exploratives Vorgehen erfordert eine starke Einbindung aller Stakeholder.",
+                                          "D. Präskriptives Vorgehen ist das gleiche wie exploratives Vorgehen.",
+                                          "E. Iteratives und exploratives Vorgehen sind Gegensätze.",
+                                          "F. Bei präskriptivem Vorgehen gibt es wenig Interaktion, da vorab alles abgestimmt wurde."
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  5
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  116,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Szenario:",
+                          "options":  [
+                                          "A. Der Projektleiter erstellt Projektstatusberichte und legt Rechenschaft gegenüber dem Lenkungsausschuss ab.",
+                                          "B. Der Maître erstellt Projektstatusberichte.",
+                                          "C. Der Maître ist als Eskalationsinstanz berechtigt und verantwortlich für Ressourcenzuteilung und Budgetfreigabe.",
+                                          "D. Der Projektleiter ist verantwortlich für Ressourcenzuteilung und Budgetfreigabe.",
+                                          "E. Die Aufgabe des Maître wird häufig von einem Bereichsleiter wahrgenommen.",
+                                          "F. Der Projektleiter ist zentraler Ansprechpartner für den Kunden."
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  2,
+                                                  4,
+                                                  5
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  117,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Ordne die Definitionen den RICHTIGEN Klassentypen zu. Welche Kombination stimmt?",
+                          "options":  [
+                                          "A. Prototype = Basisklasse für konfigurierbare allgemeingültige Objekte /",
+                                          "B. Prototype = Basisklasse für Berechnungslogiken /",
+                                          "C. Entity = Basisklasse für konfigurierbare Objekte /",
+                                          "D. Function = Basisklasse für Auswahlmöglichkeiten /"
+                                      ],
+                          "correct_answers":  0,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  118,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Was ist KORREKT über nullhistorische Entitäten?",
+                          "options":  [
+                                          "A. Sie werden in der Datenbank gespeichert, aber nur temporär.",
+                                          "B. Sie werden NICHT in der Datenbank gespeichert – sie werden zur Laufzeit errechnet.",
+                                          "C. Sie dienen als Transportmittel/Hilfsklasse für datenbanknahe Klassen.",
+                                          "D. Sie haben genau eine Zeitlinie mit Wirksamkeitsdatum.",
+                                          "E. Sie aggregieren Werte aus datenbanknahen Objekten, damit nicht jeder Aufrufer selbst aggregieren muss.",
+                                          "F. Nullhistorisch ist ein Synonym für zustandshistorisch."
+                                      ],
+                          "correct_answers":  [
+                                                  1,
+                                                  2,
+                                                  4
+                                              ],
+                          "answer_count":  3,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  119,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Warum müssen migrierte Verträge nach der Migration auf das aktuelle Bestandsdatum fortgeschrieben werden?",
+                          "options":  [
+                                          "A. Weil die Datenbank des Zielsystems nur aktuelle Daten speichern kann.",
+                                          "B. Weil der Migrationswirksamkeitstermin (MWT) vor dem Migrationsstichtag (MST) liegt und die Verträge daher nicht auf dem aktuellen Stand sind.",
+                                          "C. Weil die MIGSuite nur historische Daten verarbeiten kann.",
+                                          "D. Weil der Kunde dies in jedem Fall vertraglich fordert.",
+                                          "E. Weil Fortschreibung ein optionaler Schritt ist, der nur bei Big-Bang-Migrationen durchgeführt wird."
+                                      ],
+                          "correct_answers":  1,
+                          "answer_count":  1,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  120,
+                          "module":  0,
+                          "difficulty":  "hard",
+                          "question":  "Szenario:",
+                          "options":  [
+                                          "A. Das Manifest sagt NICHT, dass Prozesse irrelevant sind – es sagt, Individuen und Interaktionen haben VORZUG.",
+                                          "B. Dokumentation ist NICHT überflüssig – funktionierende Software hat lediglich VORZUG.",
+                                          "C. Verträge sind NICHT unnötig – Zusammenarbeit mit dem Kunden hat nur VORZUG vor Vertragsverhandlungen.",
+                                          "D. Pläne sind NICHT verboten – Reagieren auf Veränderung hat VORZUG vor dem Befolgen eines Plans.",
+                                          "E. Das Manifest sagt explizit, dass alle Items rechts (Prozesse, Dokumentation, Verträge, Pläne) keinen Wert haben.",
+                                          "F. Das agile Manifest ersetzt alle vertraglichen Vereinbarungen."
+                                      ],
+                          "correct_answers":  [
+                                                  0,
+                                                  1,
+                                                  2,
+                                                  3
+                                              ],
+                          "answer_count":  4,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "0 – Weitere Fragen"
+                      },
+                      {
+                          "id":  121,
+                          "module":  6,
+                          "difficulty":  "medium",
+                          "question":  "",
+                          "options":  [
+
+                                      ],
+                          "correct_answers":  {
+
+                                              },
+                          "answer_count":  0,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "6 – Software"
+                      },
+                      {
+                          "id":  122,
+                          "module":  6,
+                          "difficulty":  "medium",
+                          "question":  "",
+                          "options":  [
+
+                                      ],
+                          "correct_answers":  {
+
+                                              },
+                          "answer_count":  0,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "6 – Software"
+                      },
+                      {
+                          "id":  123,
+                          "module":  14,
+                          "difficulty":  "easy",
+                          "question":  "Welche Instrumente werden in der Vorphase des Migrationsprojekts eingesetzt?",
+                          "options":  [
+                                          "A. Migrationsworkshops im Interaction Room Format",
+                                          "B. Spartenspezifischer Questionnaire",
+                                          "C. 3-Phasen-Vorgehensmodell (Analyse, Realisierung, Durchführung)",
+                                          "D. Automatisierte Testgenerierung",
+                                          "E. Migrationslandkarten zur Visualisierung des Vorhabens"
+                                      ],
+                          "correct_answers":  {
+
+                                              },
+                          "answer_count":  0,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "14 – Migration"
+                      },
+                      {
+                          "id":  124,
+                          "module":  14,
+                          "difficulty":  "easy",
+                          "question":  "Ordne die Elemente des Migrationsvorgehens ihrer Absicht zu. Welche Kombination ist KORREKT?",
+                          "options":  [
+                                          "A. Interaction Room = Verständnis / Questionnaire = Indikation / 3-Phasen-Modell = Planbar und kontrollierbar",
+                                          "B. Interaction Room = Indikation / Questionnaire = Verständnis / 3-Phasen-Modell = Kontrolle",
+                                          "C. Interaction Room = Planbar / Questionnaire = Kontrolle / 3-Phasen-Modell = Verständnis",
+                                          "D. Alle drei dienen ausschließlich der technischen Implementierung"
+                                      ],
+                          "correct_answers":  {
+
+                                              },
+                          "answer_count":  0,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "14 – Migration"
+                      },
+                      {
+                          "id":  125,
+                          "module":  14,
+                          "difficulty":  "easy",
+                          "question":  "Welche Aussagen zu den Rollen im Migrationsprojekt sind KORREKT?",
+                          "options":  [
+                                          "A. Fachliche Kollegen sind verantwortlich für die Klärung der Transformationsregeln",
+                                          "B. Fachliche Kollegen sind verantwortlich für die Vollständigkeit von: Migrationskonzept, Controllingkonzept, Mappingsheet, Controllingsheet, Arbeitspaketplanung",
+                                          "C. MIGSuite-Entwickler setzen die fachlichen Vorgaben auf Basis der MIGSuite in Code um",
+                                          "D. MIGSuite-Entwickler definieren eigenständig die Transformationsregeln",
+                                          "E. Jede implementierte Mappingregel wird im Quellcode gekennzeichnet zur Nachverfolgung"
+                                      ],
+                          "correct_answers":  {
+
+                                              },
+                          "answer_count":  0,
+                          "explanation_en":  "",
+                          "explanation_de":  "",
+                          "module_name":  "14 – Migration"
+                      }
+                  ]
+}
