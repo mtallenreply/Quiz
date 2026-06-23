@@ -90,6 +90,11 @@ body { background: #f0f2f5; }
         <input type="number" id="q-count" class="form-control" style="width:100px" min="1" placeholder="all">
       </div>
       <button class="btn btn-primary" onclick="startQuiz()" id="btn-start">Start</button>
+      <div class="d-none mt-3" id="new-section">
+        <button class="btn btn-info w-100 text-white" id="btn-new" onclick="startNew()">
+          Neue Fragen (<span id="new-count">0</span>)
+        </button>
+      </div>
       <div class="d-none mt-3" id="retry-section">
         <label class="form-label fw-semibold mb-1">
           Schwache Fragen — max. Trefferquote:
@@ -620,13 +625,31 @@ function onThresholdChange(val) {
 
 function updateRetryBtn() {
   const stored = JSON.parse(localStorage.getItem('quiz-results') || '{"questions":{}}');
-  const t = getThreshold();
+  const seen   = new Set(Object.keys(stored.questions).map(Number));
+
+  document.getElementById('new-count').textContent = String(allQuestions.filter(q => !seen.has(q.id)).length);
+  const newSection = document.getElementById('new-section');
+  if (newSection) newSection.classList.toggle('d-none', !allQuestions.length);
+
+  const threshold = getThreshold();
   const weak = Object.entries(stored.questions)
-    .filter(([, s]) => s.wrong > 0 && s.correct / (s.correct + s.wrong) < t);
-  document.getElementById('retry-count').textContent = weak.length;
+    .filter(([, s]) => s.wrong > 0 && s.correct / (s.correct + s.wrong) < threshold);
+  document.getElementById('retry-count').textContent = String(weak.length);
   const section = document.getElementById('retry-section');
   const hasAny = Object.keys(stored.questions).length > 0;
   if (section) section.classList.toggle('d-none', !hasAny);
+}
+
+function startNew() {
+  const stored  = JSON.parse(localStorage.getItem('quiz-results') || '{"questions":{}}');
+  const seen    = new Set(Object.keys(stored.questions).map(Number));
+  questions = allQuestions.filter(q => !seen.has(q.id));
+  if (!questions.length) { alert('Keine neuen Fragen vorhanden.'); return; }
+  answers = questions.map(() => new Set());
+  current = 0; submitted = false;
+  showScreen('screen-quiz');
+  renderStrip();
+  renderQuestion();
 }
 
 function startRetry() {
