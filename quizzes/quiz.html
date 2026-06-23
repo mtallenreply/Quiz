@@ -223,6 +223,7 @@ body { background: #f0f2f5; }
 let allQuestions = [];
 let questions    = [];
 let answers      = [];
+let optOrders    = [];
 let current      = 0;
 let submitted    = false;
 let lang         = localStorage.getItem('quiz-lang') || 'en';
@@ -329,16 +330,10 @@ function startQuiz() {
   const selDiff = [...document.querySelectorAll('#diff-checks input:checked')].map(i => i.value);
   const countVal = parseInt(document.getElementById('q-count').value) || 0;
 
-  questions = allQuestions.filter(q => selMods.includes(q.module) && selDiff.includes(q.difficulty));
-  if (!questions.length) { alert('No questions match filters'); return; }
-  if (countVal > 0) questions = shuffle(questions).slice(0, countVal);
-
-  answers   = questions.map(() => new Set());
-  current   = 0;
-  submitted = false;
-  showScreen('screen-quiz');
-  renderStrip();
-  renderQuestion();
+  let pool = allQuestions.filter(q => selMods.includes(q.module) && selDiff.includes(q.difficulty));
+  if (!pool.length) { alert('No questions match filters'); return; }
+  if (countVal > 0) pool = shuffle(pool).slice(0, countVal);
+  launchQuiz(pool);
 }
 
 function shuffle(arr) {
@@ -348,6 +343,17 @@ function shuffle(arr) {
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
+}
+
+function launchQuiz(pool) {
+  questions  = pool;
+  answers    = pool.map(() => new Set());
+  optOrders  = pool.map(q => shuffle([...Array(q.options.length).keys()]));
+  current    = 0;
+  submitted  = false;
+  showScreen('screen-quiz');
+  renderStrip();
+  renderQuestion();
 }
 
 // ── strip ──────────────────────────────────────────────────────────────────
@@ -386,10 +392,11 @@ function renderQuestion() {
 
   const opts = document.getElementById('q-options');
   opts.innerHTML = '';
-  q.options.forEach((opt, idx) => {
-    const isChosen  = answers[current].has(idx);
-    const isRight   = q.correct_answers.includes(idx);
-    const type      = q.answer_count > 1 ? 'checkbox' : 'radio';
+  optOrders[current].forEach(origIdx => {
+    const opt      = q.options[origIdx];
+    const isChosen = answers[current].has(origIdx);
+    const isRight  = q.correct_answers.includes(origIdx);
+    const type     = q.answer_count > 1 ? 'checkbox' : 'radio';
 
     let cls = 'option-label';
     if (submitted) {
@@ -400,10 +407,10 @@ function renderQuestion() {
     const lbl = document.createElement('label');
     lbl.className = cls;
     lbl.innerHTML = `
-      <input type="${type}" name="opt" value="${idx}" ${isChosen ? 'checked' : ''} ${submitted ? 'disabled' : ''}>
+      <input type="${type}" name="opt" value="${origIdx}" ${isChosen ? 'checked' : ''} ${submitted ? 'disabled' : ''}>
       <span>${escHtml(opt)}</span>`;
     lbl.querySelector('input').addEventListener('change', e =>
-      onSelect(idx, e.target.checked, q.answer_count));
+      onSelect(origIdx, e.target.checked, q.answer_count));
     opts.appendChild(lbl);
   });
 
@@ -527,9 +534,10 @@ function renderReview(mode) {
       <p class="review-q mb-3">${escHtml(q.question)}</p>`;
 
     // all options — highlight correct green, chosen-wrong red, rest neutral
-    q.options.forEach((opt, idx) => {
-      const isRight  = q.correct_answers.includes(idx);
-      const isChosen = answers[i].has(idx);
+    optOrders[i].forEach(origIdx => {
+      const opt      = q.options[origIdx];
+      const isRight  = q.correct_answers.includes(origIdx);
+      const isChosen = answers[i].has(origIdx);
       let bg = '';
       if (isRight && isChosen)  bg = 'bg-success bg-opacity-25 text-success fw-semibold';
       else if (isRight)         bg = 'bg-success bg-opacity-10 text-success';
@@ -650,12 +658,7 @@ function startNew() {
   let pool = allQuestions.filter(q => !seen.has(q.id));
   if (!pool.length) { alert('Keine neuen Fragen vorhanden.'); return; }
   if (countVal > 0) pool = shuffle(pool).slice(0, countVal);
-  questions = pool;
-  answers = questions.map(() => new Set());
-  current = 0; submitted = false;
-  showScreen('screen-quiz');
-  renderStrip();
-  renderQuestion();
+  launchQuiz(pool);
 }
 
 function startRetry() {
@@ -666,13 +669,9 @@ function startRetry() {
       .filter(([, s]) => s.wrong > 0 && s.correct / (s.correct + s.wrong) < t)
       .map(([id]) => Number(id))
   );
-  questions = allQuestions.filter(q => weakIds.has(q.id));
-  if (!questions.length) { alert(`Keine Fragen unter ${Math.round(t*100)}% Trefferquote.`); return; }
-  answers = questions.map(() => new Set());
-  current = 0; submitted = false;
-  showScreen('screen-quiz');
-  renderStrip();
-  renderQuestion();
+  const pool = allQuestions.filter(q => weakIds.has(q.id));
+  if (!pool.length) { alert(`Keine Fragen unter ${Math.round(t*100)}% Trefferquote.`); return; }
+  launchQuiz(pool);
 }
 
 // ── init ───────────────────────────────────────────────────────────────────
