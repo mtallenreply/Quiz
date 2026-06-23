@@ -301,8 +301,11 @@ function loadFile(input) {
 function onLoaded(data) {
   allQuestions = data.questions || [];
   if (!allQuestions.length) { alert('No questions found'); return; }
+  const datePart = data.meta?.last_updated
+    ? ` &nbsp;·&nbsp; <span class="text-muted">Stand: ${escHtml(data.meta.last_updated)}</span>`
+    : '';
   document.getElementById('file-status').innerHTML =
-    `<span class="text-success">✓ ${allQuestions.length} questions loaded</span>`;
+    `<span class="text-success">✓ ${allQuestions.length} questions loaded</span>${datePart}`;
   buildFilters();
   document.getElementById('filter-card').classList.remove('d-none');
   updateRetryBtn();
