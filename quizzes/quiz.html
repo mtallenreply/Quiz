@@ -78,7 +78,19 @@ body { background: #f0f2f5; }
     <div class="card-body">
       <div class="mb-3">
         <label class="form-label fw-semibold" id="lbl-modules">Modules</label>
-        <div class="d-flex flex-column gap-1" id="module-checks"></div>
+        <div class="table-responsive">
+          <table class="table table-sm table-hover mb-0">
+            <thead><tr>
+              <th style="width:36px">
+                <input class="form-check-input" type="checkbox" id="m-all" checked
+                       onchange="toggleAllModules(this.checked)" title="Alle an/ab">
+              </th>
+              <th>Modul</th>
+              <th class="text-end text-muted fw-normal small">Fragen</th>
+            </tr></thead>
+            <tbody id="module-checks"></tbody>
+          </table>
+        </div>
       </div>
       <div class="mb-3">
         <label class="form-label fw-semibold" id="lbl-diff">Difficulty</label>
@@ -109,6 +121,10 @@ body { background: #f0f2f5; }
         <button class="btn btn-warning w-100 mt-1" id="btn-retry" onclick="startRetry()">
           Schwache Fragen üben (<span id="retry-count">0</span>)
         </button>
+      </div>
+      <div class="d-none mt-3 d-flex gap-2 flex-wrap" id="stats-actions">
+        <button class="btn btn-sm btn-outline-primary" onclick="exportJson()">⬇ Stats exportieren</button>
+        <button class="btn btn-sm btn-outline-danger"  onclick="resetAllStats()">↺ Alle Stats löschen</button>
       </div>
     </div>
   </div>
@@ -218,6 +234,7 @@ let optOrders    = [];
 let current      = 0;
 let submitted    = false;
 let lang         = localStorage.getItem('quiz-lang') || 'en';
+let loadedMeta   = {};
 
 // ── i18n ───────────────────────────────────────────────────────────────────
 const T = {
@@ -290,10 +307,18 @@ function loadFile(input) {
 }
 
 function onLoaded(data) {
+  loadedMeta   = data.meta || {};
   allQuestions = data.questions || [];
   if (!allQuestions.length) { alert('No questions found'); return; }
-  const datePart = data.meta?.last_updated
-    ? ` &nbsp;·&nbsp; <span class="text-muted">Stand: ${escHtml(data.meta.last_updated)}</span>`
+  // JSON is source of truth — sync stats into localStorage
+  const stored = JSON.parse(localStorage.getItem('quiz-results') || '{"questions":{},"history":[]}');
+  allQuestions.forEach(q => {
+    if (q.stats_correct || q.stats_wrong)
+      stored.questions[String(q.id)] = {correct: q.stats_correct || 0, wrong: q.stats_wrong || 0};
+  });
+  localStorage.setItem('quiz-results', JSON.stringify(stored));
+  const datePart = loadedMeta.last_updated
+    ? ` &nbsp;·&nbsp; <span class="text-muted">Stand: ${escHtml(loadedMeta.last_updated)}</span>`
     : '';
   document.getElementById('file-status').innerHTML =
     `<span class="text-success">✓ ${allQuestions.length} questions loaded</span>${datePart}`;
@@ -305,17 +330,35 @@ function onLoaded(data) {
 
 function buildFilters() {
   const modules = [...new Set(allQuestions.map(q => q.module))].sort((a,b)=>a-b);
-  const moduleNames = {};
-  allQuestions.forEach(q => { moduleNames[q.module] = q.module_name; });
+  const moduleNames = {}, moduleCounts = {};
+  allQuestions.forEach(q => {
+    moduleNames[q.module] = q.module_name;
+    moduleCounts[q.module] = (moduleCounts[q.module] || 0) + 1;
+  });
   const c = document.getElementById('module-checks');
   c.innerHTML = '';
   modules.forEach(m => {
     c.innerHTML += `
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="${m}" checked id="m-${m}">
-        <label class="form-check-label" for="m-${m}">${moduleNames[m] || 'Module ' + m}</label>
-      </div>`;
+      <tr>
+        <td><input class="form-check-input" type="checkbox" value="${m}" checked id="m-${m}" onchange="updateSelectAll()"></td>
+        <td><label class="form-check-label w-100" for="m-${m}">${escHtml(moduleNames[m] || 'Module ' + m)}</label></td>
+        <td class="text-end text-muted small">${moduleCounts[m]}</td>
+      </tr>`;
   });
+  document.getElementById('m-all').checked = true;
+  document.getElementById('m-all').indeterminate = false;
+}
+
+function toggleAllModules(checked) {
+  document.querySelectorAll('#module-checks input[type=checkbox]').forEach(cb => cb.checked = checked);
+}
+
+function updateSelectAll() {
+  const all  = [...document.querySelectorAll('#module-checks input[type=checkbox]')];
+  const n    = all.filter(cb => cb.checked).length;
+  const mAll = document.getElementById('m-all');
+  mAll.checked       = n === all.length;
+  mAll.indeterminate = n > 0 && n < all.length;
 }
 
 // ── start ──────────────────────────────────────────────────────────────────
@@ -373,10 +416,16 @@ function renderQuestion() {
 
   const diffBadge = { easy: 'success', medium: 'warning text-dark', hard: 'danger' };
   const modLabel = q.module_name || `Module ${q.module}`;
+  const sc = q.stats_correct || 0, sw = q.stats_wrong || 0;
+  const statsBadge = (sc + sw) > 0
+    ? `<span class="badge bg-secondary">${sc}✓ ${sw}✗</span>`
+    : `<span class="badge bg-light text-muted border">neu</span>`;
   document.getElementById('q-meta').innerHTML = `
     <span class="badge bg-primary">${escHtml(modLabel)}</span>
     <span class="badge bg-${diffBadge[q.difficulty] || 'secondary'}">${q.difficulty}</span>
     ${q.answer_count > 1 ? `<span class="badge bg-purple" style="background:#6f42c1">${t('choose')} ${q.answer_count} ${t('answers')}</span>` : ''}
+    ${statsBadge}
+    <button class="btn btn-link btn-sm p-0 ms-1 text-muted" style="font-size:.78rem" onclick="resetQuestionStats(${q.id})" title="Stats dieser Frage zurücksetzen">↺</button>
   `;
 
   document.getElementById('q-text').innerHTML = marked.parse(q.question);
@@ -472,6 +521,7 @@ function showResults() {
 
   renderReview('wrong');
   saveResults();
+  exportJson();
 }
 
 let reviewFilter = 'wrong';
@@ -605,6 +655,13 @@ function saveResults() {
     pct: Math.round(correct * 100 / questions.length)
   });
   localStorage.setItem('quiz-results', JSON.stringify(stored));
+  // mirror back into allQuestions for export
+  questions.forEach((q, i) => {
+    const aq = allQuestions.find(a => a.id === q.id);
+    if (!aq) return;
+    if (isCorrect(i)) aq.stats_correct = (aq.stats_correct || 0) + 1;
+    else               aq.stats_wrong  = (aq.stats_wrong  || 0) + 1;
+  });
   updateRetryBtn();
 }
 
@@ -633,6 +690,8 @@ function updateRetryBtn() {
   const section = document.getElementById('retry-section');
   const hasAny = Object.keys(stored.questions).length > 0;
   if (section) section.classList.toggle('d-none', !hasAny);
+  const statsActions = document.getElementById('stats-actions');
+  if (statsActions) statsActions.classList.toggle('d-none', !hasAny);
 }
 
 function startNew() {
@@ -669,6 +728,47 @@ async function tryAutoLoad() {
   } catch {
     status.textContent = t('fileFail');
   }
+}
+
+async function exportJson() {
+  const json = JSON.stringify({meta: loadedMeta, questions: allQuestions}, null, 2);
+  if (window.showSaveFilePicker) {
+    try {
+      const fh = await window.showSaveFilePicker({
+        suggestedName: 'questions.json',
+        types: [{description: 'JSON', accept: {'application/json': ['.json']}}]
+      });
+      const w = await fh.createWritable();
+      await w.write(json);
+      await w.close();
+      return;
+    } catch (e) { if (e.name === 'AbortError') return; }
+  }
+  // Fallback (Firefox etc.)
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([json], {type: 'application/json'}));
+  a.download = 'questions.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function resetQuestionStats(id) {
+  const aq = allQuestions.find(q => q.id === id);
+  if (aq) { aq.stats_correct = 0; aq.stats_wrong = 0; }
+  const stored = JSON.parse(localStorage.getItem('quiz-results') || '{"questions":{}}');
+  delete stored.questions[String(id)];
+  localStorage.setItem('quiz-results', JSON.stringify(stored));
+  updateRetryBtn();
+  renderStrip();
+  renderQuestion();
+}
+
+function resetAllStats() {
+  if (!confirm('Alle Statistiken löschen?')) return;
+  allQuestions.forEach(q => { q.stats_correct = 0; q.stats_wrong = 0; });
+  localStorage.setItem('quiz-results', '{"questions":{},"history":[]}');
+  updateRetryBtn();
+  if (questions.length) { renderStrip(); renderQuestion(); }
 }
 
 function openFeedback() {
