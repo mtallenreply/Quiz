@@ -70,12 +70,45 @@ public interface Rateable {
         return () -> stars;  // Lambda als Implementierung (Functional Interface)
     }
 
-    // Private Methode [Java 9]: nur intern nutzbar
+    // Private Methode [Java 9]: nur intern nutzbar — kapselt gemeinsame Logik
     private void validate(int stars) {
         if (stars < 1 || stars > 5) throw new IllegalArgumentException();
     }
 }
 ```
+
+**Verwendung und Vorteile:**
+
+```java
+// 1. Default-Methode — Jede implementierende Klasse bekommt toStarString() gratis
+//    Kein Code-Duplikat in Product, Food, Drink ...
+Product p = new Product("Apple", 0.89, 4);
+System.out.println(p.toStarString());   // "****"
+// Product kann toStarString() überschreiben, muss es aber nicht.
+
+// 2. Statische Methode — Factory direkt am Interface, kein extra Objekt nötig
+//    Vorteil: Aufruf über Interface-Name, kein new + keine Unterklasse nötig
+Rateable fiveStar = Rateable.ofStars(5);
+System.out.println(fiveStar.getStars());    // 5
+System.out.println(fiveStar.toStarString()); // "*****"
+
+// Typischer Einsatz: schnell ein Rateable-Objekt für Tests oder Defaults erzeugen
+List<Rateable> items = List.of(Rateable.ofStars(3), Rateable.ofStars(5));
+
+// 3. Private Methode [Java 9] — gemeinsame Logik für Default- und statische Methoden
+//    Vorteil: DRY-Prinzip innerhalb des Interfaces; außen nicht sichtbar
+//    Wird z. B. von setRating() und ofStars() intern aufgerufen:
+default Rateable withRating(int stars) {
+    validate(stars);   // private Methode intern nutzen
+    return Rateable.ofStars(stars);
+}
+```
+
+| Methoden-Typ | Aufruf | Überschreibbar | Vorteil |
+|---|---|---|---|
+| `default` | auf Instanz | ja | gemeinsames Verhalten ohne Duplikat |
+| `static` | über Interface-Name | nein | Factory/Helper direkt am Interface |
+| `private` `[Java 9]` | nur intern | nein | DRY innerhalb des Interfaces |
 
 ### **[Professionell]** Interfaces erweitern und Mehrfachimplementierung
 
@@ -147,6 +180,28 @@ Product p = factory.get();
 // BiFunction<T, U, R>: nimmt T und U, gibt R zurück
 BiFunction<String, Double, Product> creator = (name, price) ->
     new Product(name, price, 1);
+```
+
+### **[Fortgeschritten]** `UnaryOperator` und `BinaryOperator`
+
+Spezialisierungen von `Function`, bei denen Ein- und Ausgabetyp identisch sind:
+
+```java
+// UnaryOperator<T> = Function<T, T>
+UnaryOperator<String> toUpper = String::toUpperCase;
+System.out.println(toUpper.apply("hallo"));  // HALLO
+
+// Komposition: erst trim, dann toUpperCase
+UnaryOperator<String> clean = ((UnaryOperator<String>) String::trim).andThen(String::toUpperCase);
+System.out.println(clean.apply("  hallo  "));  // HALLO
+
+// BinaryOperator<T> = BiFunction<T, T, T>
+BinaryOperator<Integer> add = (a, b) -> a + b;
+System.out.println(add.apply(3, 4));  // 7
+
+// Nützlich mit Stream.reduce():
+List<Integer> zahlen = List.of(1, 2, 3, 4, 5);
+int summe = zahlen.stream().reduce(0, Integer::sum);  // 15
 ```
 
 ### **[Professionell]** Komposition von Functional Interfaces
@@ -250,6 +305,103 @@ public static void printAll(List<?> list) {
 
 // PECS-Prinzip: Producer Extends, Consumer Super
 // Liest man (Producer): extends; Schreibt man (Consumer): super
+```
+
+---
+
+## 3b. Sealed Interfaces `[Java 17]`
+
+### **[Fortgeschritten]** Sealed Interfaces — eingeschränkte Implementierungshierarchie
+
+Ein **sealed interface** begrenzt, welche Klassen/Interfaces es implementieren dürfen:
+
+```java
+// Nur die in permits genannten Typen dürfen implementieren
+public sealed interface Shape
+    permits Circle, Rectangle, Triangle {
+    double area();
+}
+
+// Implementierungen müssen final, sealed oder non-sealed sein
+public final class Circle implements Shape {
+    private final double radius;
+    public Circle(double radius) { this.radius = radius; }
+
+    @Override
+    public double area() { return Math.PI * radius * radius; }
+}
+
+public non-sealed class Rectangle implements Shape {
+    // non-sealed: beliebige Unterklassen erlaubt
+    private final double w, h;
+    public Rectangle(double w, double h) { this.w = w; this.h = h; }
+
+    @Override
+    public double area() { return w * h; }
+}
+```
+
+Kombination mit **Pattern Matching** (Java 21):
+
+```java
+double describe(Shape s) {
+    return switch (s) {
+        case Circle c    -> c.area();
+        case Rectangle r -> r.area();
+        case Triangle t  -> t.area();
+        // kein default nötig — Compiler weiß, alle Fälle sind abgedeckt
+    };
+}
+```
+
+**Vorteile:**
+- Compiler prüft Vollständigkeit bei `switch` (exhaustive switch)
+- Kontrollierte Erweiterbarkeit — kein unbekannter dritter Implementierer
+- Grundlage für **algebraische Datentypen** in Java
+
+---
+
+## 3c. Default-Methoden: Konflikt-Auflösung
+
+### **[Professionell]** Das Diamond-Problem bei Default-Methoden
+
+Wenn zwei Interfaces dieselbe Default-Methode definieren, muss die implementierende Klasse den Konflikt auflösen:
+
+```java
+public interface A {
+    default String greet() { return "Hallo von A"; }
+}
+
+public interface B {
+    default String greet() { return "Hallo von B"; }
+}
+
+// Compilerfehler ohne explizite Auflösung!
+public class C implements A, B {
+    @Override
+    public String greet() {
+        // Explizit eine Variante wählen:
+        return A.super.greet();
+        // oder: return B.super.greet();
+        // oder: eigene Implementierung
+    }
+}
+```
+
+**Regeln (Priorität):**
+1. Klassen-Implementierung schlägt immer Interface-Default
+2. Spezifischeres Interface (direkterer Typ) schlägt allgemeineres
+3. Bei gleichem Rang → Compilerfehler → explizite Auflösung nötig
+
+```java
+public interface X {
+    default String info() { return "X"; }
+}
+public interface Y extends X {
+    @Override
+    default String info() { return "Y"; }  // Y ist spezifischer als X
+}
+// Klasse implements X, Y → nimmt Y.info() automatisch (keine Auflösung nötig)
 ```
 
 ---
@@ -448,6 +600,51 @@ for (Product p : list) {
 - B) Eine Klasse durch Vererbung aus mehreren Klassen aufbauen
 - C) **Verhalten durch Kombination mehrerer Interfaces statt durch tiefe Vererbungshierarchien zusammensetzen** ✓
 - D) Designmuster für Factory-Methoden
+
+---
+
+**Frage 10:** Was ist ein `sealed interface`? `[Java 17]`
+
+- A) Ein Interface, das keine Default-Methoden haben darf
+- B) **Ein Interface, das explizit festlegt, welche Klassen/Interfaces es implementieren dürfen** ✓
+- C) Ein Interface, das nur in derselben Datei verwendet werden kann
+- D) Ein Interface ohne abstrakte Methoden
+
+---
+
+**Frage 11:** Zwei Interfaces A und B definieren beide `default void greet()`. Klasse C implementiert beide. Was passiert?
+
+- A) C erbt automatisch die Implementierung von A
+- B) C erbt automatisch die Implementierung von B
+- C) **Compilerfehler — C muss `greet()` explizit überschreiben** ✓
+- D) Laufzeitfehler beim ersten Aufruf
+
+---
+
+**Frage 12:** Was ist `UnaryOperator<T>`?
+
+- A) Ein Interface für Methoden mit zwei Parametern
+- B) **Eine Spezialisierung von `Function<T,T>` — Ein- und Ausgabetyp sind identisch** ✓
+- C) Ein Interface das `Consumer<T>` und `Supplier<T>` kombiniert
+- D) Ein Interface für void-Methoden mit einem Parameter
+
+---
+
+**Frage 13:** Welche Aussage zu Generics und Type Erasure ist korrekt?
+
+- A) Generische Typinformationen sind zur Laufzeit vollständig verfügbar
+- B) `List<String>` und `List<Integer>` sind zur Laufzeit verschiedene Klassen
+- C) **Zur Laufzeit existiert nur `List` — die Typparameter werden vom Compiler entfernt (Type Erasure)** ✓
+- D) Type Erasure tritt nur bei Wildcards auf
+
+---
+
+**Frage 14:** Was bedeutet `non-sealed` bei einem Interface? `[Java 17]`
+
+- A) Das Interface darf keine Default-Methoden haben
+- B) Das Interface kann nicht mehr implementiert werden
+- C) Das Interface ist öffentlich zugänglich
+- D) **Eine Unterklasse eines sealed Interface hebt die Einschränkung auf — beliebige Klassen dürfen von ihr erben** ✓
 
 ---
 

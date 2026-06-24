@@ -325,6 +325,72 @@ Duration dauer = Duration.between(LocalTime.of(9, 0), LocalTime.of(17, 30));
 System.out.println("Arbeitsdauer: " + dauer.toHours() + " Stunden");
 ```
 
+### **[Fortgeschritten]** `Instant` — maschinenlesbarer Zeitstempel
+
+```java
+// Instant: Sekunden seit 1970-01-01T00:00:00Z (Unix Epoch), immer UTC
+Instant jetzt = Instant.now();
+Instant epoch = Instant.EPOCH;                    // 1970-01-01T00:00:00Z
+Instant spaeter = jetzt.plusSeconds(3600);        // + 1 Stunde
+
+// Umwandlung Instant ↔ ZonedDateTime
+ZoneId berlin = ZoneId.of("Europe/Berlin");
+ZonedDateTime zdt = jetzt.atZone(berlin);
+Instant zurück = zdt.toInstant();
+
+// Zeitdifferenz messen (z.B. Performance)
+Instant start = Instant.now();
+// ... Code ...
+Instant ende = Instant.now();
+Duration dauer = Duration.between(start, ende);
+System.out.println("Elapsed: " + dauer.toMillis() + " ms");
+```
+
+### **[Professionell]** Zeitzonen und Daylight Saving Time (DST)
+
+Sommerzeit (DST) bedeutet: Uhren werden im Sommer **um 1 Stunde vorgestellt**. `ZonedDateTime` berücksichtigt das automatisch.
+
+```java
+ZoneId berlin = ZoneId.of("Europe/Berlin");
+
+// Nacht der Zeitumstellung (Winterzeit → Sommerzeit): 26. März 2023, 2:00 → 3:00
+// Die Stunde von 2:00 bis 3:00 existiert nicht!
+ZonedDateTime vorher = ZonedDateTime.of(2023, 3, 26, 1, 30, 0, 0, berlin);
+// Offset: +01:00 (Winterzeit / CET)
+System.out.println(vorher.getOffset());  // +01:00
+
+ZonedDateTime nachher = vorher.plusHours(1);
+// Jetzt 3:30 Uhr (Sommerzeit!) — Java überspringt die nicht-existierende Stunde
+System.out.println(nachher);             // 2023-03-26T03:30+02:00[Europe/Berlin]
+System.out.println(nachher.getOffset()); // +02:00 (Sommerzeit / CEST)
+
+// Rückkehr zur Normalzeit (Sommerzeit → Winterzeit): 29. Oktober 2023, 3:00 → 2:00
+// Die Stunde von 2:00 bis 3:00 existiert zweimal!
+ZonedDateTime ambig = ZonedDateTime.of(2023, 10, 29, 2, 30, 0, 0, berlin);
+// Java wählt die erste Variante (Sommerzeit)
+System.out.println(ambig.getOffset());  // +02:00
+// Zur zweiten Variante (Winterzeit) wechseln:
+ZonedDateTime winter = ambig.withLaterOffsetAtOverlap();
+System.out.println(winter.getOffset()); // +01:00
+
+// Zeitzone ermitteln und konvertieren
+ZonedDateTime nyTime = ZonedDateTime.now(ZoneId.of("America/New_York"));
+ZonedDateTime berlinTime = nyTime.withZoneSameInstant(berlin);
+// Selber Instant, andere Darstellung
+System.out.println(nyTime.toInstant().equals(berlinTime.toInstant())); // true
+
+// Alle verfügbaren Zeitzonen
+Set<String> zonen = ZoneId.getAvailableZoneIds();  // 600+ Einträge
+```
+
+**Wichtige Regeln:**
+| Situation | Java-Verhalten |
+|---|---|
+| Zeitumstellung vorwärts (Lücke) | übersprungene Zeit → nächste gültige Zeit |
+| Zeitumstellung rückwärts (Überlappung) | `withEarlierOffsetAtOverlap()` / `withLaterOffsetAtOverlap()` |
+| `LocalDateTime` + ZoneId | Mehrdeutigkeit möglich → ZonedDateTime |
+| `Instant` | immer UTC, keine DST-Probleme |
+
 ### Formatierung und Parsing
 
 ```java
@@ -668,6 +734,42 @@ System.out.println(a.equals(b));
 
 ---
 
+**Frage 11:** Was passiert bei einer Zeitumstellung (Winterzeit → Sommerzeit), wenn man `ZonedDateTime.plusHours(1)` auf 1:30 Uhr anwendet?
+
+- A) Eine `DateTimeException` wird geworfen
+- B) Das Ergebnis ist 2:30 Uhr (existiert nicht — Lücke)
+- C) **Java überspringt die Lücke automatisch und gibt 3:30 Uhr (Sommerzeit) zurück** ✓
+- D) Das Ergebnis bleibt 1:30 Uhr
+
+---
+
+**Frage 12:** Was ist der Unterschied zwischen `ZonedDateTime` und `Instant`?
+
+- A) `Instant` kennt Zeitzonen, `ZonedDateTime` nicht
+- B) Beide sind identisch
+- C) **`Instant` ist ein UTC-Zeitstempel ohne Zeitzone; `ZonedDateTime` enthält Datum, Zeit und Zeitzone** ✓
+- D) `ZonedDateTime` ist für die Systemzeit, `Instant` für externe Quellen
+
+---
+
+**Frage 13:** Mit welcher Methode wechselt man bei einer Zeitüberlappung (Sommerzeit → Winterzeit) zur späteren Variante?
+
+- A) `adjustToWinterTime()`
+- B) `withZoneSameInstant()`
+- C) `normalizedOffset()`
+- D) **`withLaterOffsetAtOverlap()`** ✓
+
+---
+
+**Frage 14:** Was gibt `ZonedDateTime.getOffset()` zurück?
+
+- A) Den Namen der Zeitzone (`"Europe/Berlin"`)
+- B) Die DST-Differenz in Minuten
+- C) **Den aktuellen UTC-Offset zum Zeitpunkt dieses ZonedDateTime (z.B. `+02:00`)** ✓
+- D) Immer `+00:00`
+
+---
+
 ## Skill Check: Typische Prüfungsfragen
 
 1. Warum sind Strings in Java unveränderlich (immutable)? Was sind die Vorteile?
@@ -679,4 +781,7 @@ System.out.println(a.equals(b));
 7. Welche Klasse repräsentiert ein Datum ohne Uhrzeit in der modernen Java-API?
 8. Was ist der Unterschied zwischen `Period` und `Duration`?
 9. Was ist eine `Locale` und wozu dient sie?
+10. Was ist `Instant` und wann verwendet man es statt `ZonedDateTime`?
+11. Was passiert bei einer Lücke (Winterzeit → Sommerzeit) wenn man `ZonedDateTime.plusHours(1)` aufruft?
+12. Was ist der Unterschied zwischen `withEarlierOffsetAtOverlap()` und `withLaterOffsetAtOverlap()`?
 10. Was macht `MessageFormat.format()`?
