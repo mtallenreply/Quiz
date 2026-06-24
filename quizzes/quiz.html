@@ -339,18 +339,20 @@ function buildFilters() {
   const modules = [...new Set(allQuestions.map(q => q.module))].sort((a,b)=>a-b);
   const moduleNames = {}, moduleCounts = {}, moduleCorrect = {}, moduleWrong = {};
   allQuestions.forEach(q => {
-    moduleNames[q.module]   = q.module_name;
-    moduleCounts[q.module]  = (moduleCounts[q.module]  || 0) + 1;
-    moduleCorrect[q.module] = (moduleCorrect[q.module] || 0) + (q.stats_correct || 0);
-    moduleWrong[q.module]   = (moduleWrong[q.module]   || 0) + (q.stats_wrong   || 0);
+    moduleNames[q.module]  = q.module_name;
+    moduleCounts[q.module] = (moduleCounts[q.module] || 0) + 1;
+    const sc = q.stats_correct || 0, sw = q.stats_wrong || 0;
+    // mutually exclusive: wrong trumps correct (had mistake → needs work)
+    if (sw > 0)       moduleWrong[q.module]   = (moduleWrong[q.module]   || 0) + 1;
+    else if (sc > 0)  moduleCorrect[q.module] = (moduleCorrect[q.module] || 0) + 1;
+    // else: unknown
   });
   const c = document.getElementById('module-checks');
   c.innerHTML = '';
   modules.forEach(m => {
     const sc = moduleCorrect[m] || 0, sw = moduleWrong[m] || 0;
-    const answered = allQuestions.filter(q => q.module === m && ((q.stats_correct || 0) + (q.stats_wrong || 0)) > 0).length;
-    const unknown  = moduleCounts[m] - answered;
-    const statsHtml = (sc || sw || unknown < moduleCounts[m])
+    const unknown = moduleCounts[m] - sc - sw;
+    const statsHtml = (sc || sw)
       ? `<span class="text-success fw-semibold">✓${sc}</span> <span class="text-danger fw-semibold">✗${sw}</span>${unknown ? ` <span class="text-muted">?${unknown}</span>` : ''}`
       : `<span class="text-muted">?${unknown}</span>`;
     c.innerHTML += `
@@ -656,6 +658,7 @@ function showScreen(id) {
 function resetToStart() {
   questions = []; answers = []; submitted = false;
   showScreen('screen-start');
+  if (allQuestions.length) buildFilters();
 }
 
 // ── result tracking ────────────────────────────────────────────────────────

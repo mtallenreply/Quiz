@@ -233,7 +233,7 @@
             "explanation_en": "In Java, 'long' is a 64-bit signed two's complement integer with a range of -2^63 to 2^63-1. The other integer types are: byte (8-bit), short (16-bit), int (32-bit), long (64-bit). Long literals are written with an 'L' suffix, e.g., 100L.",
             "explanation_de": "In Java ist 'long' ein vorzeichenbehaftetes 64-Bit-Zweierkomplement-Integer mit einem Bereich von -2^63 bis 2^63-1. Die anderen Integer-Typen sind: byte (8-Bit), short (16-Bit), int (32-Bit), long (64-Bit). Long-Literale werden mit dem Suffix 'L' geschrieben, z.B. 100L.",
             "module_name": "2 – Primitive Types & Type Conversion",
-            "stats_correct": 1,
+            "stats_correct": 2,
             "stats_wrong": 0
         },
         {
@@ -276,7 +276,7 @@
             "explanation_en": "The % operator is the modulus (remainder) operator. 10 divided by 3 is 3 with a remainder of 1. So 10 % 3 = 1. This operator is frequently used to check for even/odd numbers (n % 2 == 0 means even) or to wrap values within a range.",
             "explanation_de": "Der Operator % ist der Modulo-(Rest-)Operator. 10 geteilt durch 3 ergibt 3 mit einem Rest von 1. Also ist 10 % 3 = 1. Dieser Operator wird häufig verwendet, um auf gerade/ungerade Zahlen zu prüfen (n % 2 == 0 bedeutet gerade) oder um Werte in einem Bereich zu halten.",
             "module_name": "2 – Primitive Types & Type Conversion",
-            "stats_correct": 1,
+            "stats_correct": 2,
             "stats_wrong": 0
         },
         {
@@ -318,7 +318,7 @@
             "explanation_en": "x++ is the post-increment operator. It returns the current value of x (5) first and then increments x. So the first println prints 5. After the increment, x becomes 6, so the second println prints 6. Pre-increment (++x) would increment first and then return the new value.",
             "explanation_de": "x++ ist der Post-Inkrement-Operator. Er gibt zuerst den aktuellen Wert von x (5) zurück und inkrementiert dann x. Das erste println gibt also 5 aus. Nach dem Inkrement wird x zu 6, also gibt das zweite println 6 aus. Pre-Inkrement (++x) würde zuerst inkrementieren und dann den neuen Wert zurückgeben.",
             "module_name": "2 – Primitive Types & Type Conversion",
-            "stats_correct": 1,
+            "stats_correct": 2,
             "stats_wrong": 0
         },
         {
@@ -339,7 +339,7 @@
             "explanation_en": "The arrow (->)syntax in switch expressions, introduced in Java 14 as standard, does not fall through and directly returns the value. When day is 3, the case 3 -> \"Wednesday\" matches and the expression evaluates to \"Wednesday\". No yield keyword is needed with arrow syntax (yield is only required with block bodies).",
             "explanation_de": "Die Pfeil-(->)-Syntax in Switch-Ausdrücken, in Java 14 als Standard eingeführt, fällt nicht durch und gibt den Wert direkt zurück. Wenn day gleich 3 ist, stimmt case 3 -> \"Wednesday\" überein und der Ausdruck ergibt \"Wednesday\". Mit Pfeilsyntax ist kein yield-Schlüsselwort erforderlich (yield ist nur bei Block-Bodies erforderlich).",
             "module_name": "2 – Primitive Types & Type Conversion",
-            "stats_correct": 1,
+            "stats_correct": 2,
             "stats_wrong": 0
         },
         {
@@ -381,7 +381,7 @@
             "explanation_en": "The loop iterates i from 0 to 4. When i=0,1,2 neither condition triggers, so they are printed. When i=3, 'continue' skips the rest of the loop body (print statement) and goes to the next iteration. When i=4, 'break' exits the loop immediately before printing. Result: '0 1 2'.",
             "explanation_de": "Die Schleife iteriert i von 0 bis 4. Wenn i=0,1,2 wird keine Bedingung ausgelöst, also werden sie gedruckt. Wenn i=3, überspringt 'continue' den Rest des Schleifenkörpers (print-Anweisung) und geht zur nächsten Iteration. Wenn i=4, beendet 'break' die Schleife sofort, bevor sie druckt. Ergebnis: '0 1 2'.",
             "module_name": "2 – Primitive Types & Type Conversion",
-            "stats_correct": 1,
+            "stats_correct": 2,
             "stats_wrong": 0
         },
         {
@@ -402,7 +402,7 @@
             "explanation_en": "byte has a range of -128 to 127. 200 in binary (8-bit) is 11001000. In two's complement, the leading 1 makes it negative. 200 - 256 = -56. So the narrowing cast truncates to the lower 8 bits: 200 mod 256 = 200, but interpreted as signed byte: 200 - 256 = -56. This is data loss from narrowing conversion.",
             "explanation_de": "byte hat einen Bereich von -128 bis 127. 200 im Binärformat (8-Bit) ist 11001000. Im Zweierkomplement macht das führende 1 es negativ. 200 - 256 = -56. Die einschränkende Umwandlung schneidet auf die unteren 8 Bits ab: 200 mod 256 = 200, aber als vorzeichenbehaftetes Byte interpretiert: 200 - 256 = -56. Dies ist Datenverlust durch einschränkende Konvertierung.",
             "module_name": "2 – Primitive Types & Type Conversion",
-            "stats_correct": 1,
+            "stats_correct": 2,
             "stats_wrong": 0
         },
         {
@@ -444,7 +444,7 @@
             "explanation_en": "String immutability means that once a String object is created, its character sequence cannot be modified. Methods like toUpperCase(), concat(), and replace() do not modify the original String — they return a new String object. This immutability makes Strings thread-safe and allows the JVM to optimize via the String pool.",
             "explanation_de": "String-Immutabilität bedeutet, dass die Zeichenfolge eines String-Objekts nach seiner Erstellung nicht mehr geändert werden kann. Methoden wie toUpperCase(), concat() und replace() ändern den ursprünglichen String nicht – sie geben ein neues String-Objekt zurück. Diese Unveränderlichkeit macht Strings thread-sicher und ermöglicht der JVM, durch den String-Pool zu optimieren.",
             "module_name": "3 – Strings & StringBuilder",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -465,7 +465,7 @@
             "explanation_en": "Integer.parseInt(String) is the standard method to convert a String representation of an integer to a primitive int. It throws NumberFormatException if the string is not a valid integer. Option A is invalid (no cast from String to int), Option C does not exist, and Option D's value() method does not exist.",
             "explanation_de": "Integer.parseInt(String) ist die Standardmethode zum Konvertieren einer String-Darstellung einer ganzen Zahl in ein primitives int. Sie wirft eine NumberFormatException, wenn der String keine gültige Ganzzahl ist. Option A ist ungültig (kein Cast von String zu int), Option C existiert nicht, und die Methode value() in Option D existiert nicht.",
             "module_name": "3 – Strings & StringBuilder",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -486,7 +486,7 @@
             "explanation_en": "String.substring(int beginIndex) returns a new String starting from the given index (inclusive) to the end. Indices are 0-based. Index 6 is 'W' in 'Hello World' (H=0, e=1, l=2, l=3, o=4, space=5, W=6). So substring(6) returns 'World'.",
             "explanation_de": "String.substring(int beginIndex) gibt einen neuen String zurück, der beim angegebenen Index (einschließlich) bis zum Ende beginnt. Indizes sind 0-basiert. Index 6 ist 'W' in 'Hello World' (H=0, e=1, l=2, l=3, o=4, Leerzeichen=5, W=6). Also gibt substring(6) 'World' zurück.",
             "module_name": "3 – Strings & StringBuilder",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -507,7 +507,7 @@
             "explanation_en": "StringBuilder is the preferred class for building strings through repeated concatenation because it is mutable (modifies in place) and avoids creating many intermediate String objects. StringBuffer is similar but synchronized (thread-safe), making it slower. Using String concatenation (+) in a loop creates many temporary objects, which is inefficient.",
             "explanation_de": "StringBuilder ist die bevorzugte Klasse zum Aufbauen von Strings durch wiederholte Verkettung, da sie veränderlich (in-place-Modifikation) ist und die Erstellung vieler intermediärer String-Objekte vermeidet. StringBuffer ist ähnlich, aber synchronisiert (thread-sicher), was es langsamer macht. Die Verwendung von String-Verkettung (+) in einer Schleife erzeugt viele temporäre Objekte, was ineffizient ist.",
             "module_name": "3 – Strings & StringBuilder",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -528,7 +528,7 @@
             "explanation_en": "String.format() with the format specifier '%.2f' formats a floating-point number with exactly 2 decimal places. 3.14159 rounded to 2 decimal places is 3.14. The 'f' format specifier is for floating-point numbers, and '.2' specifies the precision (number of digits after the decimal point).",
             "explanation_de": "String.format() mit dem Formatbezeichner '%.2f' formatiert eine Gleitkommazahl mit genau 2 Dezimalstellen. 3.14159 auf 2 Dezimalstellen gerundet ergibt 3.14. Der Formatbezeichner 'f' ist für Gleitkommazahlen, und '.2' gibt die Präzision (Anzahl der Stellen nach dem Dezimalpunkt) an.",
             "module_name": "3 – Strings & StringBuilder",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -549,7 +549,7 @@
             "explanation_en": "Step 1: sb = 'Java'. Step 2: After append(' 25'), sb = 'Java 25'. Step 3: insert(4, ' SE') inserts ' SE' at index 4 (between 'Java' and ' 25'), resulting in 'Java SE 25'. The insert method shifts existing characters to the right. Final output: 'Java SE 25'.",
             "explanation_de": "Schritt 1: sb = 'Java'. Schritt 2: Nach append(' 25') ist sb = 'Java 25'. Schritt 3: insert(4, ' SE') fügt ' SE' an Index 4 ein (zwischen 'Java' und ' 25'), was zu 'Java SE 25' führt. Die insert-Methode verschiebt vorhandene Zeichen nach rechts. Endausgabe: 'Java SE 25'.",
             "module_name": "3 – Strings & StringBuilder",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -571,7 +571,7 @@
             "explanation_de": "LocalDate.of(Jahr, Monat, Tag) erstellt ein LocalDate ohne Verwendung von new (Factory-Methoden-Muster). DateTimeFormatter.ofPattern(Muster) erstellt einen Formatter. LocalDate.format(formatter) gibt den formatierten String zurück. Option A verwendet das unzulässige 'new LocalDate()', Option C verwendet eine nicht existierende toString(String)-Überladung, und Option D hat eine falsche Methodensignatur für DateTimeFormatter.format().",
             "module_name": "3 – Strings & StringBuilder",
             "stats_correct": 0,
-            "stats_wrong": 0
+            "stats_wrong": 1
         },
         {
             "id": 28,
@@ -591,7 +591,7 @@
             "explanation_en": "Math.abs(-7) = 7 (int). Math.pow(2, 2) = 4.0 (double). Math.max(7, 4.0) — due to widening, 7 is promoted to 7.0 and Math.max returns 7.0. So the output is '7.0'. Math.pow always returns double, and Math.max(int, double) uses the double overload.",
             "explanation_de": "Math.abs(-7) = 7 (int). Math.pow(2, 2) = 4.0 (double). Math.max(7, 4.0) — durch Erweiterung wird 7 zu 7.0 aufgewertet und Math.max gibt 7.0 zurück. Die Ausgabe ist also '7.0'. Math.pow gibt immer double zurück, und Math.max(int, double) verwendet die double-Überladung.",
             "module_name": "3 – Strings & StringBuilder",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -612,7 +612,7 @@
             "explanation_en": "String literals are interned: 'a' and 'b' both point to the same object in the String pool, so a==b is true. 'new String(\"Java\")' explicitly creates a new object on the heap outside the pool, so a==c is false (different references). a.equals(c) compares content, which is 'Java'=='Java', so it is true.",
             "explanation_de": "String-Literale werden interniert: 'a' und 'b' zeigen beide auf dasselbe Objekt im String-Pool, daher ist a==b wahr. 'new String(\"Java\")' erstellt explizit ein neues Objekt auf dem Heap außerhalb des Pools, daher ist a==c falsch (unterschiedliche Referenzen). a.equals(c) vergleicht den Inhalt, der 'Java'=='Java' ist, also ist er wahr.",
             "module_name": "3 – Strings & StringBuilder",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -634,7 +634,7 @@
             "explanation_en": "For f1 ('yyyy-MM-dd HH:mm:ss'): yyyy=2025, MM=03, dd=15, HH=09 (24h), mm=05, ss=03 → '2025-03-15 09:05:03'. For f2 ('dd.MM.yy h:mm a'): dd=15, MM=03, yy=25 (2-digit year), h=9 (12h no leading zero), mm=05, a=AM → '15.03.25 9:05 AM'. Option B has month and day swapped. Option D uses full year yy incorrectly.",
             "explanation_de": "Für f1 ('yyyy-MM-dd HH:mm:ss'): yyyy=2025, MM=03, dd=15, HH=09 (24h), mm=05, ss=03 → '2025-03-15 09:05:03'. Für f2 ('dd.MM.yy h:mm a'): dd=15, MM=03, yy=25 (2-stelliges Jahr), h=9 (12h ohne führende Null), mm=05, a=AM → '15.03.25 9:05 AM'. Option B hat Monat und Tag vertauscht. Option D verwendet das vollständige Jahr mit yy falsch.",
             "module_name": "3 – Strings & StringBuilder",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -1077,7 +1077,7 @@
             "explanation_en": "The 'extends' keyword establishes an inheritance relationship, making the subclass inherit fields and methods from the superclass.",
             "explanation_de": "Das Schlüsselwort 'extends' stellt eine Vererbungsbeziehung her, sodass die Unterklasse Felder und Methoden von der Oberklasse erbt.",
             "module_name": "6 – Inheritance",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -1098,7 +1098,7 @@
             "explanation_en": "@Override signals to the compiler that the method overrides a superclass/interface method. If no such method exists in the hierarchy, the compiler reports an error, catching typos early.",
             "explanation_de": "@Override signalisiert dem Compiler, dass die Methode eine Methode der Oberklasse/des Interfaces überschreibt. Wenn keine solche Methode in der Hierarchie existiert, meldet der Compiler einen Fehler.",
             "module_name": "6 – Inheritance",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -1119,7 +1119,7 @@
             "explanation_en": "Abstract classes can contain a mix of abstract methods (no body) and concrete methods (with body). They cannot be instantiated directly, but they can have constructors (called by subclass constructors via super()).",
             "explanation_de": "Abstrakte Klassen können eine Mischung aus abstrakten Methoden (ohne Körper) und konkreten Methoden (mit Körper) enthalten. Sie können nicht direkt instanziiert werden, aber sie können Konstruktoren haben.",
             "module_name": "6 – Inheritance",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -1140,7 +1140,7 @@
             "explanation_en": "Declaring a class 'final' prevents it from being subclassed. java.lang.String is a well-known example of a final class.",
             "explanation_de": "Die Deklaration einer Klasse als 'final' verhindert, dass sie als Unterklasse gebildet werden kann. java.lang.String ist ein bekanntes Beispiel für eine finale Klasse.",
             "module_name": "6 – Inheritance",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -1161,7 +1161,7 @@
             "explanation_en": "toString() is defined in java.lang.Object and returns a string representation of the object. It is commonly overridden to provide meaningful output.",
             "explanation_de": "toString() ist in java.lang.Object definiert und gibt eine Zeichenkettendarstellung des Objekts zurück. Es wird häufig überschrieben, um eine aussagekräftige Ausgabe bereitzustellen.",
             "module_name": "6 – Inheritance",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -1182,7 +1182,7 @@
             "explanation_en": "super() calls the parent constructor first. So 'Animal created' is printed first, then control returns to the Dog constructor and prints 'Dog created'.",
             "explanation_de": "super() ruft zuerst den Elternkonstruktor auf. Daher wird zuerst 'Animal created' ausgegeben, dann kehrt die Kontrolle zum Dog-Konstruktor zurück und gibt 'Dog created' aus.",
             "module_name": "6 – Inheritance",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -1204,7 +1204,7 @@
             "explanation_de": "Kovariante Rückgabetypen erlauben einer überschreibenden Methode, einen spezifischeren (Untertyp-)Typ zurückzugeben als den in der Elternmethode deklarierten. Wenn die Elternklasse beispielsweise Animal zurückgibt, kann die Kindklasse Dog zurückgeben.",
             "module_name": "6 – Inheritance",
             "stats_correct": 0,
-            "stats_wrong": 0
+            "stats_wrong": 1
         },
         {
             "id": 58,
@@ -1225,7 +1225,7 @@
             "explanation_de": "Zeile 2 verursacht eine ClassCastException, weil 'a' tatsächlich auf ein Dog-Objekt verweist, nicht auf eine Cat. Zeile 1 ist sicher (Dog zu Dog gecastet). Zeile 3 ist ein Upcast (immer sicher).",
             "module_name": "6 – Inheritance",
             "stats_correct": 0,
-            "stats_wrong": 0
+            "stats_wrong": 1
         },
         {
             "id": 59,
@@ -1245,7 +1245,7 @@
             "explanation_en": "Dynamic (virtual) dispatch means name() is resolved at runtime based on the actual object type (Derived), not the reference type (Base). So print() calls Derived.name() and outputs 'Derived'.",
             "explanation_de": "Dynamischer (virtueller) Dispatch bedeutet, dass name() zur Laufzeit basierend auf dem tatsächlichen Objekttyp (Derived) aufgelöst wird, nicht dem Referenztyp (Base). Daher ruft print() Derived.name() auf und gibt 'Derived' aus.",
             "module_name": "6 – Inheritance",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -1269,7 +1269,7 @@
             "explanation_de": "Der Vertrag: Gleiche Objekte MÜSSEN gleiche Hash-Codes haben (A). Das Umgekehrte ist nicht erforderlich — Hash-Kollisionen sind erlaubt (B ist falsch). Object.equals() verwendet standardmäßig Referenzgleichheit (C). Das Verletzen des equals/hashCode-Vertrags bricht das Verhalten von HashMap und HashSet (D).",
             "module_name": "6 – Inheritance",
             "stats_correct": 0,
-            "stats_wrong": 0
+            "stats_wrong": 1
         },
         {
             "id": 61,
@@ -4464,7 +4464,7 @@
             "answer_count": 1,
             "explanation_en": "Java's widening primitive conversion follows the order: byte → short → int → long → float → double. Each step in this chain is done implicitly without a cast. The other options involve narrowing conversions (e.g. double → float) which require explicit casts.",
             "explanation_de": "Die erweiternde primitive Konvertierung in Java folgt der Reihenfolge: byte → short → int → long → float → double. Jeder Schritt in dieser Kette erfolgt implizit ohne Cast. Die anderen Optionen beinhalten verengende Konvertierungen (z.B. double → float), die explizite Casts erfordern.",
-            "stats_correct": 1,
+            "stats_correct": 3,
             "stats_wrong": 0
         },
         {
@@ -4485,7 +4485,7 @@
             "answer_count": 1,
             "explanation_en": "Integer.parseInt(String) returns a primitive int. Integer.valueOf(String) returns an Integer object (autoboxed). new Integer(String) is deprecated since Java 9. String.toInt() does not exist in Java.",
             "explanation_de": "Integer.parseInt(String) gibt einen primitiven int zurück. Integer.valueOf(String) gibt ein Integer-Objekt zurück (autoboxed). new Integer(String) ist seit Java 9 veraltet. String.toInt() existiert in Java nicht.",
-            "stats_correct": 1,
+            "stats_correct": 3,
             "stats_wrong": 0
         },
         {
@@ -4590,7 +4590,7 @@
             "answer_count": 1,
             "explanation_en": "Java caches Integer objects in the range -128 to 127 (the Integer cache). When autoboxing values in this range, the same cached object is returned, so == compares the same reference (true). Values outside this range (like 128) produce new objects each time, so == compares different references (false). Use .equals() for reliable Integer comparison.",
             "explanation_de": "Java cached Integer-Objekte im Bereich -128 bis 127 (der Integer-Cache). Beim Autoboxing von Werten in diesem Bereich wird dasselbe gecachte Objekt zurückgegeben, daher vergleicht == dieselbe Referenz (true). Werte außerhalb dieses Bereichs (wie 128) erzeugen jedes Mal neue Objekte, daher vergleicht == verschiedene Referenzen (false). Verwende .equals() für zuverlässige Integer-Vergleiche.",
-            "stats_correct": 1,
+            "stats_correct": 2,
             "stats_wrong": 0
         },
         {
@@ -4863,7 +4863,7 @@
             "answer_count": 1,
             "explanation_en": "substring(beginIndex, endIndex) returns chars from beginIndex (inclusive) to endIndex (exclusive). Index 1='e', 2='l', 3 excluded. Result: 'el'.",
             "explanation_de": "substring(beginIndex, endIndex) gibt Zeichen von beginIndex (inkl.) bis endIndex (exkl.) zurück. Index 1='e', 2='l', 3 ausgeschlossen. Ergebnis: 'el'.",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -4884,7 +4884,7 @@
             "answer_count": 1,
             "explanation_en": "String.valueOf(42) is idiomatic. (String) 42 is invalid — int is not a reference type. new String(int) does not exist. Primitives have no methods.",
             "explanation_de": "String.valueOf(42) ist idiomatisch. (String) 42 ist ungültig. new String(int) existiert nicht. Primitive haben keine Methoden.",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -4906,7 +4906,7 @@
             "explanation_en": "trim() removes chars with codepoint <= ' ' (ASCII). strip() (Java 11+) uses Character.isWhitespace(), recognizing Unicode whitespace too. Prefer strip() in modern code.",
             "explanation_de": "trim() entfernt Zeichen mit Codepoint <= ' ' (ASCII). strip() (Java 11+) nutzt Character.isWhitespace() und erkennt auch Unicode-Leerzeichen. Im modernen Code strip() bevorzugen.",
             "stats_correct": 0,
-            "stats_wrong": 0
+            "stats_wrong": 1
         },
         {
             "id": 234,
@@ -4926,7 +4926,7 @@
             "answer_count": 1,
             "explanation_en": "indexOf() returns the index of the FIRST occurrence. 'c' appears at index 2 and 5. First match: 2. Use lastIndexOf() for the last. Returns -1 if not found.",
             "explanation_de": "indexOf() gibt den Index des ERSTEN Vorkommens zurück. 'c' erscheint an Index 2 und 5. Erstes: 2. lastIndexOf() → letztes. Nicht gefunden → -1.",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -4948,7 +4948,7 @@
             "explanation_en": "%05d: integer, total width 5, zero-padded (0 flag). 42 gets 3 leading zeros: '00042'. Without 0 flag ('%5d'): '   42'.",
             "explanation_de": "%05d: Integer, Breite 5, mit Nullen aufgefüllt (0-Flag). 42 bekommt 3 führende Nullen: '00042'. Ohne 0-Flag: '   42'.",
             "stats_correct": 0,
-            "stats_wrong": 0
+            "stats_wrong": 1
         },
         {
             "id": 236,
@@ -4968,7 +4968,7 @@
             "answer_count": 1,
             "explanation_en": "replace(CharSequence, CharSequence) replaces ALL occurrences. 'hello world' has three 'l' chars (indices 2, 3, 9). All replaced: 'herro worrd'.",
             "explanation_de": "replace(CharSequence, CharSequence) ersetzt ALLE Vorkommen. 'hello world' hat drei 'l' (Index 2, 3, 9). Alle ersetzt: 'herro worrd'.",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -4989,7 +4989,7 @@
             "answer_count": 1,
             "explanation_en": "append('25') → 'Java25'. reverse() reverses the full buffer in-place → '52avaJ'. StringBuilder returns 'this' for chaining.",
             "explanation_de": "append('25') → 'Java25'. reverse() dreht den gesamten Inhalt um → '52avaJ'. StringBuilder gibt 'this' für Chaining zurück.",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -5010,7 +5010,7 @@
             "answer_count": 1,
             "explanation_en": "Strings are immutable. Each += allocates a new String (~1000 allocations in this loop). StringBuilder.append() mutates the internal buffer. The compiler does NOT auto-optimize concatenation inside loops.",
             "explanation_de": "Strings sind unveränderlich. Jedes += alloziert einen neuen String (~1000 Mal). StringBuilder.append() mutiert den internen Buffer. Der Compiler optimiert += in Schleifen NICHT automatisch.",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -5031,7 +5031,7 @@
             "answer_count": 1,
             "explanation_en": "chars() returns an IntStream. 'Java Programming' has lowercase 'a' at indices 1, 3, 11 (J[a]v[a] Progr[a]mming). Uppercase 'A' does not match. Result: 3.",
             "explanation_de": "chars() gibt einen IntStream zurück. 'Java Programming' hat kleines 'a' an Index 1, 3, 11. Großes 'A' passt nicht. Ergebnis: 3.",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -5052,7 +5052,7 @@
             "answer_count": 1,
             "explanation_en": "String.join(delimiter, Iterable) places the delimiter BETWEEN elements (not before/after). Result: 'one | two | three'. Available since Java 8.",
             "explanation_de": "String.join(delimiter, Iterable) setzt den Delimiter ZWISCHEN die Elemente. Ergebnis: 'one | two | three'. Seit Java 8.",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -5598,7 +5598,7 @@
             "explanation_en": "The while loop prints i before incrementing. i starts at 0 and the loop exits when i reaches 3 (condition i < 3 is false). Output: 0 1 2.",
             "explanation_de": "Die while-Schleife gibt i vor dem Inkrementieren aus. i beginnt bei 0, Schleife endet wenn i=3 (Bedingung i < 3 ist falsch). Ausgabe: 0 1 2.",
             "module_name": "2 – Primitive Types & Type Conversion",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -5703,7 +5703,7 @@
             "explanation_en": "200+100=300 computed as int. Casting to byte: 300 % 256 = 44. The byte range is -128 to 127; 300 overflows to 44.",
             "explanation_de": "200+100=300 wird als int berechnet. Cast zu byte: 300 % 256 = 44. Der byte-Bereich ist -128 bis 127; 300 überläuft zu 44.",
             "module_name": "2 – Primitive Types & Type Conversion",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -5745,7 +5745,7 @@
             "explanation_en": "String.isBlank() was introduced in Java 11. It returns true if the string is empty or contains only whitespace characters (including Unicode whitespace). trim().isEmpty() works similarly but trim() only removes ASCII whitespace.",
             "explanation_de": "String.isBlank() wurde in Java 11 eingeführt. Gibt true zurück wenn der String leer ist oder nur Leerzeichen enthält (inkl. Unicode-Whitespace). trim().isEmpty() funktioniert ähnlich, aber trim() entfernt nur ASCII-Whitespace.",
             "module_name": "3 – Strings & StringBuilder",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -5766,7 +5766,7 @@
             "explanation_en": "String.repeat(n) introduced in Java 11 concatenates the string n times. \"ab\".repeat(3) = \"ab\" + \"ab\" + \"ab\" = \"ababab\".",
             "explanation_de": "String.repeat(n), eingeführt in Java 11, verkettet den String n-mal. \"ab\".repeat(3) = \"ab\" + \"ab\" + \"ab\" = \"ababab\".",
             "module_name": "3 – Strings & StringBuilder",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -5788,7 +5788,7 @@
             "explanation_de": "strip() (Java 11) nutzt Character.isWhitespace(), das Unicode-Whitespace wie geschütztes Leerzeichen (\\u00A0) erkennt. trim() entfernt nur Zeichen mit Codepunkt <= '\\u0020' (ASCII). Beide geben neue String-Objekte zurück.",
             "module_name": "3 – Strings & StringBuilder",
             "stats_correct": 0,
-            "stats_wrong": 0
+            "stats_wrong": 1
         },
         {
             "id": 276,
@@ -5808,7 +5808,7 @@
             "explanation_en": "StringBuilder.reverse() reverses the character sequence in place. \"Hello\" reversed is \"olleH\". The method modifies the existing StringBuilder and returns it.",
             "explanation_de": "StringBuilder.reverse() kehrt die Zeichenfolge in-place um. \"Hello\" umgekehrt ergibt \"olleH\". Die Methode modifiziert den vorhandenen StringBuilder und gibt ihn zurück.",
             "module_name": "3 – Strings & StringBuilder",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -5829,7 +5829,7 @@
             "explanation_en": "StringBuilder.insert(int offset, String s) inserts the string at the given offset position. All characters at and after offset are shifted right. The method returns the StringBuilder for chaining.",
             "explanation_de": "StringBuilder.insert(int offset, String s) fügt den String an der angegebenen Position ein. Alle Zeichen ab offset werden nach rechts verschoben. Die Methode gibt den StringBuilder für Method-Chaining zurück.",
             "module_name": "3 – Strings & StringBuilder",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -5850,7 +5850,7 @@
             "explanation_en": "0.1 cannot be represented exactly in binary floating point. new BigDecimal(0.1) captures the imprecise double value (0.1000000000000000055511...). new BigDecimal(\"0.1\") creates exactly 0.1. Always use the String constructor or BigDecimal.valueOf(0.1) for precise values.",
             "explanation_de": "0.1 lässt sich nicht exakt als binäre Gleitkommazahl darstellen. new BigDecimal(0.1) übernimmt den ungenauen double-Wert (0.1000000000000000055511...). new BigDecimal(\"0.1\") erstellt exakt 0.1. Immer String-Konstruktor oder BigDecimal.valueOf(0.1) für präzise Werte verwenden.",
             "module_name": "3 – Strings & StringBuilder",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
