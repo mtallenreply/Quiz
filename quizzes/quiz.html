@@ -740,7 +740,8 @@ async function tryAutoLoad() {
 }
 
 async function exportJson() {
-  const json = JSON.stringify({meta: loadedMeta, questions: allQuestions}, null, 4);
+  const json = JSON.stringify({meta: loadedMeta, questions: allQuestions}, null, 4)
+    .replace(/\\u0026/g, '&').replace(/\\u003c/g, '<').replace(/\\u003e/g, '>');
 
   const download = () => {
     const a = document.createElement('a');
