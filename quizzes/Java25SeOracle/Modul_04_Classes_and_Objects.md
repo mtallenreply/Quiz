@@ -510,6 +510,255 @@ javadoc -d docs/api src/main/java/shop/*.java
 
 ---
 
+## 6. Lokale Typinferenz mit `var` `[Java 10]` — [Anfänger]
+
+Seit Java 10 kann der Typ einer lokalen Variable mit `var` deklariert werden. Der Compiler leitet den Typ automatisch aus dem Initializer ab. Das erhöht die Lesbarkeit, ohne Typsicherheit zu verlieren — der Typ wird zur Compile-Zeit festgelegt, nicht zur Laufzeit.
+
+`var` funktioniert ausschließlich für **lokale Variablen mit Initializer**. Felder, Methodenparameter und Rückgabetypen können nicht mit `var` deklariert werden.
+
+```java
+// Ohne var: Typ wird explizit geschrieben
+Product product = new Product("Apple", 0.89, 5);
+String name = product.getName();
+double price = product.getPrice();
+
+// Mit var: Typ wird aus dem Initializer abgeleitet
+var product = new Product("Apple", 0.89, 5);  // Typ: Product
+var name    = product.getName();               // Typ: String
+var price   = product.getPrice();             // Typ: double
+```
+
+```java
+// var in for-Schleifen
+var products = new Product[3];
+products[0] = new Product("Apple", 0.89, 5);
+
+for (var p : products) {           // Typ: Product
+    System.out.println(p);
+}
+
+// var bei komplexen generischen Typen — spart Tipparbeit
+var productMap = new java.util.HashMap<String, Product>(); // Typ bleibt HashMap<String,Product>
+productMap.put("apple", new Product("Apple", 0.89, 5));
+```
+
+> **Wichtige Regeln:** `var` braucht immer einen Initializer (`var x;` ist ein Kompilierungsfehler). `var` kann nicht `null` sein als einziger Initializer. `var` ist ein reservierter Typname, kein Keyword — Variablen können weiterhin `var` heißen (aber das vermeiden!).
+
+---
+
+## 7. Unbenannte Variablen mit `_` `[Java 22]` — [Fortgeschritten]
+
+Seit Java 22 (JEP 456) kann `_` (Unterstrich) als **unbenannte Variable** verwendet werden, wenn eine Variable syntaktisch erforderlich ist, ihr Wert aber nicht gebraucht wird. Dies verbessert die Lesbarkeit und signalisiert explizit, dass ein Wert bewusst ignoriert wird.
+
+Unbenannte Variablen unterscheiden sich von Unnamed Patterns (bereits in Abschnitt 4 gezeigt): Sie können in **lokalen Variablendeklarationen**, **for-Schleifen**, **catch-Blöcken** und **Lambda-Parametern** eingesetzt werden.
+
+```java
+// Catch-Block: Exception-Objekt wird nicht gebraucht
+try {
+    int value = Integer.parseInt("keine Zahl");
+} catch (NumberFormatException _) {
+    System.out.println("Ungültige Eingabe — Exception-Objekt nicht relevant");
+}
+
+// for-Schleife: Laufvariable wird nicht gebraucht
+for (var _ : products) {
+    count++;  // Nur zählen, Produktwert ignoriert
+}
+
+// Lambda: ein Parameter wird nicht verwendet
+products.forEach(_ -> System.out.println("Ein Produkt verarbeitet"));
+
+// Mehrere unbenannte Variablen im gleichen Scope sind erlaubt
+// (normale Variablen dürften denselben Namen nicht zweimal haben)
+try { doA(); } catch (Exception _) { }
+try { doB(); } catch (Exception _) { }
+```
+
+```java
+// Unnamed Pattern Variable bei instanceof (schon in Abschnitt 4)
+if (obj instanceof Product _) {
+    System.out.println("Ist ein Produkt — Wert nicht gebraucht");
+}
+
+// Kombination mit switch (Unnamed Pattern)
+switch (obj) {
+    case Integer i  -> System.out.println("Zahl: " + i);
+    case String _   -> System.out.println("Text ignoriert");
+    default         -> System.out.println("Anderer Typ");
+}
+```
+
+> **Merkhilfe:** `_` als Name ist ein Signal an den Leser: *"Dieser Wert existiert, wird aber bewusst nicht genutzt."* Vor Java 22 war `_` seit Java 9 als Identifier verboten; ab Java 22 hat er diese spezielle Bedeutung.
+
+---
+
+## 8. Instanz-Initialisierungsblöcke — [Fortgeschritten]
+
+Ein **Instanz-Initialisierungsblock** ist ein Block `{ ... }` direkt im Klassenrumpf (ohne Methodenname). Er wird **bei jeder Objekterstellung** ausgeführt — unmittelbar vor dem Konstruktor-Body, aber nach der Feldinitalisierung.
+
+Instanz-Initialisierungsblöcke sind nützlich, wenn mehrere Konstruktoren denselben Initialisierungscode teilen sollen, ohne einen gemeinsamen Hilfskonstruktor zu verwenden.
+
+```java
+public class Product {
+    private String name;
+    private double price;
+    private int rating;
+    private String createdAt;
+
+    // Instanz-Initialisierungsblock: wird bei JEDER Objekterstellung ausgeführt
+    {
+        createdAt = java.time.LocalDate.now().toString();
+        System.out.println("Instanz-Block ausgeführt");
+    }
+
+    // Konstruktor 1
+    public Product(String name, double price) {
+        this.name  = name;
+        this.price = price;
+        this.rating = 1;
+        System.out.println("Konstruktor 1 ausgeführt");
+    }
+
+    // Konstruktor 2
+    public Product(String name, double price, int rating) {
+        this.name   = name;
+        this.price  = price;
+        this.rating = rating;
+        System.out.println("Konstruktor 2 ausgeführt");
+    }
+}
+
+// Ausgabe bei: new Product("Apple", 0.89):
+// "Instanz-Block ausgeführt"
+// "Konstruktor 1 ausgeführt"
+```
+
+**Reihenfolge der Initialisierung bei einem neuen Objekt:**
+
+1. Statische Felder und statische Blöcke (nur beim ersten Laden der Klasse)
+2. Instanzfelder in Deklarationsreihenfolge
+3. Instanz-Initialisierungsblöcke in Textreihenfolge
+4. Konstruktor-Body
+
+```java
+public class Demo {
+    int a = 10;                  // Schritt 2: Feld
+
+    { a = 20; }                  // Schritt 3: Instanz-Block überschreibt
+
+    Demo() { a = 30; }           // Schritt 4: Konstruktor überschreibt
+
+    public static void main(String[] args) {
+        System.out.println(new Demo().a); // 30
+    }
+}
+```
+
+> Instanz-Initialisierungsblöcke sind in modernem Java selten — oft ist ein gemeinsamer privater Hilfskonstruktor (`this(...)`) eleganter. Sie sind aber ein Prüfungsthema und kommen in anonymen Klassen vor, die keine Konstruktoren haben können.
+
+---
+
+## 9. Statische Initialisierungsblöcke — [Fortgeschritten]
+
+Ein **statischer Initialisierungsblock** (`static { ... }`) wird **einmalig** ausgeführt, wenn die Klasse zum ersten Mal vom ClassLoader geladen wird — vor dem Erstellen irgendeines Objekts. Er eignet sich für komplexe Initialisierungslogik statischer Felder, die sich nicht in einem einfachen Feldausdruck ausdrücken lässt.
+
+```java
+public class ProductCatalog {
+    private static final java.util.Map<String, Double> TAX_RATES;
+
+    // Statischer Initialisierungsblock: läuft einmalig beim Laden der Klasse
+    static {
+        TAX_RATES = new java.util.HashMap<>();
+        TAX_RATES.put("Lebensmittel",    0.07);
+        TAX_RATES.put("Elektronik",      0.19);
+        TAX_RATES.put("Bücher",          0.07);
+        TAX_RATES.put("Luxusgüter",      0.19);
+        System.out.println("Steuersätze geladen");
+    }
+
+    public static double getTaxRate(String category) {
+        return TAX_RATES.getOrDefault(category, 0.19);
+    }
+}
+```
+
+```java
+// Mehrere statische Blöcke sind erlaubt — sie laufen in Textreihenfolge
+public class AppConfig {
+    static final String ENV;
+    static final int MAX_CONNECTIONS;
+
+    static {
+        ENV = System.getenv("APP_ENV") != null
+            ? System.getenv("APP_ENV")
+            : "development";
+    }
+
+    static {
+        // Zweiter Block: kann auf Ergebnisse des ersten zugreifen
+        MAX_CONNECTIONS = ENV.equals("production") ? 100 : 10;
+        System.out.println("Config geladen für: " + ENV);
+    }
+}
+```
+
+**Gesamtreihenfolge der Klasseninitialisierung:**
+
+| Schritt | Was passiert | Wann |
+|---|---|---|
+| 1 | Statische Felder auf Defaultwerte (`0`, `null`, `false`) | Beim Laden |
+| 2 | Statische Feldinitializer + `static`-Blöcke (in Textreihenfolge) | Beim Laden |
+| 3 | Instanzfelder auf Defaultwerte | Pro `new` |
+| 4 | Instanzfeld-Initializer + Instanz-Blöcke (in Textreihenfolge) | Pro `new` |
+| 5 | Konstruktor-Body | Pro `new` |
+
+> **Faustregel:** Statische Blöcke für Klassen-Setup, Instanz-Blöcke für Objekt-Setup. Beide laufen vor ihrem jeweiligen Konstruktor.
+
+---
+
+## 10. Garbage Collection — Überblick — [Anfänger]
+
+Java verwaltet den Speicher automatisch über den **Garbage Collector (GC)**. Objekte, auf die keine Referenz mehr zeigt, werden vom GC erkannt und ihr Speicher wird freigegeben. Entwickler müssen Speicher nie manuell freigeben (kein `free()` wie in C).
+
+```java
+void example() {
+    Product a = new Product("Apple", 0.89, 5);  // Objekt auf dem Heap
+    Product b = new Product("Birne", 1.20, 4);  // zweites Objekt
+
+    a = b;  // a zeigt nun auf "Birne" — das "Apple"-Objekt ist nicht mehr erreichbar
+            // → GC darf das "Apple"-Objekt aufräumen
+
+    b = null; // b zeigt nirgendwo mehr hin
+              // Das "Birne"-Objekt ist NOCH erreichbar (über keine Variable, aber GC läuft asynchron)
+              // Sobald GC läuft: Speicher wird freigegeben
+}
+// Nach return von example(): alle lokalen Variablen weg → beide Objekte GC-reif
+```
+
+**Wann ist ein Objekt GC-berechtigt?**
+- Es gibt keine erreichbare Referenz mehr auf das Objekt
+- Zirkuläre Referenzen ohne äußeren Anker werden ebenfalls erkannt
+
+```java
+// Zirkuläre Referenz — kein Problem für den GC
+class Node {
+    Node next;
+}
+
+Node n1 = new Node();
+Node n2 = new Node();
+n1.next = n2;
+n2.next = n1;
+
+n1 = null;
+n2 = null;
+// Beide Nodes sind jetzt GC-berechtigt, obwohl sie sich gegenseitig referenzieren
+```
+
+> **Hinweis:** `System.gc()` ist ein *Hinweis* an die JVM, den GC auszuführen — keine Garantie. Die Methode `finalize()` ist seit Java 9 deprecated und wird in Java 18+ nicht mehr unterstützt. Für Ressourcen-Cleanup: `try-with-resources` und `AutoCloseable` verwenden.
+
+---
+
 ## Übungsaufgaben
 
 ### Practice 4-1: Create the Product Management Application (ca. 27 Minuten)
@@ -814,6 +1063,90 @@ System.out.println(a.name);
 
 ---
 
+**Frage 11:** Was ist `var` in Java und wo darf es verwendet werden? `[Java 10]`
+
+- A) Ein Schlüsselwort, das den Typ zur Laufzeit ermittelt (dynamisch typisiert)
+- B) **Ein reservierter Typname für lokale Variablen mit Initializer; der Typ wird zur Compile-Zeit abgeleitet** ✓
+- C) Ein Modifier wie `final`, der Variablen unveränderlich macht
+- D) `var` kann überall verwendet werden: bei Feldern, Parametern und Rückgabetypen
+
+---
+
+**Frage 12:** Welcher Code kompiliert NICHT? `[Java 10]`
+
+- A) `var name = "Kaffee";`
+- B) `var price = 4.99;`
+- C) `for (var p : products) { ... }`
+- D) **`var x;`** ✓
+
+> *`var` ohne Initializer ist ein Kompilierungsfehler — der Compiler kann den Typ nicht ableiten.*
+
+---
+
+**Frage 13:** Wozu dient `_` als unbenannte Variable in Java? `[Java 22]`
+
+- A) Es ist ein gültiger Variablenname, den man wie jeden anderen verwenden kann
+- B) Es deaktiviert die Typprüfung im betreffenden Block
+- C) **Es markiert einen Wert, der syntaktisch benötigt wird, aber bewusst ignoriert werden soll** ✓
+- D) Es ist eine Kurzschreibweise für `null`
+
+---
+
+**Frage 14:** In welchem der folgenden Kontexte kann `_` NICHT verwendet werden? `[Java 22]`
+
+- A) `catch (Exception _) { ... }`
+- B) `for (var _ : list) { ... }`
+- C) `list.forEach(_ -> count++);`
+- D) **Als Name eines privaten Instanzfelds in einer öffentlichen Klasse** ✓
+
+> *`_` ist als unbenannte Variable nur in lokalen Kontexten erlaubt, nicht als Feldname.*
+
+---
+
+**Frage 15:** Wann wird ein Instanz-Initialisierungsblock ausgeführt?
+
+- A) Nur beim ersten Erstellen eines Objekts der Klasse
+- B) Beim Laden der Klasse, bevor irgendein Objekt existiert
+- C) **Bei jeder Objekterstellung, unmittelbar vor dem Konstruktor-Body** ✓
+- D) Nur wenn kein Konstruktor definiert wurde
+
+---
+
+**Frage 16:** In welcher Reihenfolge werden diese Teile ausgeführt, wenn `new Demo()` aufgerufen wird?
+
+```java
+class Demo {
+    int x = 1;
+    { x = 2; }
+    Demo() { x = 3; }
+}
+```
+
+- A) Konstruktor → Instanz-Block → Feld-Initializer
+- B) Instanz-Block → Feld-Initializer → Konstruktor
+- C) **Feld-Initializer (`x=1`) → Instanz-Block (`x=2`) → Konstruktor (`x=3`)** ✓
+- D) Alle drei gleichzeitig; Reihenfolge ist nicht definiert
+
+---
+
+**Frage 17:** Wie oft wird ein statischer Initialisierungsblock ausgeführt?
+
+- A) Bei jeder Objekterstellung der Klasse
+- B) Nie automatisch — nur wenn explizit aufgerufen
+- C) Bei jedem Programmstart mehrfach, je nach Thread-Anzahl
+- D) **Genau einmal, wenn die Klasse zum ersten Mal vom ClassLoader geladen wird** ✓
+
+---
+
+**Frage 18:** Wann ist ein Objekt berechtigt, vom Garbage Collector aufgeräumt zu werden?
+
+- A) Sobald die Methode, in der es erstellt wurde, zurückkehrt
+- B) Sobald `System.gc()` aufgerufen wird
+- C) **Sobald keine erreichbare Referenz mehr auf das Objekt zeigt** ✓
+- D) Erst wenn das Programm beendet wird
+
+---
+
 ## Skill Check: Typische Prüfungsfragen
 
 1. Was ist der Unterschied zwischen einer Klasse und einem Objekt?
@@ -826,3 +1159,8 @@ System.out.println(a.name);
 8. Was ist der `@Override`-Annotation und warum sollte man sie verwenden?
 9. Was ist Javadoc und wie wird es generiert?
 10. Was ist der Unterschied zwischen einer Instanzmethode und einer statischen Methode?
+11. Was ist `var` und welche Einschränkungen gelten für seine Verwendung? `[Java 10]`
+12. In welchen Kontexten kann `_` als unbenannte Variable eingesetzt werden? `[Java 22]`
+13. Was ist der Unterschied zwischen einem Instanz-Initialisierungsblock und einem statischen Initialisierungsblock?
+14. In welcher Reihenfolge werden statische Blöcke, Instanz-Blöcke und Konstruktoren ausgeführt?
+15. Was versteht man unter Garbage Collection und wann ist ein Objekt GC-berechtigt?

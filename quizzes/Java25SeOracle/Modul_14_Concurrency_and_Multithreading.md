@@ -1022,3 +1022,585 @@ volatile boolean stopp = false;
 | Producer-Consumer                   | `BlockingQueue` (z.B. `LinkedBlockingQueue`)   |
 | Gegeseitiger Ausschluss             | `synchronized` oder `ReentrantLock`            |
 | Sichtbarkeit eines Flags            | `volatile`                                     |
+| Threads auf gemeinsamen Punkt sync. | `CountDownLatch` / `CyclicBarrier`             |
+| Zugriffe auf Ressource begrenzen    | `Semaphore`                                    |
+| Thread-lokale unveränderliche Daten | `ScopedValue`                                  |
+| Parallele Stream-Verarbeitung       | `parallelStream()` / `Stream.parallel()`       |
+
+---
+
+## 13. Synchronisations-Hilfsmittel (java.util.concurrent)
+
+### 13.1 CountDownLatch [Fortgeschritten]
+
+Ein `CountDownLatch` ist ein einmaliger Synchronisations-Zähler: ein oder mehrere Threads warten mit `await()`, bis der Zähler durch `countDown()`-Aufrufe auf null fällt. Das Latch lässt sich nicht zurücksetzen – für wiederholbare Szenarien eignet sich `CyclicBarrier`. Typische Anwendungsfälle sind das Warten auf den Abschluss mehrerer paralleler Initialisierungsschritte oder das koordinierte Starten aller Threads gleichzeitig.
+
+```java
+import java.util.concurrent.*;
+
+// Szenario: Haupt-Thread wartet, bis 3 Dienste hochgefahren sind
+CountDownLatch bereit = new CountDownLatch(3);
+
+ExecutorService pool = Executors.newFixedThreadPool(3);
+
+for (int i = 1; i <= 3; i++) {
+    final int dienstNr = i;
+    pool.submit(() -> {
+        try {
+            Thread.sleep(dienstNr * 300L); // Simuliert Startzeit
+            System.out.println("Dienst " + dienstNr + " ist bereit");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } finally {
+            bereit.countDown(); // Zähler -1
+        }
+    });
+}
+
+System.out.println("Warte auf alle Dienste...");
+bereit.await();             // blockiert bis Zähler == 0
+// bereit.await(10, TimeUnit.SECONDS); // mit Timeout
+System.out.println("Alle Dienste gestartet – Anwendung läuft");
+
+pool.shutdown();
+```
+
+```java
+// Muster: Startschuss – alle Threads beginnen gleichzeitig
+CountDownLatch startschuss = new CountDownLatch(1);
+CountDownLatch fertig = new CountDownLatch(5);
+
+for (int i = 0; i < 5; i++) {
+    new Thread(() -> {
+        try {
+            startschuss.await(); // alle warten auf den Startschuss
+            // Aufgabe ausführen
+            System.out.println(Thread.currentThread().getName() + " gestartet");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } finally {
+            fertig.countDown();
+        }
+    }).start();
+}
+
+startschuss.countDown(); // alle 5 Threads gleichzeitig loslassen
+fertig.await();
+System.out.println("Alle Threads beendet");
+```
+
+> **Praxishinweis:** `CountDownLatch` ist einmalig verwendbar. Der Zähler kann nicht erhöht oder zurückgesetzt werden. Für Tests eignet er sich gut, um auf asynchrone Events zu warten.
+
+---
+
+### 13.2 CyclicBarrier [Fortgeschritten]
+
+Eine `CyclicBarrier` synchronisiert eine feste Anzahl von Threads an einem gemeinsamen Treffpunkt (Barrier). Sobald alle Teilnehmer `await()` aufgerufen haben, werden sie gleichzeitig freigegeben – und die Barriere wird automatisch zurückgesetzt, sodass sie in Schleifen wiederverwendet werden kann. Optional lässt sich eine Barrier-Aktion definieren, die genau einmal ausgeführt wird, bevor die Threads weiterlaufen.
+
+```java
+import java.util.concurrent.*;
+
+// 3 Threads verarbeiten jede Runde gemeinsam
+CyclicBarrier barriere = new CyclicBarrier(3, () ->
+    System.out.println("--- Alle Threads haben Runde abgeschlossen ---"));
+
+ExecutorService pool = Executors.newFixedThreadPool(3);
+
+for (int t = 0; t < 3; t++) {
+    final int threadNr = t;
+    pool.submit(() -> {
+        try {
+            for (int runde = 1; runde <= 3; runde++) {
+                // Simuliert Arbeit in dieser Runde
+                Thread.sleep((long)(Math.random() * 500));
+                System.out.printf("Thread %d: Runde %d abgeschlossen%n",
+                    threadNr, runde);
+
+                barriere.await(); // warten bis alle anderen auch fertig sind
+            }
+        } catch (InterruptedException | BrokenBarrierException e) {
+            Thread.currentThread().interrupt();
+        }
+    });
+}
+
+pool.shutdown();
+pool.awaitTermination(30, TimeUnit.SECONDS);
+```
+
+| Merkmal             | `CountDownLatch`          | `CyclicBarrier`                  |
+|---------------------|---------------------------|----------------------------------|
+| Wiederverwendbar    | Nein                      | Ja (automatisches Reset)         |
+| Wartet auf          | Zähler erreicht 0         | Alle Teilnehmer an Barriere      |
+| Barrier-Aktion      | Nein                      | Ja (optionaler `Runnable`)       |
+| Typischer Einsatz   | Einmaliges Event          | Iterative, phasenweise Arbeit    |
+
+> **Praxishinweis:** Bei `BrokenBarrierException` ist die Barriere dauerhaft defekt (z.B. durch Interrupt oder Timeout eines Teilnehmers). Danach müssen alle Threads neu synchronisiert werden.
+
+---
+
+### 13.3 Semaphore [Fortgeschritten]
+
+Ein `Semaphore` kontrolliert den gleichzeitigen Zugriff auf eine begrenzte Ressource durch einen Zähler von Permits. `acquire()` fordert ein Permit an (blockiert wenn keins verfügbar), `release()` gibt es zurück. Mit einem Permit von 1 verhält sich ein Semaphore wie ein Mutex; mit mehr Permits begrenzt er gleichzeitige Zugriffe auf eine festgelegte Anzahl.
+
+```java
+import java.util.concurrent.*;
+
+// Maximal 3 gleichzeitige Datenbankverbindungen
+Semaphore verbindungsPool = new Semaphore(3);
+
+ExecutorService pool = Executors.newFixedThreadPool(10);
+
+for (int i = 0; i < 10; i++) {
+    final int aufgabeNr = i;
+    pool.submit(() -> {
+        try {
+            System.out.println("Aufgabe " + aufgabeNr + " wartet auf Verbindung...");
+            verbindungsPool.acquire();  // blockiert wenn alle 3 belegt
+            try {
+                System.out.println("Aufgabe " + aufgabeNr + " hat Verbindung");
+                Thread.sleep(1000); // Simuliert DB-Abfrage
+            } finally {
+                verbindungsPool.release(); // Permit zurückgeben
+                System.out.println("Aufgabe " + aufgabeNr + " gibt Verbindung frei");
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    });
+}
+
+pool.shutdown();
+pool.awaitTermination(30, TimeUnit.SECONDS);
+```
+
+```java
+// Weitere nützliche Semaphore-Methoden
+Semaphore sem = new Semaphore(5);
+
+sem.acquire(2);             // 2 Permits gleichzeitig anfordern
+sem.release(2);             // 2 Permits gleichzeitig freigeben
+
+boolean erworben = sem.tryAcquire();           // sofort, ohne Blockieren
+boolean mitTimeout = sem.tryAcquire(1, TimeUnit.SECONDS); // mit Timeout
+
+System.out.println("Verfügbare Permits: " + sem.availablePermits());
+System.out.println("Wartende Threads:   " + sem.getQueueLength());
+
+// Fairer Semaphore: Threads werden in FIFO-Reihenfolge bedient
+Semaphore fairer = new Semaphore(3, true);
+```
+
+> **Praxishinweis:** `release()` sollte immer in einem `finally`-Block stehen. Ein Semaphore mit einem Permit kann als Mutex verwendet werden, anders als `synchronized` ist er aber nicht reentrant.
+
+---
+
+## 14. ScopedValue (Java 21) [Fortgeschritten]
+
+### 14.1 Motivation und Unterschied zu ThreadLocal
+
+`ScopedValue` (eingeführt in Java 21 als Preview, ab Java 25 stabil) ist ein Mechanismus zum unveränderlichen Weitergeben von Kontext-Daten an einen definierten Ausführungsbereich – ohne sie als Parameter durchzureichen. Im Gegensatz zu `ThreadLocal` sind `ScopedValue`-Werte unveränderlich (`final` im Scope), werden automatisch aufgeräumt wenn der Scope endet, und funktionieren korrekt mit Virtual Threads und Structured Concurrency.
+
+```java
+import java.lang.ScopedValue;
+
+// ScopedValue als Klassenkonstante deklarieren
+public class WebServer {
+
+    // Globale Konstante – kein Wert gesetzt bis Scope geöffnet wird
+    static final ScopedValue<String> BENUTZER_ID = ScopedValue.newInstance();
+    static final ScopedValue<String> ANFRAGE_ID  = ScopedValue.newInstance();
+
+    void handleAnfrage(String userId, String requestId) {
+        // Werte für diesen Scope binden – unveränderlich innerhalb des Scope
+        ScopedValue.where(BENUTZER_ID, userId)
+                   .where(ANFRAGE_ID, requestId)
+                   .run(() -> {
+                       // Innerhalb des Scope können alle Methoden den Wert lesen
+                       verarbeitungsLogik();
+                       datenbankAbruf();
+                   });
+        // Nach Ende des Scope: Werte nicht mehr zugänglich
+    }
+
+    void verarbeitungsLogik() {
+        // Kein Parameter nötig – Wert aus Scope lesen
+        String userId = BENUTZER_ID.get(); // wirft NoSuchElementException wenn kein Scope
+        System.out.println("Verarbeite Anfrage für Benutzer: " + userId);
+    }
+
+    void datenbankAbruf() {
+        System.out.printf("DB-Abfrage [Anfrage: %s, Benutzer: %s]%n",
+            ANFRAGE_ID.get(), BENUTZER_ID.get());
+    }
+}
+```
+
+### 14.2 ScopedValue mit Virtual Threads
+
+```java
+import java.lang.ScopedValue;
+import java.util.concurrent.*;
+
+static final ScopedValue<String> KONTEXT = ScopedValue.newInstance();
+
+// ScopedValue wird korrekt an erzeugte Virtual Threads vererbt
+ScopedValue.where(KONTEXT, "Eltern-Kontext").run(() -> {
+    try (var scope = StructuredTaskScope.open()) {
+        // Jeder Sub-Task erbt den ScopedValue des Eltern-Scopes
+        scope.fork(() -> {
+            System.out.println("Kind-Thread sieht: " + KONTEXT.get());
+            return null;
+        });
+        scope.join();
+    } catch (Exception e) {
+        Thread.currentThread().interrupt();
+    }
+});
+```
+
+| Merkmal           | `ThreadLocal`              | `ScopedValue`                     |
+|-------------------|----------------------------|------------------------------------|
+| Veränderlichkeit  | Ja (`set()`)               | Nein (unveränderlich im Scope)     |
+| Lebensdauer       | Manuell (`remove()`)       | Automatisch (Scope-Ende)           |
+| Virtual Threads   | Problematisch (Leak-Risiko)| Nativ unterstützt                  |
+| Vererbung         | `InheritableThreadLocal`   | Automatisch in StructuredTaskScope |
+| Lesbarkeit        | Implizit global            | Explizit, scope-gebunden           |
+
+> **Praxishinweis:** `ScopedValue.get()` wirft `NoSuchElementException` wenn der Wert nicht im aktuellen Scope gebunden ist. Mit `ScopedValue.orElse(defaultWert)` kann ein Fallback angegeben werden.
+
+---
+
+## 15. Structured Concurrency und StructuredTaskScope (Java 21+) [Professionell]
+
+### 15.1 Motivation
+
+Structured Concurrency (Java 21 Preview, Java 25 stabil) bringt die Struktur von sequentiellem Code in nebenläufige Programme: Subtasks werden innerhalb eines klar definierten Scopes gestartet und enden garantiert vor dem Scope-Ende. Fehler und Abbrüche werden einheitlich propagiert, ohne dass `Future`-Ergebnisse manuell auf Exceptions geprüft werden müssen.
+
+### 15.2 StructuredTaskScope
+
+```java
+import java.util.concurrent.*;
+import java.util.concurrent.StructuredTaskScope.*;
+
+// Beispiel: Preis und Verfügbarkeit parallel abfragen
+String bestellungAufgeben(int artikelId) throws InterruptedException {
+    try (var scope = StructuredTaskScope.open()) {
+        // Subtasks starten
+        Subtask<String> preis       = scope.fork(() -> holePdreisVonAPI(artikelId));
+        Subtask<Boolean> verfuegbar = scope.fork(() -> pruefeVerfuegbarkeit(artikelId));
+
+        scope.join(); // warten bis alle Subtasks beendet sind
+
+        // Ergebnisse auslesen (keine Exceptions mehr hier)
+        return "Preis: %s, Verfügbar: %s".formatted(
+            preis.get(), verfuegbar.get());
+    }
+    // Bei Exception in einem Subtask: andere werden automatisch abgebrochen
+}
+```
+
+```java
+// ShutdownOnFailure: Abbruch aller Tasks bei erstem Fehler
+String schnellsteAntwort() throws Exception {
+    try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
+        Subtask<String> taskA = scope.fork(() -> quelleA());
+        Subtask<String> taskB = scope.fork(() -> quelleB());
+
+        scope.join().throwIfFailed(); // wirft erste aufgetretene Exception
+
+        return taskA.get() + " | " + taskB.get();
+    }
+}
+
+// ShutdownOnSuccess: Abbruch sobald einer erfolgreich ist
+String schnellsteQuelle() throws Exception {
+    try (var scope = new StructuredTaskScope.ShutdownOnSuccess<String>()) {
+        scope.fork(() -> quelleA()); // langsam
+        scope.fork(() -> quelleB()); // schnell
+
+        return scope.join().result(); // gibt erstes erfolgreiches Ergebnis
+    }
+}
+```
+
+> **Praxishinweis:** `StructuredTaskScope` arbeitet am besten mit Virtual Threads. Beim Verlassen des `try`-Blocks werden alle noch laufenden Subtasks automatisch abgebrochen – kein manuelles `cancel()` nötig.
+
+---
+
+## 16. Parallel Streams [Fortgeschritten]
+
+### 16.1 Grundlagen parallelStream()
+
+Parallel Streams verteilen die Stream-Verarbeitung automatisch auf mehrere Threads des `ForkJoinPool.commonPool()`. Sie eignen sich für CPU-intensive Operationen auf großen Datensätzen, bei denen die Verarbeitungsreihenfolge keine Rolle spielt. Bei kleinen Listen oder I/O-Operationen kann der Overhead der Thread-Koordination die Verarbeitung langsamer machen als ein sequenzieller Stream.
+
+```java
+import java.util.List;
+import java.util.stream.*;
+
+List<Integer> zahlen = IntStream.rangeClosed(1, 1_000_000)
+    .boxed()
+    .collect(Collectors.toList());
+
+// Sequenziell
+long summeSeq = zahlen.stream()
+    .mapToLong(Integer::longValue)
+    .sum();
+
+// Parallel – automatisch auf ForkJoinPool.commonPool() aufgeteilt
+long summeParallel = zahlen.parallelStream()
+    .mapToLong(Integer::longValue)
+    .sum();
+
+// Bestehenden Stream parallel schalten
+long summeP2 = zahlen.stream()
+    .parallel()             // ab hier parallel
+    .mapToLong(Integer::longValue)
+    .sum();
+
+// Wieder sequenziell schalten
+long summeS2 = zahlen.parallelStream()
+    .sequential()           // ab hier wieder sequenziell
+    .mapToLong(Integer::longValue)
+    .sum();
+```
+
+### 16.2 Wann lohnen sich Parallel Streams?
+
+```java
+import java.util.concurrent.ForkJoinPool;
+
+// Parallele Verarbeitung: teurer, unveränderlicher Vorgang auf großer Liste
+List<Double> ergebnisse = IntStream.range(0, 100_000)
+    .parallel()
+    .mapToObj(i -> Math.sqrt(i) * Math.log(i + 1)) // CPU-intensiv
+    .collect(Collectors.toList());
+
+// Eigener ForkJoinPool (um commonPool nicht zu blockieren)
+ForkJoinPool eigenerPool = new ForkJoinPool(4);
+try {
+    List<String> verarbeitet = eigenerPool.submit(() ->
+        zahlen.parallelStream()
+              .map(n -> "Ergebnis-" + n)
+              .collect(Collectors.toList())
+    ).get();
+} catch (Exception e) {
+    Thread.currentThread().interrupt();
+} finally {
+    eigenerPool.shutdown();
+}
+
+// Reihenfolge ist bei parallel NICHT garantiert!
+List<Integer> ungeordnet = List.of(3, 1, 4, 1, 5, 9).parallelStream()
+    .filter(n -> n > 2)
+    .collect(Collectors.toList()); // Reihenfolge unbestimmt
+
+// forEachOrdered erzwingt Reihenfolge (reduziert Parallelität)
+zahlen.parallelStream()
+    .forEachOrdered(System.out::println); // langsamer, aber geordnet
+```
+
+### 16.3 Thread-Sicherheit bei Parallel Streams
+
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+// FALSCH – ArrayList ist nicht thread-sicher!
+List<Integer> unsicher = new ArrayList<>();
+IntStream.range(0, 1000)
+    .parallel()
+    .forEach(unsicher::add); // Race Condition! Ergebnis unvorhersehbar
+
+// RICHTIG – thread-sichere Sammlung verwenden
+var sicher = new ConcurrentLinkedQueue<Integer>();
+IntStream.range(0, 1000)
+    .parallel()
+    .forEach(sicher::add); // OK
+
+// BESSER – collect() ist intern thread-sicher
+List<Integer> korrekt = IntStream.range(0, 1000)
+    .parallel()
+    .boxed()
+    .collect(Collectors.toList()); // thread-sicher, keine externe Sammlung
+```
+
+| Szenario                            | Parallel sinnvoll?  | Begründung                                |
+|-------------------------------------|---------------------|-------------------------------------------|
+| Liste mit > 10.000 Elementen        | Oft ja              | Overhead amortisiert sich                 |
+| CPU-intensive Transformationen      | Ja                  | Mehrere Kerne auslasten                   |
+| I/O-Operationen (DB, Netzwerk)      | Nein                | ForkJoinPool ist nicht für I/O ausgelegt  |
+| Reihenfolge muss erhalten bleiben   | Mit Vorsicht        | `forEachOrdered` reduziert Vorteil        |
+| Wenige Elemente (< 1000)            | Nein                | Overhead überwiegt                        |
+| Zustandsbehaftete Lambdas           | Nein                | Thread-Safety muss selbst gewährleistet   |
+
+> **Praxishinweis:** `parallelStream()` verwendet `ForkJoinPool.commonPool()`, der von der gesamten JVM geteilt wird. Für Server-Anwendungen kann das den gemeinsamen Pool blockieren. Ein eigener `ForkJoinPool` oder `Executors.newVirtualThreadPerTaskExecutor()` ist dann vorzuziehen.
+
+---
+
+## 17. Executors.newSingleThreadExecutor – Details [Anfänger]
+
+### 17.1 Funktionsweise
+
+`Executors.newSingleThreadExecutor()` erzeugt einen `ExecutorService` mit genau einem Thread. Alle eingereichten Aufgaben werden sequenziell in der Reihenfolge ihrer Einreichung ausgeführt (FIFO). Fällt der interne Thread durch eine unbehandelte Exception aus, wird automatisch ein neuer Thread erzeugt – die Aufgabenreihenfolge bleibt erhalten. Das macht ihn ideal für sequenzielle Hintergrundverarbeitung ohne manuelle Thread-Verwaltung.
+
+```java
+import java.util.concurrent.*;
+
+ExecutorService einzelThread = Executors.newSingleThreadExecutor();
+
+// Alle Aufgaben werden sequenziell ausgeführt – nie gleichzeitig
+einzelThread.submit(() -> System.out.println("Aufgabe 1 von Thread: "
+    + Thread.currentThread().getName()));
+einzelThread.submit(() -> System.out.println("Aufgabe 2 – immer nach Aufgabe 1"));
+einzelThread.submit(() -> System.out.println("Aufgabe 3 – immer zuletzt"));
+
+// Gibt Future zurück – Ergebnis abholbar
+Future<Integer> ergebnis = einzelThread.submit(() -> {
+    Thread.sleep(100);
+    return 42;
+});
+System.out.println("Ergebnis: " + ergebnis.get());
+
+einzelThread.shutdown();
+einzelThread.awaitTermination(10, TimeUnit.SECONDS);
+```
+
+```java
+// Typischer Einsatz: Thread-sichere Protokollierung
+ExecutorService logWriter = Executors.newSingleThreadExecutor(r -> {
+    Thread t = new Thread(r, "Log-Writer");
+    t.setDaemon(true); // JVM wartet nicht auf diesen Thread
+    return t;
+});
+
+// Mehrere Threads können gleichzeitig Log-Einträge einreichen –
+// der einzelne Log-Thread schreibt sie der Reihe nach
+logWriter.submit(() -> schreibeInDatei("INFO: Anwendung gestartet"));
+logWriter.submit(() -> schreibeInDatei("DEBUG: Verbindung hergestellt"));
+```
+
+| Merkmal                     | `newSingleThreadExecutor()` | `newFixedThreadPool(1)`        |
+|-----------------------------|------------------------------|--------------------------------|
+| Anzahl Threads              | 1                            | 1                              |
+| Thread-Ersatz bei Exception | Ja (automatisch)             | Ja                             |
+| Pool-Größe änderbar         | Nein (versiegelt)            | Ja (via cast)                  |
+| Wrapper-Typ                 | Delegierender Wrapper        | `ThreadPoolExecutor`           |
+
+---
+
+## 18. Übungsaufgaben
+
+### Aufgabe 1: CountDownLatch – Parallelinitialisierung
+
+Schreibe eine Klasse `SystemStart`, die drei Dienste (`DatenbankDienst`, `CacheDienst`, `NetzwerkDienst`) parallel in eigenen Threads initialisiert. Der Haupt-Thread soll erst dann "System bereit" ausgeben, wenn alle drei Dienste hochgefahren sind. Verwende `CountDownLatch`.
+
+**Erwartete Ausgabe (Reihenfolge der Dienste kann variieren):**
+```
+DatenbankDienst gestartet
+CacheDienst gestartet
+NetzwerkDienst gestartet
+System bereit
+```
+
+### Aufgabe 2: Semaphore – Ressourcenpool
+
+Implementiere einen `DruckerPool` mit 2 gleichzeitig nutzbaren Druckern. Zehn Threads wollen gleichzeitig drucken. Mit `Semaphore(2)` soll sichergestellt werden, dass nie mehr als 2 Threads gleichzeitig drucken.
+
+### Aufgabe 3: Parallel Streams – Primzahlen
+
+Berechne alle Primzahlen von 2 bis 1.000.000 mit einem parallelen Stream. Vergleiche die Laufzeit mit einer sequenziellen Variante. Achte darauf, eine thread-sichere Sammlung oder `collect()` für das Ergebnis zu verwenden.
+
+### Aufgabe 4: ScopedValue – Anfrage-Kontext
+
+Simuliere einen Mini-Webserver mit `ScopedValue`. Jede "Anfrage" bindet eine `ANFRAGE_ID` und eine `BENUTZER_ID`. Drei Hilfsmethoden (`Authentifizierung`, `Validierung`, `Protokollierung`) sollen diese Werte lesen, ohne sie als Parameter zu erhalten.
+
+---
+
+## 19. Multiple-Choice-Fragen
+
+**Frage 1:** Welche Aussage zu `CountDownLatch` ist korrekt?
+
+- A) Der Zähler kann nach Erreichen von 0 zurückgesetzt werden
+- B) Mehrere Threads können gleichzeitig `countDown()` aufrufen, ohne Synchronisation zu benötigen
+- **C) Sobald der Zähler 0 erreicht, werden alle wartenden Threads sofort freigegeben** ✓
+- D) `await()` blockiert nur genau einen wartenden Thread
+
+**Frage 2:** Was unterscheidet `CyclicBarrier` von `CountDownLatch`?
+
+- A) `CyclicBarrier` kann nur von einem Thread verwendet werden
+- **B) `CyclicBarrier` kann nach jeder Runde wiederverwendet werden, `CountDownLatch` nicht** ✓
+- C) `CountDownLatch` unterstützt eine Barrier-Aktion, `CyclicBarrier` nicht
+- D) Beide sind funktional identisch
+
+**Frage 3:** Ein `Semaphore` wird mit `new Semaphore(1)` erstellt. Wie verhält er sich?
+
+- A) Er erlaubt unbegrenzte gleichzeitige Zugriffe
+- B) Er erlaubt genau 2 gleichzeitige Zugriffe (ein Zähler, ein Slot)
+- **C) Er verhält sich wie ein Mutex – nur ein Thread kann gleichzeitig `acquire()` halten** ✓
+- D) Er entspricht einem `ReentrantLock` und ist damit reentrant
+
+**Frage 4:** Welche Aussage zu `ScopedValue` im Vergleich zu `ThreadLocal` ist korrekt?
+
+- A) `ScopedValue` erlaubt `set()`-Aufrufe zum Ändern des Werts im selben Scope
+- B) `ThreadLocal`-Werte werden automatisch aufgeräumt; bei `ScopedValue` muss `remove()` aufgerufen werden
+- **C) `ScopedValue`-Werte sind unveränderlich innerhalb ihres Scopes und werden automatisch aufgeräumt** ✓
+- D) `ScopedValue` ist nur für Platform-Threads verwendbar, nicht für Virtual Threads
+
+**Frage 5:** Was gibt `ScopedValue.get()` zurück, wenn kein Wert gebunden wurde?
+
+- A) `null`
+- B) Den zuletzt gesetzten Wert aus einem äußeren Scope
+- C) Den Standardwert, der bei `newInstance()` angegeben wurde
+- **D) Es wird eine `NoSuchElementException` geworfen** ✓
+
+**Frage 6:** Welcher der folgenden Anwendungsfälle ist am besten für `parallelStream()` geeignet?
+
+- A) Schreiben von Datenbankeinträgen mit JDBC
+- **B) Berechnung von SHA-256-Hashes für eine Million Strings** ✓
+- C) Sequentielles Schreiben von Log-Einträgen in eine Datei
+- D) Abrufen von Daten aus 10 REST-APIs
+
+**Frage 7:** Was passiert, wenn in einem `parallelStream()` mit `forEach()` in eine normale `ArrayList` geschrieben wird?
+
+- A) Java sperrt die Liste automatisch (thread-sicher durch JVM)
+- B) Es wird eine `ConcurrentModificationException` geworfen
+- **C) Race Conditions können auftreten – das Ergebnis ist unvorhersehbar** ✓
+- D) Die Parallelisierung wird automatisch deaktiviert
+
+**Frage 8:** Welchen `ForkJoinPool` verwendet `parallelStream()` standardmäßig?
+
+- A) Einen neu erstellten, dedizierten Pool pro Stream-Aufruf
+- B) Den `ExecutorService` des aktuellen Threads
+- **C) Den `ForkJoinPool.commonPool()`, der JVM-weit geteilt wird** ✓
+- D) `Executors.newWorkStealingPool()` mit fixer Thread-Anzahl
+
+**Frage 9:** `Executors.newSingleThreadExecutor()` – was unterscheidet ihn von `Executors.newFixedThreadPool(1)`?
+
+- **A) `newSingleThreadExecutor()` gibt einen versiegelten Wrapper zurück, dessen Pool-Größe nicht geändert werden kann** ✓
+- B) `newSingleThreadExecutor()` verwendet Virtual Threads
+- C) Bei `newFixedThreadPool(1)` wird ein ausgefallener Thread nicht ersetzt
+- D) Es gibt keinen funktionalen Unterschied
+
+**Frage 10:** Was ist der Zweck von `StructuredTaskScope.ShutdownOnFailure`?
+
+- A) Es beendet alle Threads der JVM wenn ein Fehler auftritt
+- **B) Es bricht alle noch laufenden Subtasks ab, sobald einer eine Exception wirft** ✓
+- C) Es ignoriert Exceptions in Subtasks und gibt `null` zurück
+- D) Es startet fehlgeschlagene Subtasks automatisch neu
+
+---
+
+## Skill Check: Ergänzte Themen
+
+Beantworte folgende Fragen, um den Lernfortschritt zu den neuen Themen zu prüfen (Ziel: mind. 80 %):
+
+- [ ] Erkläre den Unterschied zwischen `CountDownLatch` und `CyclicBarrier` und nenne je einen typischen Einsatzfall.
+- [ ] Implementiere einen `Semaphore`-basierten Ressourcenpool (z.B. für 3 Datenbankverbindungen).
+- [ ] Erkläre, warum `ScopedValue` bei Virtual Threads `ThreadLocal` überlegen ist.
+- [ ] Binde einen Wert mit `ScopedValue.where(...).run(...)` und lies ihn in einer Hilfsmethode aus.
+- [ ] Beschreibe zwei Szenarien, in denen `parallelStream()` sinnvoll ist, und zwei, in denen es kontraproduktiv ist.
+- [ ] Erkläre, warum `collect()` bei parallelen Streams thread-sicher ist, `ArrayList::add` dagegen nicht.
+- [ ] Erkläre, was `Executors.newSingleThreadExecutor()` bei einer unbehandelten Exception in einer Aufgabe macht.
+- [ ] Beschreibe, wie `StructuredTaskScope.ShutdownOnSuccess` bei redundanten parallelen Anfragen helfen kann.

@@ -22,7 +22,7 @@
             "explanation_en": "The JVM (Java Virtual Machine) is the runtime engine that executes Java bytecode. It is platform-specific, which is why the same bytecode can run on any platform that has a JVM — this is the foundation of WORA (Write Once, Run Anywhere). Compilation to bytecode is done by javac, not the JVM.",
             "explanation_de": "Die JVM (Java Virtual Machine) ist die Laufzeitumgebung, die Java-Bytecode ausführt. Sie ist plattformspezifisch, weshalb derselbe Bytecode auf jeder Plattform mit einer JVM läuft – dies ist die Grundlage von WORA (Write Once, Run Anywhere). Die Kompilierung zu Bytecode erfolgt durch javac, nicht durch die JVM.",
             "module_name": "1 – Java Platform & Environment",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -43,7 +43,7 @@
             "explanation_en": "The JDK (Java Development Kit) contains all tools needed to develop Java applications, including the javac compiler, the java launcher, javadoc, and more. The JRE contains only what is needed to run Java programs (JVM + libraries). The JDK includes the JRE.",
             "explanation_de": "Das JDK (Java Development Kit) enthält alle Werkzeuge zur Entwicklung von Java-Anwendungen, einschließlich des javac-Compilers, des java-Launchers, javadoc und mehr. Die JRE enthält nur das, was zum Ausführen von Java-Programmen benötigt wird (JVM + Bibliotheken). Das JDK enthält die JRE.",
             "module_name": "1 – Java Platform & Environment",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -64,7 +64,7 @@
             "explanation_en": "When javac compiles a .java source file, it produces a .class file containing Java bytecode. This bytecode is a platform-neutral intermediate representation that the JVM can execute on any supported platform.",
             "explanation_de": "Wenn javac eine .java-Quelldatei kompiliert, erzeugt es eine .class-Datei, die Java-Bytecode enthält. Dieser Bytecode ist eine plattformneutrale Zwischendarstellung, die die JVM auf jeder unterstützten Plattform ausführen kann.",
             "module_name": "1 – Java Platform & Environment",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -85,7 +85,7 @@
             "explanation_en": "Encapsulation is the OOP pillar that involves bundling data (fields) and methods together and restricting direct access to some components, typically by making fields private and providing public getter/setter methods. Abstraction hides complexity behind a simplified interface.",
             "explanation_de": "Kapselung (Encapsulation) ist das OOP-Prinzip, bei dem Daten (Felder) und Methoden zusammengefasst und der direkte Zugriff auf einige Komponenten eingeschränkt wird, typischerweise durch private Felder und öffentliche Getter/Setter-Methoden. Abstraktion verbirgt Komplexität hinter einer vereinfachten Schnittstelle.",
             "module_name": "1 – Java Platform & Environment",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -106,7 +106,7 @@
             "explanation_en": "The 'java' command launches the JVM and executes the specified class. You provide the class name (without the .class extension), not the filename. The 'javac' command is used to compile .java source files into .class bytecode files.",
             "explanation_de": "Der Befehl 'java' startet die JVM und führt die angegebene Klasse aus. Man gibt den Klassennamen (ohne die .class-Erweiterung) an, nicht den Dateinamen. Der Befehl 'javac' wird verwendet, um .java-Quelldateien in .class-Bytecode-Dateien zu kompilieren.",
             "module_name": "1 – Java Platform & Environment",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -127,7 +127,7 @@
             "explanation_en": "Java 21 introduced JEP 445 (Preview) and it became standard in later versions including Java 25: instance main methods. A class can declare 'void main()' without static or String[] args, and the JVM will instantiate the class and call the method. This simplified entry point is valid in Java 25.",
             "explanation_de": "Java 21 führte JEP 445 (Preview) ein, das in späteren Versionen einschließlich Java 25 standardisiert wurde: Instanz-main-Methoden. Eine Klasse kann 'void main()' ohne static oder String[] args deklarieren, und die JVM instanziiert die Klasse und ruft die Methode auf. Dieser vereinfachte Einstiegspunkt ist in Java 25 gültig.",
             "module_name": "1 – Java Platform & Environment",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -149,7 +149,7 @@
             "explanation_en": "WORA works because (B) javac compiles Java source to platform-neutral bytecode (.class files), and (C) each platform has its own JVM implementation that can execute this bytecode. The JVM is platform-specific, but the bytecode it runs is not. This combination enables the same .class file to run on Windows, Linux, macOS, etc.",
             "explanation_de": "WORA funktioniert, weil (B) javac Java-Quellcode in plattformneutralen Bytecode (.class-Dateien) kompiliert und (C) jede Plattform ihre eigene JVM-Implementierung hat, die diesen Bytecode ausführen kann. Die JVM ist plattformspezifisch, aber der Bytecode, den sie ausführt, ist es nicht. Diese Kombination ermöglicht es, dieselbe .class-Datei unter Windows, Linux, macOS usw. auszuführen.",
             "module_name": "1 – Java Platform & Environment",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -170,7 +170,7 @@
             "explanation_en": "This scenario demonstrates Polymorphism — specifically runtime polymorphism (dynamic dispatch). When animal.speak() is called on an Animal reference that actually holds a Dog or Cat object, the JVM calls the correct overridden method at runtime. Inheritance is also involved, but polymorphism is what allows one interface (animal.speak()) to work for multiple forms.",
             "explanation_de": "Dieses Szenario demonstriert Polymorphismus – insbesondere Laufzeit-Polymorphismus (dynamische Bindung). Wenn animal.speak() auf einer Animal-Referenz aufgerufen wird, die tatsächlich ein Dog- oder Cat-Objekt enthält, ruft die JVM zur Laufzeit die korrekte überschriebene Methode auf. Vererbung ist ebenfalls beteiligt, aber Polymorphismus ermöglicht es, dass eine Schnittstelle (animal.speak()) für mehrere Formen funktioniert.",
             "module_name": "1 – Java Platform & Environment",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -191,7 +191,7 @@
             "explanation_en": "When both public static void main(String[] args) and void main() exist, the JVM selects the classic static main as the entry point because it has higher priority. The static main creates a Greeter('World') and calls instance main(), which prints 'Hi, World'. There is no compilation error — overloading main is valid.",
             "explanation_de": "Wenn sowohl public static void main(String[] args) als auch void main() vorhanden sind, wählt die JVM die klassische statische main als Einstiegspunkt, da sie eine höhere Priorität hat. Die statische main erstellt einen Greeter('World') und ruft die Instanz-main() auf, die 'Hi, World' ausgibt. Es gibt keinen Kompilierungsfehler – das Überladen von main ist gültig.",
             "module_name": "1 – Java Platform & Environment",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -212,7 +212,7 @@
             "explanation_en": "Java was publicly released by Sun Microsystems in 1995 (Java 1.0). Java 5 (also called J2SE 5.0 or JDK 1.5), released in 2004, introduced Generics, annotations, autoboxing, enums, varargs, and the enhanced for-loop. Lambda expressions were introduced much later in Java 8 (2014).",
             "explanation_de": "Java wurde 1995 von Sun Microsystems veröffentlicht (Java 1.0). Java 5 (auch J2SE 5.0 oder JDK 1.5 genannt), veröffentlicht im Jahr 2004, führte Generics, Annotationen, Autoboxing, Enums, Varargs und die erweiterte for-Schleife ein. Lambda-Ausdrücke wurden erst viel später in Java 8 (2014) eingeführt.",
             "module_name": "1 – Java Platform & Environment",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -233,7 +233,7 @@
             "explanation_en": "In Java, 'long' is a 64-bit signed two's complement integer with a range of -2^63 to 2^63-1. The other integer types are: byte (8-bit), short (16-bit), int (32-bit), long (64-bit). Long literals are written with an 'L' suffix, e.g., 100L.",
             "explanation_de": "In Java ist 'long' ein vorzeichenbehaftetes 64-Bit-Zweierkomplement-Integer mit einem Bereich von -2^63 bis 2^63-1. Die anderen Integer-Typen sind: byte (8-Bit), short (16-Bit), int (32-Bit), long (64-Bit). Long-Literale werden mit dem Suffix 'L' geschrieben, z.B. 100L.",
             "module_name": "2 – Primitive Types & Type Conversion",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -255,7 +255,7 @@
             "explanation_en": "The eight Java primitive types are: byte, short, int, long (integer types), float, double (floating-point types), char (character type), and boolean (true/false). String is NOT a primitive — it is a class in java.lang. Options A and B together list all eight correctly.",
             "explanation_de": "Die acht primitiven Java-Typen sind: byte, short, int, long (Integer-Typen), float, double (Gleitkomma-Typen), char (Zeichentyp) und boolean (wahr/falsch). String ist KEIN primitiver Typ – es ist eine Klasse in java.lang. Optionen A und B listen zusammen alle acht korrekt auf.",
             "module_name": "2 – Primitive Types & Type Conversion",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -276,7 +276,7 @@
             "explanation_en": "The % operator is the modulus (remainder) operator. 10 divided by 3 is 3 with a remainder of 1. So 10 % 3 = 1. This operator is frequently used to check for even/odd numbers (n % 2 == 0 means even) or to wrap values within a range.",
             "explanation_de": "Der Operator % ist der Modulo-(Rest-)Operator. 10 geteilt durch 3 ergibt 3 mit einem Rest von 1. Also ist 10 % 3 = 1. Dieser Operator wird häufig verwendet, um auf gerade/ungerade Zahlen zu prüfen (n % 2 == 0 bedeutet gerade) oder um Werte in einem Bereich zu halten.",
             "module_name": "2 – Primitive Types & Type Conversion",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -297,7 +297,7 @@
             "explanation_en": "Widening conversion happens automatically when a smaller type is assigned to a larger type without data loss. Assigning an int (32-bit) to a double (64-bit) is widening — no cast is needed. Option A and D use explicit casts (narrowing), and Option B causes a compile error because 200 exceeds byte range (-128 to 127).",
             "explanation_de": "Erweiternde Konvertierung erfolgt automatisch, wenn ein kleinerer Typ einem größeren Typ zugewiesen wird, ohne Datenverlust. Die Zuweisung eines int (32-Bit) zu einem double (64-Bit) ist eine Erweiterung – kein Cast ist erforderlich. Option A und D verwenden explizite Casts (Einschränkung), und Option B verursacht einen Kompilierungsfehler, da 200 den byte-Bereich (-128 bis 127) überschreitet.",
             "module_name": "2 – Primitive Types & Type Conversion",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -318,7 +318,7 @@
             "explanation_en": "x++ is the post-increment operator. It returns the current value of x (5) first and then increments x. So the first println prints 5. After the increment, x becomes 6, so the second println prints 6. Pre-increment (++x) would increment first and then return the new value.",
             "explanation_de": "x++ ist der Post-Inkrement-Operator. Er gibt zuerst den aktuellen Wert von x (5) zurück und inkrementiert dann x. Das erste println gibt also 5 aus. Nach dem Inkrement wird x zu 6, also gibt das zweite println 6 aus. Pre-Inkrement (++x) würde zuerst inkrementieren und dann den neuen Wert zurückgeben.",
             "module_name": "2 – Primitive Types & Type Conversion",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -339,7 +339,7 @@
             "explanation_en": "The arrow (->)syntax in switch expressions, introduced in Java 14 as standard, does not fall through and directly returns the value. When day is 3, the case 3 -> \"Wednesday\" matches and the expression evaluates to \"Wednesday\". No yield keyword is needed with arrow syntax (yield is only required with block bodies).",
             "explanation_de": "Die Pfeil-(->)-Syntax in Switch-Ausdrücken, in Java 14 als Standard eingeführt, fällt nicht durch und gibt den Wert direkt zurück. Wenn day gleich 3 ist, stimmt case 3 -> \"Wednesday\" überein und der Ausdruck ergibt \"Wednesday\". Mit Pfeilsyntax ist kein yield-Schlüsselwort erforderlich (yield ist nur bei Block-Bodies erforderlich).",
             "module_name": "2 – Primitive Types & Type Conversion",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -360,7 +360,7 @@
             "explanation_en": "The key difference is that a do-while loop always executes its body at least once because the condition is checked after the body executes. A while loop checks the condition first, so if the condition is false initially, the body never executes. Note: option D is actually also true (do-while requires a semicolon after the while condition), but B is the primary behavioral distinction being tested.",
             "explanation_de": "Der Hauptunterschied besteht darin, dass eine do-while-Schleife ihren Körper immer mindestens einmal ausführt, da die Bedingung nach der Ausführung des Körpers geprüft wird. Eine while-Schleife prüft die Bedingung zuerst, sodass der Körper nie ausgeführt wird, wenn die Bedingung anfangs falsch ist.",
             "module_name": "2 – Primitive Types & Type Conversion",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -381,7 +381,7 @@
             "explanation_en": "The loop iterates i from 0 to 4. When i=0,1,2 neither condition triggers, so they are printed. When i=3, 'continue' skips the rest of the loop body (print statement) and goes to the next iteration. When i=4, 'break' exits the loop immediately before printing. Result: '0 1 2'.",
             "explanation_de": "Die Schleife iteriert i von 0 bis 4. Wenn i=0,1,2 wird keine Bedingung ausgelöst, also werden sie gedruckt. Wenn i=3, überspringt 'continue' den Rest des Schleifenkörpers (print-Anweisung) und geht zur nächsten Iteration. Wenn i=4, beendet 'break' die Schleife sofort, bevor sie druckt. Ergebnis: '0 1 2'.",
             "module_name": "2 – Primitive Types & Type Conversion",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -402,7 +402,7 @@
             "explanation_en": "byte has a range of -128 to 127. 200 in binary (8-bit) is 11001000. In two's complement, the leading 1 makes it negative. 200 - 256 = -56. So the narrowing cast truncates to the lower 8 bits: 200 mod 256 = 200, but interpreted as signed byte: 200 - 256 = -56. This is data loss from narrowing conversion.",
             "explanation_de": "byte hat einen Bereich von -128 bis 127. 200 im Binärformat (8-Bit) ist 11001000. Im Zweierkomplement macht das führende 1 es negativ. 200 - 256 = -56. Die einschränkende Umwandlung schneidet auf die unteren 8 Bits ab: 200 mod 256 = 200, aber als vorzeichenbehaftetes Byte interpretiert: 200 - 256 = -56. Dies ist Datenverlust durch einschränkende Konvertierung.",
             "module_name": "2 – Primitive Types & Type Conversion",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -423,7 +423,7 @@
             "explanation_en": "Binary: x=1010 (10), y=1100 (12). AND (&): 1010 & 1100 = 1000 (8). OR (|): 1010 | 1100 = 1110 (14). XOR (^): 1010 ^ 1100 = 0110 (6). toBinaryString omits leading zeros so 0110 is printed as '110'. Result: '1000', '1110', '110'.",
             "explanation_de": "Binär: x=1010 (10), y=1100 (12). AND (&): 1010 & 1100 = 1000 (8). OR (|): 1010 | 1100 = 1110 (14). XOR (^): 1010 ^ 1100 = 0110 (6). toBinaryString lässt führende Nullen weg, daher wird 0110 als '110' ausgegeben. Ergebnis: '1000', '1110', '110'.",
             "module_name": "2 – Primitive Types & Type Conversion",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -3814,7 +3814,7 @@
             "explanation_de": "Obere Schranken bei Typparametern verwenden das Schlüsselwort 'extends', z.B. <T extends Number>. 'super' wird für untere Schranken bei Wildcards verwendet, nicht bei Typparametern. 'implements' und ':' sind keine gültige Java-Generics-Syntax.",
             "module_name": "19 – Generics",
             "stats_correct": 0,
-            "stats_wrong": 0
+            "stats_wrong": 1
         },
         {
             "id": 182,
@@ -3835,7 +3835,7 @@
             "explanation_de": "Der unbegrenzte Wildcard '?' steht für einen beliebigen unbekannten Typ und entspricht '? extends Object'. Primitive Typen sind nicht eingeschlossen (Generics funktionieren nie direkt mit Primitives) und es ist nicht auf direkte Unterklassen von Object beschränkt.",
             "module_name": "19 – Generics",
             "stats_correct": 0,
-            "stats_wrong": 0
+            "stats_wrong": 1
         },
         {
             "id": 183,
@@ -3856,7 +3856,7 @@
             "explanation_de": "PECS steht für Producer Extends, Consumer Super. Verwende '? extends T', wenn die Collection Werte produziert (bereitstellt) zum Lesen. Verwende '? super T', wenn die Collection Werte konsumiert (akzeptiert) zum Schreiben.",
             "module_name": "19 – Generics",
             "stats_correct": 0,
-            "stats_wrong": 0
+            "stats_wrong": 1
         },
         {
             "id": 184,
@@ -3876,7 +3876,7 @@
             "explanation_en": "Type erasure means the Java compiler removes all generic type information during compilation. At runtime, generic types are replaced with their bounds (or Object if unbounded), so List<String> and List<Integer> are the same class at runtime.",
             "explanation_de": "Type Erasure bedeutet, dass der Java-Compiler alle generischen Typinformationen während der Kompilierung entfernt. Zur Laufzeit werden generische Typen durch ihre Schranken ersetzt (oder Object bei unbegrenzten), sodass List<String> und List<Integer> zur Laufzeit dieselbe Klasse sind.",
             "module_name": "19 – Generics",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -3898,7 +3898,7 @@
             "explanation_de": "Die Erstellung generischer Arrays (new T[10]) ist in Java aufgrund von Type Erasure nicht erlaubt. Zur Laufzeit wird T auf seine Schranke oder Object gelöscht, was die Durchsetzung von Typsicherheit unmöglich macht. Arrays von unbegrenzten Wildcards wie new List<?>[10] sind jedoch erlaubt.",
             "module_name": "19 – Generics",
             "stats_correct": 0,
-            "stats_wrong": 0
+            "stats_wrong": 1
         },
         {
             "id": 186,
@@ -3919,7 +3919,7 @@
             "explanation_de": "Sowohl 'List<? extends Number>' als auch 'List<Number>' ermöglichen das Lesen von Elementen als Number. Mit '? extends Number' sind Elemente garantiert Number oder ein Untertyp. Mit 'List<Number>' sind Elemente genau Number. 'List<? super Number>' garantiert NICHT, dass der Elementtyp Number ist — es könnte Object sein.",
             "module_name": "19 – Generics",
             "stats_correct": 0,
-            "stats_wrong": 0
+            "stats_wrong": 1
         },
         {
             "id": 187,
@@ -3939,7 +3939,7 @@
             "explanation_en": "Bridge methods are synthetic methods generated by the Java compiler to maintain polymorphism after type erasure. When a class implements a generic interface and provides a type-specific override, the compiler generates a bridge method with the erased signature that delegates to the type-specific method.",
             "explanation_de": "Bridge-Methoden sind synthetische Methoden, die der Java-Compiler generiert, um Polymorphismus nach Type Erasure aufrechtzuerhalten. Wenn eine Klasse eine generische Schnittstelle implementiert und eine typspezifische Überschreibung bereitstellt, generiert der Compiler eine Bridge-Methode mit der gelöschten Signatur, die an die typspezifische Methode delegiert.",
             "module_name": "19 – Generics",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -3960,7 +3960,7 @@
             "explanation_en": "The lower bounded wildcard '? super Integer' means 'Integer or any supertype of Integer', which includes Integer, Number, and Object. This is used in consumer scenarios (PECS) where you need to write Integer values into a collection.",
             "explanation_de": "Der untere Wildcard '? super Integer' bedeutet 'Integer oder ein Supertyp von Integer', was Integer, Number und Object einschließt. Dies wird in Consumer-Szenarien (PECS) verwendet, wo Integer-Werte in eine Collection geschrieben werden müssen.",
             "module_name": "19 – Generics",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -3981,7 +3981,7 @@
             "explanation_en": "The code compiles and runs correctly. The bounded type parameter <T extends Comparable<T>> is valid and ensures T has a natural ordering. The stream finds the maximum value in [3, 1, 4, 1, 5], which is 5. Type erasure does not cause runtime issues here because the Comparable contract is enforced at compile time.",
             "explanation_de": "Der Code kompiliert und läuft korrekt. Der begrenzte Typparameter <T extends Comparable<T>> ist gültig und stellt sicher, dass T eine natürliche Ordnung hat. Der Stream findet den Maximalwert in [3, 1, 4, 1, 5], der 5 ist. Type Erasure verursacht hier keine Laufzeitprobleme, da der Comparable-Vertrag zur Kompilierzeit erzwungen wird.",
             "module_name": "19 – Generics",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -4002,7 +4002,7 @@
             "explanation_en": "This is a classic PECS example. 'List<? extends Integer>' is used as a producer (reading Integer values), and 'List<? super Integer>' is used as a consumer (accepting Integer values). List<Number> satisfies '? super Integer' because Number is a supertype of Integer. The code compiles and correctly copies elements, printing [1, 2, 3].",
             "explanation_de": "Dies ist ein klassisches PECS-Beispiel. 'List<? extends Integer>' wird als Producer (Lesen von Integer-Werten) und 'List<? super Integer>' als Consumer (Akzeptieren von Integer-Werten) verwendet. List<Number> erfüllt '? super Integer', weil Number ein Supertyp von Integer ist. Der Code kompiliert und kopiert Elemente korrekt, gibt [1, 2, 3] aus.",
             "module_name": "19 – Generics",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -4443,7 +4443,7 @@
             "answer_count": 1,
             "explanation_en": "Casting a floating-point value to int in Java always truncates toward zero — it does NOT round. (int) 3.9 discards the fractional part and yields 3. Similarly, (int) -3.9 yields -3, not -4.",
             "explanation_de": "Das Casten eines Gleitkommawertes nach int in Java schneidet immer in Richtung null ab – es wird NICHT gerundet. (int) 3.9 verwirft den Nachkommateil und ergibt 3. Ebenso ergibt (int) -3.9 den Wert -3, nicht -4.",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -4464,7 +4464,7 @@
             "answer_count": 1,
             "explanation_en": "Java's widening primitive conversion follows the order: byte → short → int → long → float → double. Each step in this chain is done implicitly without a cast. The other options involve narrowing conversions (e.g. double → float) which require explicit casts.",
             "explanation_de": "Die erweiternde primitive Konvertierung in Java folgt der Reihenfolge: byte → short → int → long → float → double. Jeder Schritt in dieser Kette erfolgt implizit ohne Cast. Die anderen Optionen beinhalten verengende Konvertierungen (z.B. double → float), die explizite Casts erfordern.",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -4485,7 +4485,7 @@
             "answer_count": 1,
             "explanation_en": "Integer.parseInt(String) returns a primitive int. Integer.valueOf(String) returns an Integer object (autoboxed). new Integer(String) is deprecated since Java 9. String.toInt() does not exist in Java.",
             "explanation_de": "Integer.parseInt(String) gibt einen primitiven int zurück. Integer.valueOf(String) gibt ein Integer-Objekt zurück (autoboxed). new Integer(String) ist seit Java 9 veraltet. String.toInt() existiert in Java nicht.",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -4506,7 +4506,7 @@
             "answer_count": 1,
             "explanation_en": "parseInt() expects a string that represents a whole integer. The dot '.' is not a valid character in an integer literal, so a NumberFormatException is thrown. To parse \"12.5\", use Double.parseDouble() instead.",
             "explanation_de": "parseInt() erwartet einen String, der eine ganze Zahl darstellt. Der Punkt '.' ist kein gültiges Zeichen in einem Integer-Literal, daher wird eine NumberFormatException geworfen. Um \"12.5\" zu parsen, sollte stattdessen Double.parseDouble() verwendet werden.",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -4527,7 +4527,7 @@
             "answer_count": 1,
             "explanation_en": "Java integer arithmetic wraps around silently (no exception). Integer.MAX_VALUE is 2147483647 (2^31 - 1). Adding 1 overflows and wraps to Integer.MIN_VALUE which is -2147483648 (-2^31). Java does NOT throw on overflow for primitive ints.",
             "explanation_de": "Java-Integer-Arithmetik läuft still über (keine Exception). Integer.MAX_VALUE ist 2147483647 (2^31 - 1). Das Hinzufügen von 1 führt zu einem Überlauf und springt zu Integer.MIN_VALUE, das -2147483648 (-2^31) ist. Java wirft bei einem Überlauf primitiver ints KEINE Exception.",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -4548,7 +4548,7 @@
             "answer_count": 1,
             "explanation_en": "char is an unsigned 16-bit integer in Java. Assigning a char to an int is a widening conversion — no cast needed. The ASCII/Unicode value of 'A' is 65, so 65 is printed. 'B' is 66, '0' is 48, etc.",
             "explanation_de": "char ist ein vorzeichenloser 16-Bit-Integer in Java. Das Zuweisen eines char zu einem int ist eine erweiternde Konvertierung – kein Cast erforderlich. Der ASCII/Unicode-Wert von 'A' ist 65, daher wird 65 ausgegeben. 'B' ist 66, '0' ist 48 usw.",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -4569,7 +4569,7 @@
             "answer_count": 1,
             "explanation_en": "In Java, arithmetic on byte, short, or char values is automatically promoted to int before the operation. So b1 + b2 produces an int result. Assigning an int back to byte requires an explicit cast: byte b3 = (byte)(b1 + b2); Otherwise it's a compile error.",
             "explanation_de": "In Java werden arithmetische Operationen auf byte-, short- oder char-Werten automatisch zu int hochgestuft, bevor die Operation ausgeführt wird. Daher ergibt b1 + b2 ein int-Ergebnis. Das Zurückweisen eines int an byte erfordert einen expliziten Cast: byte b3 = (byte)(b1 + b2); Andernfalls ist es ein Compilerfehler.",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -4590,7 +4590,7 @@
             "answer_count": 1,
             "explanation_en": "Java caches Integer objects in the range -128 to 127 (the Integer cache). When autoboxing values in this range, the same cached object is returned, so == compares the same reference (true). Values outside this range (like 128) produce new objects each time, so == compares different references (false). Use .equals() for reliable Integer comparison.",
             "explanation_de": "Java cached Integer-Objekte im Bereich -128 bis 127 (der Integer-Cache). Beim Autoboxing von Werten in diesem Bereich wird dasselbe gecachte Objekt zurückgegeben, daher vergleicht == dieselbe Referenz (true). Werte außerhalb dieses Bereichs (wie 128) erzeugen jedes Mal neue Objekte, daher vergleicht == verschiedene Referenzen (false). Verwende .equals() für zuverlässige Integer-Vergleiche.",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -4611,7 +4611,7 @@
             "answer_count": 1,
             "explanation_en": "Compound assignment operators (+=, -=, *=, /=) include an implicit narrowing cast. x += 1.9 is equivalent to x = (int)(x + 1.9). 10 + 1.9 = 11.9, then (int) 11.9 = 11 (truncated). This is why x += 1.9 compiles but x = x + 1.9 does not (the latter requires an explicit cast).",
             "explanation_de": "Zusammengesetzte Zuweisungsoperatoren (+=, -=, *=, /=) beinhalten einen impliziten verengenden Cast. x += 1.9 ist äquivalent zu x = (int)(x + 1.9). 10 + 1.9 = 11.9, dann ergibt (int) 11.9 = 11 (abgeschnitten). Deshalb kompiliert x += 1.9, aber x = x + 1.9 nicht (letzteres erfordert einen expliziten Cast).",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -4632,7 +4632,7 @@
             "answer_count": 1,
             "explanation_en": "This prints false. 0.1, 0.2, and 0.3 cannot be represented exactly in IEEE 754 double-precision binary floating point. The actual result of 0.1 + 0.2 is approximately 0.30000000000000004, which is not equal to 0.3. Use BigDecimal for exact decimal arithmetic, or compare with a tolerance: Math.abs(a - b) < 1e-9.",
             "explanation_de": "Dies gibt false aus. 0.1, 0.2 und 0.3 können im IEEE-754-Gleitkommaformat mit doppelter Genauigkeit nicht exakt dargestellt werden. Das tatsächliche Ergebnis von 0.1 + 0.2 ist ungefähr 0.30000000000000004, was ungleich 0.3 ist. Verwende BigDecimal für exakte Dezimalarithmetik oder vergleiche mit einer Toleranz: Math.abs(a - b) < 1e-9.",
-            "stats_correct": 0,
+            "stats_correct": 1,
             "stats_wrong": 0
         },
         {
@@ -5577,6 +5577,1329 @@
             "answer_count": 1,
             "explanation_en": "Rectangle's contract: width and height are independent. A Square cannot honor this because setting one dimension must change the other. Passing a Square where a Rectangle is expected silently breaks the program. Fix: do not model Square as a subtype of Rectangle. Prefer separate classes or composition.",
             "explanation_de": "Rechteck-Vertrag: Breite und Höhe sind unabhängig. Ein Quadrat kann das nicht einhalten, da das Setzen einer Dimension die andere ändert. Einen Square als Rectangle zu übergeben bricht das Programm stillschweigend. Lösung: Square nicht als Untertyp von Rectangle modellieren.",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 266,
+            "module": 2,
+            "difficulty": "easy",
+            "question": "What is the output of: `int i = 0; while (i < 3) { System.out.print(i + \" \"); i++; }`?",
+            "options": [
+                "A. 0 1 2 3",
+                "B. 0 1 2",
+                "C. 1 2 3",
+                "D. Infinite loop"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "The while loop prints i before incrementing. i starts at 0 and the loop exits when i reaches 3 (condition i < 3 is false). Output: 0 1 2.",
+            "explanation_de": "Die while-Schleife gibt i vor dem Inkrementieren aus. i beginnt bei 0, Schleife endet wenn i=3 (Bedingung i < 3 ist falsch). Ausgabe: 0 1 2.",
+            "module_name": "2 – Primitive Types & Type Conversion",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 267,
+            "module": 2,
+            "difficulty": "easy",
+            "question": "Which loop is guaranteed to execute its body at least once?",
+            "options": [
+                "A. for",
+                "B. while",
+                "C. do-while",
+                "D. enhanced for-each"
+            ],
+            "correct_answers": [
+                2
+            ],
+            "answer_count": 1,
+            "explanation_en": "The do-while loop checks its condition after executing the body, so the body always executes at least once even if the condition is initially false.",
+            "explanation_de": "Die do-while-Schleife prüft die Bedingung nach dem Schleifenkörper, daher wird der Körper mindestens einmal ausgeführt, auch wenn die Bedingung initial false ist.",
+            "module_name": "2 – Primitive Types & Type Conversion",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 268,
+            "module": 2,
+            "difficulty": "medium",
+            "question": "What does `Math.round(-2.5)` return in Java?",
+            "options": [
+                "A. -3",
+                "B. -2",
+                "C. -3L",
+                "D. 2"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "Math.round() adds 0.5 then floors: -2.5 + 0.5 = -2.0, floor(-2.0) = -2. Returns int -2. This is 'round half up' which differs from mathematical rounding for negative numbers.",
+            "explanation_de": "Math.round() addiert 0.5 und floort das Ergebnis: -2.5 + 0.5 = -2.0, floor(-2.0) = -2. Rückgabe: int -2. Dies ist 'round half up', das sich bei negativen Zahlen von mathematischem Runden unterscheidet.",
+            "module_name": "2 – Primitive Types & Type Conversion",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 269,
+            "module": 2,
+            "difficulty": "medium",
+            "question": "What is the value of `x` after: `int x = 2 + 3 * 4 - 1`?",
+            "options": [
+                "A. 19",
+                "B. 21",
+                "C. 13",
+                "D. 12"
+            ],
+            "correct_answers": [
+                2
+            ],
+            "answer_count": 1,
+            "explanation_en": "Operator precedence: multiplication first: 3*4=12, then left-to-right: 2+12=14, 14-1=13. Result is 13.",
+            "explanation_de": "Operatorpriorität: zuerst Multiplikation: 3*4=12, dann links nach rechts: 2+12=14, 14-1=13. Ergebnis: 13.",
+            "module_name": "2 – Primitive Types & Type Conversion",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 270,
+            "module": 2,
+            "difficulty": "medium",
+            "question": "Given `outer: for(int i=0;i<3;i++) { for(int j=0;j<3;j++) { if(j==1) break outer; } }`, how many total iterations run?",
+            "options": [
+                "A. 1",
+                "B. 2",
+                "C. 3",
+                "D. 9"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "i=0: inner loop runs j=0 (iteration 1), then j=1 triggers break outer which exits both loops entirely. Total: 2 iterations of the inner loop.",
+            "explanation_de": "i=0: innere Schleife läuft j=0 (Iteration 1), dann j=1 löst break outer aus und verlässt beide Schleifen. Gesamt: 2 Iterationen der inneren Schleife.",
+            "module_name": "2 – Primitive Types & Type Conversion",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 271,
+            "module": 2,
+            "difficulty": "hard",
+            "question": "What is the result of `(byte)(200 + 100)` in Java?",
+            "options": [
+                "A. 300",
+                "B. 44",
+                "C. -44",
+                "D. Compilation error"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "200+100=300 computed as int. Casting to byte: 300 % 256 = 44. The byte range is -128 to 127; 300 overflows to 44.",
+            "explanation_de": "200+100=300 wird als int berechnet. Cast zu byte: 300 % 256 = 44. Der byte-Bereich ist -128 bis 127; 300 überläuft zu 44.",
+            "module_name": "2 – Primitive Types & Type Conversion",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 272,
+            "module": 2,
+            "difficulty": "hard",
+            "question": "Which statement about widening conversions is correct?",
+            "options": [
+                "A. int to long always loses precision",
+                "B. float to double may lose precision",
+                "C. int to float may lose precision for large int values",
+                "D. long to double never loses precision"
+            ],
+            "correct_answers": [
+                2
+            ],
+            "answer_count": 1,
+            "explanation_en": "float has 23 mantissa bits; int has 32 bits. Large int values (>2^24) cannot be represented exactly in float, causing precision loss. long to double can also lose precision as double has 52 mantissa bits vs 64 for long.",
+            "explanation_de": "float hat 23 Mantissen-Bits; int hat 32 Bits. Große int-Werte (>2^24) lassen sich nicht exakt als float darstellen, was zu Präzisionsverlust führt. long zu double kann ebenfalls Präzision verlieren (double: 52 Mantissen-Bits, long: 64 Bits).",
+            "module_name": "2 – Primitive Types & Type Conversion",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 273,
+            "module": 3,
+            "difficulty": "easy",
+            "question": "Which method was introduced in Java 11 to check if a string contains only whitespace?",
+            "options": [
+                "A. isEmpty()",
+                "B. isWhitespace()",
+                "C. isBlank()",
+                "D. trim().isEmpty()"
+            ],
+            "correct_answers": [
+                2
+            ],
+            "answer_count": 1,
+            "explanation_en": "String.isBlank() was introduced in Java 11. It returns true if the string is empty or contains only whitespace characters (including Unicode whitespace). trim().isEmpty() works similarly but trim() only removes ASCII whitespace.",
+            "explanation_de": "String.isBlank() wurde in Java 11 eingeführt. Gibt true zurück wenn der String leer ist oder nur Leerzeichen enthält (inkl. Unicode-Whitespace). trim().isEmpty() funktioniert ähnlich, aber trim() entfernt nur ASCII-Whitespace.",
+            "module_name": "3 – Strings & StringBuilder",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 274,
+            "module": 3,
+            "difficulty": "easy",
+            "question": "What does `\"ab\".repeat(3)` return?",
+            "options": [
+                "A. \"ababab\"",
+                "B. \"ab3\"",
+                "C. \"aabbab\"",
+                "D. \"ababababab\""
+            ],
+            "correct_answers": [
+                0
+            ],
+            "answer_count": 1,
+            "explanation_en": "String.repeat(n) introduced in Java 11 concatenates the string n times. \"ab\".repeat(3) = \"ab\" + \"ab\" + \"ab\" = \"ababab\".",
+            "explanation_de": "String.repeat(n), eingeführt in Java 11, verkettet den String n-mal. \"ab\".repeat(3) = \"ab\" + \"ab\" + \"ab\" = \"ababab\".",
+            "module_name": "3 – Strings & StringBuilder",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 275,
+            "module": 3,
+            "difficulty": "medium",
+            "question": "What is the difference between `String.trim()` and `String.strip()` (Java 11)?",
+            "options": [
+                "A. No difference, they are identical",
+                "B. strip() uses Unicode whitespace definition; trim() only removes ASCII whitespace (<=\\u0020)",
+                "C. trim() removes leading whitespace only; strip() removes both",
+                "D. strip() modifies the original string; trim() returns a new one"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "strip() (Java 11) uses Character.isWhitespace() which recognizes Unicode whitespace characters like non-breaking space (\\u00A0). trim() only removes characters with code point <= '\\u0020' (ASCII). Both return new String objects.",
+            "explanation_de": "strip() (Java 11) nutzt Character.isWhitespace(), das Unicode-Whitespace wie geschütztes Leerzeichen (\\u00A0) erkennt. trim() entfernt nur Zeichen mit Codepunkt <= '\\u0020' (ASCII). Beide geben neue String-Objekte zurück.",
+            "module_name": "3 – Strings & StringBuilder",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 276,
+            "module": 3,
+            "difficulty": "medium",
+            "question": "After `StringBuilder sb = new StringBuilder(\"Hello\"); sb.reverse();`, what is `sb.toString()`?",
+            "options": [
+                "A. \"Hello\"",
+                "B. \"olleH\"",
+                "C. \"hELLO\"",
+                "D. Throws exception"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "StringBuilder.reverse() reverses the character sequence in place. \"Hello\" reversed is \"olleH\". The method modifies the existing StringBuilder and returns it.",
+            "explanation_de": "StringBuilder.reverse() kehrt die Zeichenfolge in-place um. \"Hello\" umgekehrt ergibt \"olleH\". Die Methode modifiziert den vorhandenen StringBuilder und gibt ihn zurück.",
+            "module_name": "3 – Strings & StringBuilder",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 277,
+            "module": 3,
+            "difficulty": "medium",
+            "question": "Which StringBuilder method inserts text at a specified position?",
+            "options": [
+                "A. add(int, String)",
+                "B. put(int, String)",
+                "C. insert(int, String)",
+                "D. appendAt(int, String)"
+            ],
+            "correct_answers": [
+                2
+            ],
+            "answer_count": 1,
+            "explanation_en": "StringBuilder.insert(int offset, String s) inserts the string at the given offset position. All characters at and after offset are shifted right. The method returns the StringBuilder for chaining.",
+            "explanation_de": "StringBuilder.insert(int offset, String s) fügt den String an der angegebenen Position ein. Alle Zeichen ab offset werden nach rechts verschoben. Die Methode gibt den StringBuilder für Method-Chaining zurück.",
+            "module_name": "3 – Strings & StringBuilder",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 278,
+            "module": 3,
+            "difficulty": "hard",
+            "question": "Why should you use `new BigDecimal(\"0.1\")` instead of `new BigDecimal(0.1)`?",
+            "options": [
+                "A. String constructor is faster",
+                "B. double 0.1 cannot be represented exactly in binary floating point, causing imprecision",
+                "C. The double constructor is deprecated",
+                "D. No difference for values less than 1"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "0.1 cannot be represented exactly in binary floating point. new BigDecimal(0.1) captures the imprecise double value (0.1000000000000000055511...). new BigDecimal(\"0.1\") creates exactly 0.1. Always use the String constructor or BigDecimal.valueOf(0.1) for precise values.",
+            "explanation_de": "0.1 lässt sich nicht exakt als binäre Gleitkommazahl darstellen. new BigDecimal(0.1) übernimmt den ungenauen double-Wert (0.1000000000000000055511...). new BigDecimal(\"0.1\") erstellt exakt 0.1. Immer String-Konstruktor oder BigDecimal.valueOf(0.1) für präzise Werte verwenden.",
+            "module_name": "3 – Strings & StringBuilder",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 279,
+            "module": 4,
+            "difficulty": "easy",
+            "question": "Which Java version introduced `var` for local variable type inference?",
+            "options": [
+                "A. Java 8",
+                "B. Java 10",
+                "C. Java 11",
+                "D. Java 14"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "var was introduced in Java 10 (JEP 286). It allows the compiler to infer the type of a local variable from its initializer. var can only be used for local variables, not for fields, method parameters, or return types.",
+            "explanation_de": "var wurde in Java 10 (JEP 286) eingeführt. Es erlaubt dem Compiler, den Typ einer lokalen Variablen aus ihrem Initialisierer zu inferieren. var kann nur für lokale Variablen verwendet werden, nicht für Felder, Methodenparameter oder Rückgabetypen.",
+            "module_name": "4 – Classes & Objects",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 280,
+            "module": 4,
+            "difficulty": "easy",
+            "question": "In which order do Java initializers execute when creating an object?",
+            "options": [
+                "A. Constructor → static initializer → instance initializer",
+                "B. Static initializer (once) → instance initializer → constructor body",
+                "C. Instance initializer → static initializer → constructor",
+                "D. Constructor → instance initializer → static initializer"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "Static initializer blocks run once when the class is loaded. For each object creation: instance initializer blocks run first, then the constructor body. Static initializers run before any instance is created.",
+            "explanation_de": "Statische Initialisierer-Blöcke laufen einmal beim Laden der Klasse. Bei jeder Objekterstellung: Instance-Initialisierer-Blöcke laufen zuerst, dann der Konstruktorkörper. Statische Initialisierer laufen vor jeder Instanzerstellung.",
+            "module_name": "4 – Classes & Objects",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 281,
+            "module": 4,
+            "difficulty": "medium",
+            "question": "Which of the following is a valid use of `var` in Java?",
+            "options": [
+                "A. `var list = new ArrayList<String>();`",
+                "B. `var x;` (declared without initializer)",
+                "C. `public var getName() { return name; }`",
+                "D. `private var count = 0;` (instance field)"
+            ],
+            "correct_answers": [
+                0
+            ],
+            "answer_count": 1,
+            "explanation_en": "var requires an initializer on the same line so the compiler can infer the type. It cannot be used without an initializer, as a return type, or for instance/class fields. var list = new ArrayList<String>() infers ArrayList<String>.",
+            "explanation_de": "var erfordert einen Initialisierer in derselben Zeile, damit der Compiler den Typ inferieren kann. Es kann nicht ohne Initialisierer, als Rückgabetyp oder für Instanz-/Klassenfelder verwendet werden. var list = new ArrayList<String>() inferiert ArrayList<String>.",
+            "module_name": "4 – Classes & Objects",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 282,
+            "module": 4,
+            "difficulty": "medium",
+            "question": "What is the purpose of the unnamed variable `_` introduced in Java 22?",
+            "options": [
+                "A. Marks a variable as private",
+                "B. Represents a variable whose value is intentionally unused",
+                "C. Creates a constant that cannot be reassigned",
+                "D. Used only in lambda expressions"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "Java 22 introduced unnamed variables using _ (underscore) to represent variables whose values are deliberately not used, such as in catch blocks (catch (Exception _)) or lambda parameters. This makes intent clear and avoids unused-variable warnings.",
+            "explanation_de": "Java 22 führte unbenannte Variablen mit _ (Unterstrich) ein, um Variablen darzustellen, deren Werte absichtlich nicht verwendet werden, z.B. in catch-Blöcken (catch (Exception _)) oder Lambda-Parametern. Macht die Absicht klar und vermeidet Unused-Variable-Warnungen.",
+            "module_name": "4 – Classes & Objects",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 283,
+            "module": 4,
+            "difficulty": "hard",
+            "question": "What happens when `var x = null;` is written in Java?",
+            "options": [
+                "A. x is inferred as Object",
+                "B. Compilation error",
+                "C. x is inferred as Null type",
+                "D. x is inferred as String"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "var cannot be initialized with null because the compiler cannot infer a type from null alone. This causes a compilation error: 'cannot infer type for local variable x'. You must provide a type: Object x = null.",
+            "explanation_de": "var kann nicht mit null initialisiert werden, da der Compiler aus null allein keinen Typ inferieren kann. Dies führt zu einem Compilerfehler: 'cannot infer type for local variable x'. Sie müssen einen Typ angeben: Object x = null.",
+            "module_name": "4 – Classes & Objects",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 284,
+            "module": 5,
+            "difficulty": "easy",
+            "question": "Which rule applies when overloading methods in Java?",
+            "options": [
+                "A. Methods must have different return types",
+                "B. Methods must have different parameter lists (number or types)",
+                "C. Methods must have different access modifiers",
+                "D. Methods must throw different exceptions"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "Method overloading requires different parameter lists: either different number of parameters or different parameter types. Return type, access modifier, and thrown exceptions alone cannot differentiate overloaded methods.",
+            "explanation_de": "Method-Overloading erfordert unterschiedliche Parameterlisten: entweder unterschiedliche Anzahl oder unterschiedliche Typen. Rückgabetyp, Zugriffsmodifikator und geworfene Exceptions allein können überladene Methoden nicht unterscheiden.",
+            "module_name": "5 – Encapsulation",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 285,
+            "module": 5,
+            "difficulty": "medium",
+            "question": "Given `void print(String... args)`, which call is valid?",
+            "options": [
+                "A. print() only",
+                "B. print(\"a\") only",
+                "C. Both print() and print(\"a\",\"b\",\"c\")",
+                "D. Only print(new String[]{\"a\",\"b\"})"
+            ],
+            "correct_answers": [
+                2
+            ],
+            "answer_count": 1,
+            "explanation_en": "Varargs (String...) accepts zero or more arguments. print() with no args passes an empty array, print(\"a\",\"b\",\"c\") passes a 3-element array. Both are valid. You can also pass an explicit array.",
+            "explanation_de": "Varargs (String...) akzeptiert null oder mehr Argumente. print() ohne Args übergibt ein leeres Array, print(\"a\",\"b\",\"c\") übergibt ein 3-Element-Array. Beides ist gültig. Ein explizites Array kann ebenfalls übergeben werden.",
+            "module_name": "5 – Encapsulation",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 286,
+            "module": 5,
+            "difficulty": "medium",
+            "question": "What makes an object truly immutable in Java?",
+            "options": [
+                "A. Declaring the class final only",
+                "B. Making all fields private",
+                "C. Declaring class final, all fields private final, no setters, and deep-copying mutable fields",
+                "D. Using the record keyword"
+            ],
+            "correct_answers": [
+                2
+            ],
+            "answer_count": 1,
+            "explanation_en": "True immutability requires: final class (prevents subclassing), private final fields (no reassignment), no setters, and returning defensive copies for mutable fields. Records are immutable by default if all components are immutable types.",
+            "explanation_de": "Echte Unveränderlichkeit erfordert: final class (verhindert Unterklassenbildung), private final Felder (keine Neuzuweisung), keine Setter und defensive Kopien für veränderliche Felder. Records sind standardmäßig unveränderlich, wenn alle Komponenten unveränderliche Typen sind.",
+            "module_name": "5 – Encapsulation",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 287,
+            "module": 5,
+            "difficulty": "hard",
+            "question": "In Java 22+, what does 'flexible constructor bodies' allow that was previously forbidden?",
+            "options": [
+                "A. Calling super() after other statements in a constructor",
+                "B. Declaring fields inside constructors",
+                "C. Having multiple super() calls",
+                "D. Overriding constructors from parent classes"
+            ],
+            "correct_answers": [
+                0
+            ],
+            "answer_count": 1,
+            "explanation_en": "Java 22 (JEP 447, preview) allows statements before the explicit super() or this() call in constructors, as long as they don't access the uninitialized instance (this). Previously, super() had to be the very first statement. This enables validation and transformation of arguments before passing them to super.",
+            "explanation_de": "Java 22 (JEP 447, Preview) erlaubt Anweisungen vor dem expliziten super()- oder this()-Aufruf in Konstruktoren, solange sie nicht auf die nicht-initialisierte Instanz (this) zugreifen. Vorher musste super() die allererste Anweisung sein. Dies ermöglicht Validierung und Transformation von Argumenten vor der Übergabe an super.",
+            "module_name": "5 – Encapsulation",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 288,
+            "module": 7,
+            "difficulty": "easy",
+            "question": "What keyword is used to declare a sealed interface in Java 17+?",
+            "options": [
+                "A. final interface",
+                "B. sealed interface",
+                "C. restricted interface",
+                "D. closed interface"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "The sealed keyword (Java 17, JEP 409) restricts which classes or interfaces can implement/extend a sealed interface. The permitted implementors must be listed with the permits clause.",
+            "explanation_de": "Das sealed-Schlüsselwort (Java 17, JEP 409) schränkt ein, welche Klassen oder Interfaces ein sealed Interface implementieren/erweitern können. Die erlaubten Implementierer müssen in der permits-Klausel aufgeführt werden.",
+            "module_name": "7 – Interfaces & Abstract Classes",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 289,
+            "module": 7,
+            "difficulty": "medium",
+            "question": "Interface A has `default void greet() { print(\"A\"); }` and interface B has `default void greet() { print(\"B\"); }`. Class C implements both. How does C resolve the conflict?",
+            "options": [
+                "A. Compilation error, no resolution possible",
+                "B. C must override greet() and can call A.super.greet() or B.super.greet()",
+                "C. A's method wins as it appears first in implements",
+                "D. B's method wins as it is 'newer'"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "When a class inherits conflicting default methods, it must override the method. Inside the override it can explicitly call A.super.greet() or B.super.greet() to delegate to a specific interface's default. Failure to override causes a compilation error.",
+            "explanation_de": "Wenn eine Klasse konflikthafte Default-Methoden erbt, muss sie die Methode überschreiben. Innerhalb der Überschreibung kann sie explizit A.super.greet() oder B.super.greet() aufrufen. Wird nicht überschrieben, entsteht ein Compilerfehler.",
+            "module_name": "7 – Interfaces & Abstract Classes",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 290,
+            "module": 7,
+            "difficulty": "medium",
+            "question": "What is the difference between `UnaryOperator<T>` and `Function<T, T>`?",
+            "options": [
+                "A. UnaryOperator allows null input; Function does not",
+                "B. UnaryOperator<T> extends Function<T,T> — same type for input and output, just more expressive",
+                "C. Function<T,T> is in java.util; UnaryOperator is in java.lang",
+                "D. They are identical at runtime but differ at compile time"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "UnaryOperator<T> extends Function<T,T> and represents an operation where input and output are the same type. It is semantically equivalent to Function<T,T> but more expressive and readable when input and output types are the same.",
+            "explanation_de": "UnaryOperator<T> erweitert Function<T,T> und repräsentiert eine Operation, bei der Ein- und Ausgabe denselben Typ haben. Es ist semantisch äquivalent zu Function<T,T>, aber ausdrucksstärker und lesbarer, wenn Ein- und Ausgabetyp gleich sind.",
+            "module_name": "7 – Interfaces & Abstract Classes",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 291,
+            "module": 7,
+            "difficulty": "medium",
+            "question": "Which implementations are allowed for `sealed interface Shape permits Circle, Square {}`?",
+            "options": [
+                "A. Only final classes",
+                "B. Only classes in the same package",
+                "C. Only Circle and Square; each must be final, sealed, or non-sealed",
+                "D. Any class that implements Shape"
+            ],
+            "correct_answers": [
+                2
+            ],
+            "answer_count": 1,
+            "explanation_en": "With sealed interfaces, only the listed permitted classes (Circle, Square) may implement Shape. Each permitted implementor must be declared either final (no further extension), sealed (further restricted), or non-sealed (open to any extension).",
+            "explanation_de": "Bei sealed Interfaces dürfen nur die aufgeführten Klassen (Circle, Square) Shape implementieren. Jeder erlaubte Implementierer muss als final (keine weitere Erweiterung), sealed (weiter eingeschränkt) oder non-sealed (offen für Erweiterung) deklariert sein.",
+            "module_name": "7 – Interfaces & Abstract Classes",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 292,
+            "module": 7,
+            "difficulty": "hard",
+            "question": "What happens to generic type parameters at runtime due to type erasure?",
+            "options": [
+                "A. They become Object or their upper bound",
+                "B. They are preserved in the class file for reflection",
+                "C. They cause ClassCastException at runtime if misused",
+                "D. Both A and C are correct"
+            ],
+            "correct_answers": [
+                3
+            ],
+            "answer_count": 1,
+            "explanation_en": "Type erasure replaces generic type parameters with Object (or their upper bound) at compile time. At runtime, no type information is available. This can cause unchecked ClassCastExceptions ('heap pollution') if raw types are mixed with generics.",
+            "explanation_de": "Type-Erasure ersetzt generische Typparameter zur Kompilierzeit durch Object (oder deren obere Schranke). Zur Laufzeit sind keine Typinformationen verfügbar. Dies kann unkontrollierte ClassCastExceptions ('Heap Pollution') verursachen, wenn Raw-Types mit Generics gemischt werden.",
+            "module_name": "7 – Interfaces & Abstract Classes",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 293,
+            "module": 8,
+            "difficulty": "easy",
+            "question": "What does `Arrays.fill(arr, 0)` do?",
+            "options": [
+                "A. Creates a new array filled with zeros",
+                "B. Sets all elements of arr to 0",
+                "C. Counts the zeros in arr",
+                "D. Removes all zero elements"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "Arrays.fill(T[] a, T val) sets every element of the existing array to the specified value. It modifies the array in place and returns void.",
+            "explanation_de": "Arrays.fill(T[] a, T val) setzt jedes Element des vorhandenen Arrays auf den angegebenen Wert. Es modifiziert das Array in-place und gibt void zurück.",
+            "module_name": "8 – Arrays",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 294,
+            "module": 8,
+            "difficulty": "medium",
+            "question": "Which interface, introduced in Java 21, provides `getFirst()` and `getLast()` methods?",
+            "options": [
+                "A. OrderedCollection",
+                "B. SequencedCollection",
+                "C. IndexedList",
+                "D. NavigableList"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "SequencedCollection (Java 21, JEP 431) adds getFirst(), getLast(), addFirst(), addLast(), removeFirst(), removeLast(), and reversed() to the Collections hierarchy. List, Deque, and LinkedHashSet implement it.",
+            "explanation_de": "SequencedCollection (Java 21, JEP 431) fügt getFirst(), getLast(), addFirst(), addLast(), removeFirst(), removeLast() und reversed() der Collections-Hierarchie hinzu. List, Deque und LinkedHashSet implementieren es.",
+            "module_name": "8 – Arrays",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 295,
+            "module": 8,
+            "difficulty": "medium",
+            "question": "What is the result of `Arrays.binarySearch(new int[]{1,3,5,7,9}, 5)`?",
+            "options": [
+                "A. 2",
+                "B. 3",
+                "C. -3",
+                "D. Throws exception"
+            ],
+            "correct_answers": [
+                0
+            ],
+            "answer_count": 1,
+            "explanation_en": "Arrays.binarySearch requires a sorted array. Element 5 is at index 2 (0-based). If the element is found, the method returns its index. The array {1,3,5,7,9} is sorted, and 5 is at index 2.",
+            "explanation_de": "Arrays.binarySearch erfordert ein sortiertes Array. Element 5 ist an Index 2 (0-basiert). Wenn das Element gefunden wird, gibt die Methode seinen Index zurück. Das Array {1,3,5,7,9} ist sortiert und 5 ist an Index 2.",
+            "module_name": "8 – Arrays",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 296,
+            "module": 8,
+            "difficulty": "hard",
+            "question": "ArrayDeque is used as a stack. Which method pushes an element and which pops it?",
+            "options": [
+                "A. add() and remove()",
+                "B. push() and pop()",
+                "C. offer() and poll()",
+                "D. enqueue() and dequeue()"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "ArrayDeque as a stack uses push(e) (inserts at head) and pop() (removes from head, throws NoSuchElementException if empty). As a queue, offer(e)/poll() are used instead. peek() retrieves head without removing.",
+            "explanation_de": "ArrayDeque als Stack verwendet push(e) (fügt am Anfang ein) und pop() (entfernt vom Anfang, wirft NoSuchElementException wenn leer). Als Queue werden stattdessen offer(e)/poll() verwendet. peek() liefert den Kopf ohne Entfernen.",
+            "module_name": "8 – Arrays",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 297,
+            "module": 9,
+            "difficulty": "easy",
+            "question": "What does `List.of(1, 2, 3)` return in Java 9+?",
+            "options": [
+                "A. A mutable ArrayList",
+                "B. An unmodifiable list",
+                "C. A synchronized list",
+                "D. A list that allows null elements"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "List.of() (Java 9) returns an unmodifiable list. Calling add(), remove(), or set() throws UnsupportedOperationException. It also does not allow null elements — passing null throws NullPointerException.",
+            "explanation_de": "List.of() (Java 9) gibt eine unveränderliche Liste zurück. Aufrufe von add(), remove() oder set() werfen UnsupportedOperationException. Es erlaubt auch keine null-Elemente — die Übergabe von null wirft NullPointerException.",
+            "module_name": "9 – Collections Framework",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 298,
+            "module": 9,
+            "difficulty": "medium",
+            "question": "Which Map implementation guarantees iteration in insertion order?",
+            "options": [
+                "A. HashMap",
+                "B. TreeMap",
+                "C. LinkedHashMap",
+                "D. ConcurrentHashMap"
+            ],
+            "correct_answers": [
+                2
+            ],
+            "answer_count": 1,
+            "explanation_en": "LinkedHashMap maintains a doubly-linked list of entries in insertion order, so iteration always reflects the order in which entries were added. HashMap has no order guarantee; TreeMap iterates in natural key order.",
+            "explanation_de": "LinkedHashMap pflegt eine doppelt verkettete Liste der Einträge in Einfügereihenfolge, sodass die Iteration immer die Reihenfolge widerspiegelt, in der Einträge hinzugefügt wurden. HashMap bietet keine Ordnungsgarantie; TreeMap iteriert in natürlicher Schlüsselreihenfolge.",
+            "module_name": "9 – Collections Framework",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 299,
+            "module": 9,
+            "difficulty": "medium",
+            "question": "What is the difference between `offer()` and `add()` on a Queue?",
+            "options": [
+                "A. offer() throws an exception when queue is full; add() returns false",
+                "B. add() throws an exception when queue is full; offer() returns false",
+                "C. They are identical for all implementations",
+                "D. offer() is for priority queues only"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "For capacity-restricted queues: add() throws IllegalStateException if the queue is full, while offer() returns false. For unbounded queues like LinkedList, both behave identically. The Queue interface favors offer()/poll()/peek() over add()/remove()/element() for graceful failure.",
+            "explanation_de": "Bei kapazitätsbeschränkten Queues: add() wirft IllegalStateException wenn die Queue voll ist, offer() gibt false zurück. Bei unbeschränkten Queues wie LinkedList verhalten sich beide identisch. Das Queue-Interface bevorzugt offer()/poll()/peek() vor add()/remove()/element() für fehlerfreundliches Verhalten.",
+            "module_name": "9 – Collections Framework",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 300,
+            "module": 9,
+            "difficulty": "hard",
+            "question": "How do you safely iterate a Map and access both key and value efficiently?",
+            "options": [
+                "A. Iterate keySet() and call get() for each key",
+                "B. Use entrySet() and iterate Map.Entry objects",
+                "C. Convert to List of keys with new ArrayList<>(map.keySet())",
+                "D. Use values() and match by index"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "Iterating entrySet() gives Map.Entry<K,V> objects with getKey() and getValue() — one lookup per entry. Iterating keySet() and calling get() performs two lookups per entry (O(1) each but still 2x operations). entrySet() is the idiomatic and efficient approach.",
+            "explanation_de": "Das Iterieren über entrySet() liefert Map.Entry<K,V>-Objekte mit getKey() und getValue() — eine Suche pro Eintrag. Das Iterieren über keySet() und Aufrufen von get() führt zwei Suchen pro Eintrag durch. entrySet() ist der idiomatische und effiziente Ansatz.",
+            "module_name": "9 – Collections Framework",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 301,
+            "module": 10,
+            "difficulty": "easy",
+            "question": "What are the four types of method references in Java?",
+            "options": [
+                "A. static, instance, constructor, lambda",
+                "B. static method, instance method of particular object, instance method of arbitrary object, constructor",
+                "C. bound, unbound, constructor, field",
+                "D. class::method, obj::method, class::new, lambda::apply"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "The four method reference types: 1) ClassName::staticMethod, 2) instance::instanceMethod (bound), 3) ClassName::instanceMethod (unbound — first param becomes the receiver), 4) ClassName::new (constructor reference).",
+            "explanation_de": "Die vier Method-Reference-Typen: 1) Klassenname::statischeMethode, 2) instanz::instanzMethode (gebunden), 3) Klassenname::instanzMethode (ungebunden — erster Parameter wird zum Empfänger), 4) Klassenname::new (Konstruktor-Referenz).",
+            "module_name": "10 – Nested Classes & Lambdas",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 302,
+            "module": 10,
+            "difficulty": "medium",
+            "question": "What does 'effectively final' mean for variables captured by a lambda?",
+            "options": [
+                "A. The variable must be declared with the final keyword",
+                "B. The variable is never reassigned after initialization, even without the final keyword",
+                "C. The variable's object state cannot change",
+                "D. The variable is shared between all lambda instances"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "Effectively final (Java 8) means a variable is never reassigned after its initialization, even without the explicit final keyword. Lambdas can capture effectively final local variables. Reassigning the variable anywhere makes it non-effectively-final, causing a compilation error if captured.",
+            "explanation_de": "Effectively final (Java 8) bedeutet, dass eine Variable nach ihrer Initialisierung nie neu zugewiesen wird, auch ohne explizites final-Schlüsselwort. Lambdas können effektiv finale lokale Variablen erfassen. Eine Neuzuweisung der Variable macht sie nicht-effektiv-final und verursacht einen Compilerfehler wenn sie erfasst wird.",
+            "module_name": "10 – Nested Classes & Lambdas",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 303,
+            "module": 10,
+            "difficulty": "medium",
+            "question": "What is the key difference between a static nested class and an inner class?",
+            "options": [
+                "A. Static nested classes are slower than inner classes",
+                "B. Inner classes have implicit access to the outer class instance; static nested classes do not",
+                "C. Static nested classes cannot implement interfaces",
+                "D. Inner classes require a separate .java file"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "An inner class has an implicit reference to the outer class instance (Outer.this) and can access its members. A static nested class has no such reference and can only access static members of the outer class directly. Static nested classes are instantiated without an outer instance.",
+            "explanation_de": "Eine innere Klasse hat eine implizite Referenz auf die äußere Klasseninstanz (Outer.this) und kann auf deren Mitglieder zugreifen. Eine statische verschachtelte Klasse hat keine solche Referenz und kann direkt nur auf statische Mitglieder der äußeren Klasse zugreifen. Statische verschachtelte Klassen werden ohne äußere Instanz instanziiert.",
+            "module_name": "10 – Nested Classes & Lambdas",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 304,
+            "module": 10,
+            "difficulty": "hard",
+            "question": "Given `Function<String,Integer> f = String::length;`, what type of method reference is this?",
+            "options": [
+                "A. Static method reference",
+                "B. Bound instance method reference",
+                "C. Unbound instance method reference",
+                "D. Constructor reference"
+            ],
+            "correct_answers": [
+                2
+            ],
+            "answer_count": 1,
+            "explanation_en": "String::length is an unbound instance method reference. The receiver object (the String instance) is supplied as the first argument at call time, matching Function<String,Integer> where String is the input and Integer (length) is the output.",
+            "explanation_de": "String::length ist eine ungebundene Instanzmethoden-Referenz. Das Empfängerobjekt (die String-Instanz) wird zur Aufrufzeit als erstes Argument geliefert, passend zu Function<String,Integer> wo String die Eingabe und Integer (Länge) die Ausgabe ist.",
+            "module_name": "10 – Nested Classes & Lambdas",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 305,
+            "module": 11,
+            "difficulty": "easy",
+            "question": "What is the difference between `map()` and `flatMap()` in the Streams API?",
+            "options": [
+                "A. flatMap() processes elements in parallel; map() does not",
+                "B. map() applies a function returning a value; flatMap() applies a function returning a stream and flattens the result",
+                "C. flatMap() is only for Optional, not Stream",
+                "D. map() flattens nested lists; flatMap() does not"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "map(f) transforms each element to another value (1-to-1). flatMap(f) transforms each element to a Stream and merges all those streams into one (1-to-many, then flatten). Use flatMap to process nested collections or Optional chains.",
+            "explanation_de": "map(f) transformiert jedes Element in einen anderen Wert (1-zu-1). flatMap(f) transformiert jedes Element in einen Stream und vereinigt alle Streams zu einem (1-zu-viele, dann flatten). Verwende flatMap für verschachtelte Sammlungen oder Optional-Ketten.",
+            "module_name": "11 – Streams API",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 306,
+            "module": 11,
+            "difficulty": "medium",
+            "question": "Which collector groups stream elements into a `Map<Boolean, List<T>>` based on a predicate?",
+            "options": [
+                "A. Collectors.groupingBy()",
+                "B. Collectors.partitioningBy()",
+                "C. Collectors.mapping()",
+                "D. Collectors.toMap()"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "Collectors.partitioningBy(Predicate) divides elements into exactly two groups (true/false) in a Map<Boolean, List<T>>. It is a specialization of groupingBy for boolean predicates. groupingBy() can produce any number of groups.",
+            "explanation_de": "Collectors.partitioningBy(Predicate) teilt Elemente in genau zwei Gruppen (true/false) in einer Map<Boolean, List<T>> auf. Es ist eine Spezialisierung von groupingBy für boolesche Prädikate. groupingBy() kann beliebig viele Gruppen erzeugen.",
+            "module_name": "11 – Streams API",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 307,
+            "module": 11,
+            "difficulty": "medium",
+            "question": "What does `Optional.orElseGet(() -> computeDefault())` do differently than `Optional.orElse(computeDefault())`?",
+            "options": [
+                "A. No difference in behavior",
+                "B. orElseGet only evaluates the supplier if the Optional is empty; orElse always evaluates the argument",
+                "C. orElse only evaluates if Optional is empty; orElseGet always evaluates",
+                "D. orElseGet throws if the supplier returns null"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "orElse(T) evaluates its argument eagerly — computeDefault() is always called. orElseGet(Supplier<T>) is lazy — the supplier is only invoked when the Optional is empty. Use orElseGet when the default value is expensive to compute.",
+            "explanation_de": "orElse(T) wertet sein Argument sofort aus — computeDefault() wird immer aufgerufen. orElseGet(Supplier<T>) ist lazy — der Supplier wird nur aufgerufen, wenn das Optional leer ist. Verwende orElseGet, wenn der Standardwert teuer zu berechnen ist.",
+            "module_name": "11 – Streams API",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 308,
+            "module": 11,
+            "difficulty": "hard",
+            "question": "What does `Collectors.groupingBy(Person::getDept, Collectors.counting())` return?",
+            "options": [
+                "A. Map<String, List<Person>>",
+                "B. Map<String, Long>",
+                "C. Map<String, Integer>",
+                "D. Map<String, Person>"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "groupingBy(classifier, downstream) groups by the classifier and applies the downstream collector to each group. Collectors.counting() returns Long, so the result is Map<String, Long> where each department maps to its person count.",
+            "explanation_de": "groupingBy(classifier, downstream) gruppiert nach dem Klassifikator und wendet den nachgelagerten Collector auf jede Gruppe an. Collectors.counting() gibt Long zurück, also ist das Ergebnis Map<String, Long>, wobei jede Abteilung auf ihre Personenanzahl abgebildet wird.",
+            "module_name": "11 – Streams API",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 309,
+            "module": 12,
+            "difficulty": "easy",
+            "question": "What interface must a resource implement to be used with try-with-resources?",
+            "options": [
+                "A. Closeable only",
+                "B. AutoCloseable",
+                "C. Disposable",
+                "D. Releasable"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "try-with-resources (Java 7) requires resources to implement AutoCloseable, which has a single close() method. Closeable extends AutoCloseable and is for I/O streams. The close() method is called automatically when the try block exits.",
+            "explanation_de": "try-with-resources (Java 7) erfordert, dass Ressourcen AutoCloseable implementieren, das eine einzige close()-Methode hat. Closeable erweitert AutoCloseable und ist für I/O-Streams. Die close()-Methode wird automatisch aufgerufen, wenn der try-Block endet.",
+            "module_name": "12 – Exception Handling",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 310,
+            "module": 12,
+            "difficulty": "medium",
+            "question": "In `catch (IOException | SQLException e) {}`, what is the type of `e`?",
+            "options": [
+                "A. IOException",
+                "B. The common supertype of IOException and SQLException",
+                "C. Object",
+                "D. The catch variable is implicitly final and typed as the common supertype"
+            ],
+            "correct_answers": [
+                3
+            ],
+            "answer_count": 1,
+            "explanation_en": "In multi-catch (Java 7), the variable e is implicitly final and its type is the least upper bound (common supertype) of the listed exceptions — here Exception. You cannot reassign e inside the catch block. The types listed cannot be in a subtype relationship.",
+            "explanation_de": "Bei Multi-Catch (Java 7) ist die Variable e implizit final und ihr Typ ist der kleinste gemeinsame Supertyp der aufgelisteten Exceptions — hier Exception. e kann nicht innerhalb des catch-Blocks neu zugewiesen werden. Die aufgelisteten Typen dürfen nicht in einer Subtyp-Beziehung stehen.",
+            "module_name": "12 – Exception Handling",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 311,
+            "module": 12,
+            "difficulty": "medium",
+            "question": "What is the difference between `getCause()` and `initCause()` for exceptions?",
+            "options": [
+                "A. getCause() sets the cause; initCause() gets it",
+                "B. initCause() sets the cause (once) during construction; getCause() retrieves it",
+                "C. They are identical",
+                "D. initCause() can be called multiple times; getCause() cannot"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "getCause() retrieves the exception that caused this one. initCause(Throwable) sets the cause if not already set via the constructor — it can only be called once. Prefer constructor-based chaining: new RuntimeException(\"msg\", cause). initCause() is for legacy exceptions lacking cause constructors.",
+            "explanation_de": "getCause() gibt die Exception zurück, die diese verursacht hat. initCause(Throwable) setzt die Ursache, wenn sie nicht bereits über den Konstruktor gesetzt wurde — kann nur einmal aufgerufen werden. Konstruktorbasiertes Chaining bevorzugen: new RuntimeException(\"msg\", cause). initCause() ist für Legacy-Exceptions ohne Cause-Konstruktoren.",
+            "module_name": "12 – Exception Handling",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 312,
+            "module": 12,
+            "difficulty": "hard",
+            "question": "In what order are blocks executed: `try { return 1; } finally { return 2; }`?",
+            "options": [
+                "A. Returns 1; finally is skipped because return was reached",
+                "B. Returns 2; finally always executes and its return overrides the try return",
+                "C. Compilation error",
+                "D. Throws an exception"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "The finally block always executes, even after a return in the try block. If finally also contains a return, it overrides the try's return value. The result is 2. This is considered bad practice — avoid return in finally as it suppresses exceptions too.",
+            "explanation_de": "Der finally-Block wird immer ausgeführt, auch nach einem return im try-Block. Wenn finally ebenfalls ein return enthält, überschreibt es den Rückgabewert des try. Das Ergebnis ist 2. Dies gilt als schlechte Praxis — return in finally vermeiden, da es auch Exceptions unterdrückt.",
+            "module_name": "12 – Exception Handling",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 313,
+            "module": 13,
+            "difficulty": "easy",
+            "question": "Which method reads all lines of a file into a List<String> in one call?",
+            "options": [
+                "A. Files.readString()",
+                "B. Files.readAllLines()",
+                "C. Files.lines()",
+                "D. BufferedReader.lines()"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "Files.readAllLines(Path) reads all lines and returns a List<String>. Files.readString(Path) reads the whole file as one String. Files.lines(Path) returns a lazy Stream<String>. Use readAllLines() for small files, lines() for large files to avoid loading all into memory.",
+            "explanation_de": "Files.readAllLines(Path) liest alle Zeilen und gibt eine List<String> zurück. Files.readString(Path) liest die ganze Datei als einen String. Files.lines(Path) gibt einen lazy Stream<String> zurück. readAllLines() für kleine Dateien verwenden, lines() für große Dateien um alles Laden in den Speicher zu vermeiden.",
+            "module_name": "13 – I/O & NIO.2",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 314,
+            "module": 13,
+            "difficulty": "medium",
+            "question": "What does `Path.relativize(other)` return?",
+            "options": [
+                "A. The absolute path of other",
+                "B. A relative path from this path to other",
+                "C. The parent directory of other relative to this",
+                "D. Throws an exception if paths are on different drives"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "Path.relativize(other) computes a relative path from this path to other. Example: Paths.get(\"/a/b\").relativize(Paths.get(\"/a/b/c/d\")) returns \"c/d\". Both paths should be either absolute or relative. It throws IllegalArgumentException if their root components differ.",
+            "explanation_de": "Path.relativize(other) berechnet einen relativen Pfad von diesem Pfad zu other. Beispiel: Paths.get(\"/a/b\").relativize(Paths.get(\"/a/b/c/d\")) gibt \"c/d\" zurück. Beide Pfade sollten entweder absolut oder relativ sein. Wirft IllegalArgumentException wenn ihre Root-Komponenten verschieden sind.",
+            "module_name": "13 – I/O & NIO.2",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 315,
+            "module": 13,
+            "difficulty": "medium",
+            "question": "What does the `transient` keyword do for a serialized field?",
+            "options": [
+                "A. Makes the field thread-safe",
+                "B. Excludes the field from serialization",
+                "C. Makes the field mandatory in deserialization",
+                "D. Marks the field as deprecated"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "transient marks a field to be skipped during Java object serialization. When the object is deserialized, transient fields are initialized to their default values (null, 0, false). Use it for derived, sensitive, or non-serializable fields.",
+            "explanation_de": "transient markiert ein Feld, das bei der Java-Objektserialisierung übersprungen werden soll. Bei der Deserialisierung werden transiente Felder auf ihre Standardwerte initialisiert (null, 0, false). Verwende es für abgeleitete, sensible oder nicht-serialisierbare Felder.",
+            "module_name": "13 – I/O & NIO.2",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 316,
+            "module": 13,
+            "difficulty": "hard",
+            "question": "How does `System.console()` behave when an application runs in a non-interactive environment (e.g. piped I/O)?",
+            "options": [
+                "A. Returns a default console attached to System.in",
+                "B. Returns null",
+                "C. Throws IllegalStateException",
+                "D. Returns a PrintStream"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "System.console() returns the Console object if a console is available (i.e., the JVM is connected to a real terminal). In non-interactive environments (piped I/O, IDE, scripts), it returns null. Always null-check before using. Use Scanner(System.in) as a portable alternative.",
+            "explanation_de": "System.console() gibt das Console-Objekt zurück, wenn eine Konsole verfügbar ist (d.h. die JVM an ein echtes Terminal angeschlossen ist). In nicht-interaktiven Umgebungen (Pipes, IDEs, Skripte) gibt es null zurück. Immer auf null prüfen vor der Verwendung. Scanner(System.in) als portierbare Alternative verwenden.",
+            "module_name": "13 – I/O & NIO.2",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 317,
+            "module": 14,
+            "difficulty": "easy",
+            "question": "How do you create a virtual thread in Java 21+?",
+            "options": [
+                "A. `new Thread(runnable)` with a virtual flag",
+                "B. `Thread.ofVirtual().start(runnable)`",
+                "C. `Executors.newVirtualThread(runnable)`",
+                "D. `new VirtualThread(runnable)`"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "Thread.ofVirtual().start(runnable) creates and immediately starts a virtual thread (Java 21, JEP 444). You can also use Thread.ofVirtual().unstarted(runnable) to create without starting. Executors.newVirtualThreadPerTaskExecutor() creates an ExecutorService using virtual threads.",
+            "explanation_de": "Thread.ofVirtual().start(runnable) erstellt und startet sofort einen Virtual Thread (Java 21, JEP 444). Thread.ofVirtual().unstarted(runnable) erstellt ohne Starten. Executors.newVirtualThreadPerTaskExecutor() erstellt einen ExecutorService der Virtual Threads verwendet.",
+            "module_name": "14 – Concurrency",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 318,
+            "module": 14,
+            "difficulty": "medium",
+            "question": "What is the main advantage of virtual threads over platform threads?",
+            "options": [
+                "A. Virtual threads are faster for CPU-bound tasks",
+                "B. Virtual threads are lightweight and allow millions of concurrent threads for I/O-bound tasks",
+                "C. Virtual threads automatically synchronize shared state",
+                "D. Virtual threads replace the need for ExecutorService"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "Virtual threads (Project Loom) are lightweight threads managed by the JVM, not OS threads. They use very little memory and can be created in millions. When a virtual thread blocks on I/O, the underlying platform thread is freed — making them ideal for I/O-bound (not CPU-bound) workloads.",
+            "explanation_de": "Virtual Threads (Project Loom) sind leichtgewichtige JVM-verwaltete Threads, keine OS-Threads. Sie verbrauchen sehr wenig Speicher und können millionenfach erstellt werden. Wenn ein Virtual Thread auf I/O blockiert, wird der zugrundeliegende Platform-Thread freigegeben — ideal für I/O-gebundene (nicht CPU-gebundene) Workloads.",
+            "module_name": "14 – Concurrency",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 319,
+            "module": 14,
+            "difficulty": "medium",
+            "question": "What does `CountDownLatch` do in Java concurrency?",
+            "options": [
+                "A. Limits the number of concurrent threads",
+                "B. Allows one or more threads to wait until a set of operations completes",
+                "C. Provides a reusable barrier for a fixed number of threads",
+                "D. Synchronizes access to a single resource"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "CountDownLatch is initialized with a count. Threads call await() to block until the count reaches zero. Other threads call countDown() to decrement the count. Once zero, all waiting threads are released. Unlike CyclicBarrier, CountDownLatch cannot be reset.",
+            "explanation_de": "CountDownLatch wird mit einem Zähler initialisiert. Threads rufen await() auf, um zu blockieren, bis der Zähler null erreicht. Andere Threads rufen countDown() auf, um den Zähler zu dekrementieren. Sobald null, werden alle wartenden Threads freigegeben. Anders als CyclicBarrier kann CountDownLatch nicht zurückgesetzt werden.",
+            "module_name": "14 – Concurrency",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 320,
+            "module": 14,
+            "difficulty": "hard",
+            "question": "What problem does `ScopedValue` (Java 21 preview) solve compared to `ThreadLocal`?",
+            "options": [
+                "A. ScopedValue allows mutation; ThreadLocal is immutable",
+                "B. ScopedValue is bounded to a scope and inherited by child threads; ThreadLocal leaks across virtual threads",
+                "C. ThreadLocal is faster than ScopedValue",
+                "D. ScopedValue is for platform threads only"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "ThreadLocal values persist for the thread's lifetime and must be manually removed, causing memory leaks with thread pools. ScopedValue (JEP 446) is immutable, bounded to a specific call scope, and automatically inherited by structured concurrency child scopes — making it safe and predictable for virtual threads.",
+            "explanation_de": "ThreadLocal-Werte bleiben für die Lebensdauer des Threads erhalten und müssen manuell entfernt werden, was bei Thread-Pools zu Memory-Leaks führt. ScopedValue (JEP 446) ist unveränderlich, auf einen spezifischen Call-Scope begrenzt und wird automatisch von strukturierten Concurrency-Child-Scopes geerbt — sicher und vorhersehbar für Virtual Threads.",
+            "module_name": "14 – Concurrency",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 321,
+            "module": 15,
+            "difficulty": "easy",
+            "question": "What file declares a Java module in the JPMS?",
+            "options": [
+                "A. module.java",
+                "B. module-info.java",
+                "C. module-descriptor.java",
+                "D. package-info.java"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "module-info.java is the module descriptor placed at the root of the source tree. It declares the module name, dependencies (requires), exported packages (exports), and service declarations (uses/provides).",
+            "explanation_de": "module-info.java ist der Moduldeskriptor, der im Stammverzeichnis des Quellbaums platziert wird. Er deklariert den Modulnamen, Abhängigkeiten (requires), exportierte Pakete (exports) und Service-Deklarationen (uses/provides).",
+            "module_name": "15 – Java Modules (JPMS)",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 322,
+            "module": 15,
+            "difficulty": "medium",
+            "question": "What is the difference between `exports com.example` and `opens com.example` in module-info.java?",
+            "options": [
+                "A. exports is for compile-time access; opens is for runtime reflection access",
+                "B. opens is stricter than exports",
+                "C. They are identical",
+                "D. exports requires a qualified target module; opens does not"
+            ],
+            "correct_answers": [
+                0
+            ],
+            "answer_count": 1,
+            "explanation_en": "exports makes a package available for compilation and linking by other modules. opens makes a package available for deep reflection at runtime (e.g., by frameworks like Spring, JPA). A package can be exported without being open, or opened without being exported.",
+            "explanation_de": "exports macht ein Paket für Kompilierung und Linking durch andere Module verfügbar. opens macht ein Paket für tiefe Reflexion zur Laufzeit verfügbar (z.B. von Frameworks wie Spring, JPA). Ein Paket kann exportiert ohne geöffnet sein, oder geöffnet ohne exportiert.",
+            "module_name": "15 – Java Modules (JPMS)",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 323,
+            "module": 15,
+            "difficulty": "medium",
+            "question": "What is an 'automatic module' in the JPMS?",
+            "options": [
+                "A. A module generated automatically from module-info.java",
+                "B. A JAR placed on the module path that has no module-info.java — it gets a module name from its filename",
+                "C. A built-in JDK module",
+                "D. A module that exports all packages by default"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "An automatic module is a plain JAR (no module-info.java) placed on the module path. The JVM derives its module name from the JAR filename (or Automatic-Module-Name manifest attribute). It exports all packages and can read all other modules — enabling gradual migration.",
+            "explanation_de": "Ein automatisches Modul ist ein einfaches JAR (kein module-info.java) auf dem Modulpfad. Die JVM leitet seinen Modulnamen aus dem JAR-Dateinamen (oder dem Automatic-Module-Name-Manifest-Attribut) ab. Es exportiert alle Pakete und kann alle anderen Module lesen — ermöglicht schrittweise Migration.",
+            "module_name": "15 – Java Modules (JPMS)",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 324,
+            "module": 15,
+            "difficulty": "hard",
+            "question": "In Java 21+, which feature allows writing a Java program without explicit class declaration?",
+            "options": [
+                "A. Compact source files",
+                "B. Instance main methods",
+                "C. Unnamed classes",
+                "D. Both B and C — instance main methods + unnamed classes work together"
+            ],
+            "correct_answers": [
+                3
+            ],
+            "answer_count": 1,
+            "explanation_en": "Java 21 (JEP 445 preview) introduced unnamed classes: a file with just a main() method (no class wrapper) is a valid program. Instance main methods (no static, no String[] args required) make the entry point simpler. Together they allow: `void main() { System.out.println(\"Hello\"); }` as a complete program.",
+            "explanation_de": "Java 21 (JEP 445 Preview) führte unbenannte Klassen ein: Eine Datei mit nur einer main()-Methode (ohne Klassen-Wrapper) ist ein gültiges Programm. Instanz-main-Methoden (kein static, kein String[] args erforderlich) vereinfachen den Einstiegspunkt. Zusammen erlauben sie: `void main() { System.out.println(\"Hallo\"); }` als vollständiges Programm.",
+            "module_name": "15 – Java Modules (JPMS)",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 325,
+            "module": 22,
+            "difficulty": "easy",
+            "question": "What happens to a ZonedDateTime when you add 1 hour to a time that falls in the DST 'spring forward' gap (e.g., 1:30 AM Berlin on DST Sunday)?",
+            "options": [
+                "A. Throws an exception",
+                "B. Returns 2:30 AM in summer time",
+                "C. Skips to 3:30 AM in summer time (CEST)",
+                "D. Returns 1:30 AM with no change"
+            ],
+            "correct_answers": [
+                2
+            ],
+            "answer_count": 1,
+            "explanation_en": "In the Berlin timezone, clocks spring forward from 2:00 AM to 3:00 AM. Adding 1 hour to 1:30 AM (CET, +01:00) gives 2:30 AM, but that time doesn't exist (the gap). Java adjusts to 3:30 AM CEST (+02:00), skipping the non-existent hour.",
+            "explanation_de": "In der Berliner Zeitzone werden die Uhren von 2:00 Uhr auf 3:00 Uhr vorgestellt. 1 Stunde zu 1:30 Uhr (CET, +01:00) addieren ergibt 2:30 Uhr, aber diese Zeit existiert nicht (die Lücke). Java passt auf 3:30 Uhr CEST (+02:00) an und überspringt die nicht existierende Stunde.",
+            "module_name": "22 – Date & Time API",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 326,
+            "module": 22,
+            "difficulty": "medium",
+            "question": "At a DST 'fall back' overlap (e.g., 2:30 AM Berlin in October), `ZonedDateTime.of(...)` creates which offset by default?",
+            "options": [
+                "A. The later offset (winter time, +01:00)",
+                "B. The earlier offset (summer time, +02:00)",
+                "C. Throws AmbiguousTimeException",
+                "D. Picks offset at random"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "When a local time is ambiguous (occurs twice due to DST fallback), ZonedDateTime.of() prefers the earlier offset (still in summer time, +02:00 for Berlin). Use withLaterOffsetAtOverlap() to switch to winter time (+01:00).",
+            "explanation_de": "Wenn eine lokale Zeit mehrdeutig ist (tritt zweimal wegen DST-Umstellung auf), bevorzugt ZonedDateTime.of() den früheren Offset (noch in Sommerzeit, +02:00 für Berlin). Verwende withLaterOffsetAtOverlap() um auf Winterzeit (+01:00) zu wechseln.",
+            "module_name": "22 – Date & Time API",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 327,
+            "module": 22,
+            "difficulty": "medium",
+            "question": "What is the difference between `withZoneSameInstant()` and `withZoneSameLocal()` on ZonedDateTime?",
+            "options": [
+                "A. No difference — both convert to the new timezone",
+                "B. withZoneSameInstant changes the zone and adjusts the time; withZoneSameLocal keeps the local time but changes the offset",
+                "C. withZoneSameLocal is deprecated",
+                "D. withZoneSameInstant is for DST gaps only"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "withZoneSameInstant(zone) keeps the same point in time (Instant) and adjusts the local date-time to the new zone — used for timezone conversion. withZoneSameLocal(zone) keeps the same local date-time but applies the new zone's offset — the underlying instant changes.",
+            "explanation_de": "withZoneSameInstant(zone) behält denselben Zeitpunkt (Instant) und passt das lokale Datum/Zeit an die neue Zone an — für Zeitzonenkonvertierung. withZoneSameLocal(zone) behält dasselbe lokale Datum/Zeit, wendet aber den Offset der neuen Zone an — der zugrundeliegende Instant ändert sich.",
+            "module_name": "22 – Date & Time API",
+            "stats_correct": 0,
+            "stats_wrong": 0
+        },
+        {
+            "id": 328,
+            "module": 22,
+            "difficulty": "hard",
+            "question": "What is the key difference between `Instant` and `ZonedDateTime`?",
+            "options": [
+                "A. Instant stores timezone; ZonedDateTime does not",
+                "B. Instant is a machine timestamp (no timezone, no calendar); ZonedDateTime is human-readable date-time with timezone",
+                "C. ZonedDateTime is immutable; Instant is mutable",
+                "D. Instant supports DST; ZonedDateTime does not"
+            ],
+            "correct_answers": [
+                1
+            ],
+            "answer_count": 1,
+            "explanation_en": "Instant represents a point on the UTC timeline (epoch-seconds + nanoseconds) with no timezone or calendar concept — ideal for logging and performance. ZonedDateTime combines a local date-time with a ZoneId for human interaction, DST handling, and calendar arithmetic.",
+            "explanation_de": "Instant repräsentiert einen Punkt auf der UTC-Zeitlinie (Epoch-Sekunden + Nanosekunden) ohne Zeitzone oder Kalenderkonzept — ideal für Logging und Performance. ZonedDateTime kombiniert ein lokales Datum/Zeit mit einer ZoneId für menschliche Interaktion, DST-Behandlung und Kalenderarithmetik.",
+            "module_name": "22 – Date & Time API",
             "stats_correct": 0,
             "stats_wrong": 0
         }

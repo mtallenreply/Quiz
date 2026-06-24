@@ -1077,6 +1077,454 @@ public class WarenkorbSystem {
 
 ---
 
+## 6. Queue- und Deque-Interface
+
+### 6.1 Das Queue-Interface [Anfänger]
+
+Das `Queue`-Interface modelliert eine Warteschlange nach dem FIFO-Prinzip (First In, First Out). Es ergänzt das `Collection`-Interface um spezifische Methoden, die in zwei Varianten existieren: eine wirft eine Exception bei Fehler, die andere gibt einen Sonderwert zurück.
+
+| Operation | Exception-Variante | Sonderwert-Variante |
+|---|---|---|
+| Einfügen | `add(e)` | `offer(e)` |
+| Entnehmen | `remove()` | `poll()` |
+| Erstes lesen | `element()` | `peek()` |
+
+`offer()`, `poll()` und `peek()` sind für den Alltagsgebrauch bevorzugt, da sie keinen Stack-Unwinding bei leerem Zustand verursachen.
+
+```java
+import java.util.*;
+
+public class QueueInterfaceDemo {
+    public static void main(String[] args) {
+        // Queue als Druckwarteschlange
+        Queue<String> druckWarteschlange = new LinkedList<>();
+
+        // offer() - fügt ein, gibt false zurück wenn nicht möglich (statt Exception)
+        druckWarteschlange.offer("Dokument1.pdf");
+        druckWarteschlange.offer("Bericht.docx");
+        druckWarteschlange.offer("Foto.png");
+
+        System.out.println("Warteschlange: " + druckWarteschlange);
+
+        // peek() - liest erstes Element OHNE Entfernen
+        System.out.println("Nächster Druck: " + druckWarteschlange.peek()); // Dokument1.pdf
+        System.out.println("Größe noch: " + druckWarteschlange.size());     // 3
+
+        // poll() - entnimmt erstes Element (gibt null zurück wenn leer)
+        String gedruckt = druckWarteschlange.poll();
+        System.out.println("Gedruckt: " + gedruckt);                        // Dokument1.pdf
+        System.out.println("Verbleibend: " + druckWarteschlange);
+
+        // Leere Queue: poll/peek geben null zurück (keine Exception)
+        Queue<String> leereQueue = new LinkedList<>();
+        System.out.println("poll() leer: " + leereQueue.poll());   // null
+        System.out.println("peek() leer: " + leereQueue.peek());   // null
+        // leereQueue.remove(); // würde NoSuchElementException werfen!
+    }
+}
+```
+
+### 6.2 Das Deque-Interface und ArrayDeque [Fortgeschritten]
+
+`Deque` (Double Ended Queue, ausgesprochen "deck") ist eine Erweiterung von `Queue`, die das Einfügen und Entnehmen an beiden Enden erlaubt. `ArrayDeque` ist die bevorzugte Implementierung: sie ist schneller als `LinkedList` für Stack- und Queue-Operationen, da sie auf einem Ring-Array basiert und keinen Overhead für Knotenzeiger hat.
+
+`ArrayDeque` sollte `LinkedList` als Stack oder Queue in neuen Implementierungen immer vorziehen werden.
+
+```java
+import java.util.*;
+
+public class ArrayDequeDemo {
+    public static void main(String[] args) {
+        Deque<String> deque = new ArrayDeque<>();
+
+        // --- Einfügen an beiden Enden ---
+        deque.offerFirst("Mitte");       // [Mitte]
+        deque.offerFirst("Anfang");      // [Anfang, Mitte]
+        deque.offerLast("Ende");         // [Anfang, Mitte, Ende]
+        System.out.println("Deque: " + deque);
+
+        // --- Lesen ohne Entfernen ---
+        System.out.println("peekFirst: " + deque.peekFirst()); // Anfang
+        System.out.println("peekLast:  " + deque.peekLast());  // Ende
+        System.out.println("Größe noch: " + deque.size());     // 3
+
+        // --- Entnehmen an beiden Enden ---
+        String vorne = deque.pollFirst();
+        String hinten = deque.pollLast();
+        System.out.println("pollFirst: " + vorne);   // Anfang
+        System.out.println("pollLast:  " + hinten);  // Ende
+        System.out.println("Rest: " + deque);        // [Mitte]
+
+        // --- ArrayDeque als Stack (LIFO) ---
+        Deque<Integer> stack = new ArrayDeque<>();
+        stack.push(10);   // = offerFirst / addFirst
+        stack.push(20);
+        stack.push(30);
+        System.out.println("Stack: " + stack);           // [30, 20, 10]
+        System.out.println("peek: " + stack.peek());     // 30
+        System.out.println("pop:  " + stack.pop());      // 30, = pollFirst
+        System.out.println("Stack nach pop: " + stack);  // [20, 10]
+
+        // --- ArrayDeque als Queue (FIFO) ---
+        Deque<String> queue = new ArrayDeque<>();
+        queue.offer("Erster");   // = offerLast
+        queue.offer("Zweiter");
+        queue.offer("Dritter");
+        System.out.println("Queue poll: " + queue.poll()); // Erster (FIFO)
+    }
+}
+```
+
+**Deque-Methoden Übersicht:**
+
+| Methode | Beschreibung | Exception-Pendant |
+|---|---|---|
+| `offerFirst(e)` | Einfügen vorne | `addFirst(e)` |
+| `offerLast(e)` | Einfügen hinten | `addLast(e)` |
+| `pollFirst()` | Entnehmen vorne (null wenn leer) | `removeFirst()` |
+| `pollLast()` | Entnehmen hinten (null wenn leer) | `removeLast()` |
+| `peekFirst()` | Lesen vorne (null wenn leer) | `getFirst()` |
+| `peekLast()` | Lesen hinten (null wenn leer) | `getLast()` |
+| `push(e)` | Stack-Einfügen (= `addFirst`) | — |
+| `pop()` | Stack-Entnehmen (= `removeFirst`) | — |
+
+---
+
+## 7. Comparable und Comparator
+
+### 7.1 Das Comparable-Interface [Anfänger]
+
+Das `Comparable<T>`-Interface ermöglicht einer Klasse, ihre eigene natürliche Ordnung (natural ordering) zu definieren. Klassen, die `Comparable` implementieren, können direkt mit `Collections.sort()`, `TreeSet`, `TreeMap` und `Arrays.sort()` verwendet werden – ohne expliziten `Comparator`.
+
+Der `compareTo()`-Vertrag: negativ wenn `this < other`, null wenn gleich, positiv wenn `this > other`.
+
+```java
+import java.util.*;
+
+public class ComparableDemo {
+
+    // Klasse implementiert Comparable für natürliche Ordnung
+    static class Produkt implements Comparable<Produkt> {
+        String name;
+        double preis;
+
+        Produkt(String name, double preis) {
+            this.name = name;
+            this.preis = preis;
+        }
+
+        // Natürliche Ordnung: nach Preis aufsteigend
+        @Override
+        public int compareTo(Produkt andere) {
+            // Double.compare() ist die sichere Methode (vermeidet Overflow-Probleme)
+            return Double.compare(this.preis, andere.preis);
+        }
+
+        @Override
+        public String toString() {
+            return name + "(" + preis + ")";
+        }
+    }
+
+    public static void main(String[] args) {
+        List<Produkt> produkte = new ArrayList<>();
+        produkte.add(new Produkt("Tastatur", 79.99));
+        produkte.add(new Produkt("Monitor", 349.00));
+        produkte.add(new Produkt("Maus", 29.99));
+        produkte.add(new Produkt("Headset", 89.99));
+
+        // Collections.sort() nutzt compareTo() automatisch
+        Collections.sort(produkte);
+        System.out.println("Nach Preis (natural): " + produkte);
+
+        // TreeSet nutzt ebenfalls compareTo()
+        TreeSet<Produkt> sortiert = new TreeSet<>(produkte);
+        System.out.println("Günstigstes: " + sortiert.first());
+        System.out.println("Teuerstes:   " + sortiert.last());
+
+        // Strings implementieren Comparable (lexikografisch)
+        List<String> woerter = new ArrayList<>(Arrays.asList("Banane", "Apfel", "Dattel", "Kirsche"));
+        Collections.sort(woerter); // nutzt String.compareTo()
+        System.out.println("Alphabetisch: " + woerter);
+    }
+}
+```
+
+### 7.2 Comparable vs. Comparator [Fortgeschritten]
+
+`Comparable` definiert die **natürliche Ordnung** einer Klasse (einmalig, fest in der Klasse). `Comparator` definiert eine **externe, austauschbare Sortierlogik** – ideal wenn mehrere Sortierungen benötigt werden oder die Klasse nicht änderbar ist.
+
+```java
+import java.util.*;
+
+public class ComparableVsComparatorDemo {
+
+    record Mitarbeiter(String name, int alter, double gehalt)
+            implements Comparable<Mitarbeiter> {
+
+        // Natürliche Ordnung: alphabetisch nach Name
+        @Override
+        public int compareTo(Mitarbeiter andere) {
+            return this.name.compareTo(andere.name);
+        }
+    }
+
+    public static void main(String[] args) {
+        List<Mitarbeiter> team = new ArrayList<>(List.of(
+            new Mitarbeiter("Zimmermann", 42, 72000),
+            new Mitarbeiter("Braun", 35, 65000),
+            new Mitarbeiter("Meyer", 28, 58000),
+            new Mitarbeiter("Schulz", 50, 85000)
+        ));
+
+        // Comparable: natürliche Ordnung (nach Name)
+        Collections.sort(team);
+        System.out.println("Natural (nach Name): " + team.stream()
+            .map(Mitarbeiter::name).toList());
+
+        // Comparator: alternative Sortierung nach Alter
+        team.sort(Comparator.comparingInt(Mitarbeiter::alter));
+        System.out.println("Nach Alter:   " + team.stream()
+            .map(m -> m.name() + "/" + m.alter()).toList());
+
+        // Comparator: nach Gehalt absteigend, dann Name
+        team.sort(Comparator.comparingDouble(Mitarbeiter::gehalt)
+                             .reversed()
+                             .thenComparing(Mitarbeiter::name));
+        System.out.println("Nach Gehalt↓: " + team.stream()
+            .map(m -> m.name() + "/" + m.gehalt()).toList());
+
+        // Comparator.naturalOrder() und reverseOrder()
+        List<String> namen = new ArrayList<>(Arrays.asList("Charlie", "Alice", "Bob"));
+        namen.sort(Comparator.naturalOrder());
+        System.out.println("Natural: " + namen);
+        namen.sort(Comparator.reverseOrder());
+        System.out.println("Reverse: " + namen);
+    }
+}
+```
+
+---
+
+## 8. Erweiterte Map-Operationen
+
+### 8.1 SequencedMap – vollständige API [Fortgeschritten]
+
+`SequencedMap` (Java 21) erweitert `Map` um Operationen an beiden Enden der Reihenfolge. Zusätzlich zu `firstEntry()`/`lastEntry()`/`reversed()` bietet es `putFirst()`, `putLast()` sowie sequenzierte Views für Keys, Values und Entries.
+
+```java
+import java.util.*;
+
+public class SequencedMapDemo {
+    public static void main(String[] args) {
+        SequencedMap<String, Integer> agenda = new LinkedHashMap<>();
+        agenda.put("Mittagessen", 1200);
+        agenda.put("Meeting", 1400);
+        agenda.put("Review", 1600);
+
+        // putFirst / putLast - Einträge an bestimmter Position einfügen
+        agenda.putFirst("Standup", 900);    // vorne einfügen
+        agenda.putLast("Retrospektive", 1730); // hinten einfügen
+        System.out.println("Agenda: " + agenda);
+
+        // firstEntry / lastEntry
+        Map.Entry<String, Integer> ersterTermin = agenda.firstEntry();
+        Map.Entry<String, Integer> letzterTermin = agenda.lastEntry();
+        System.out.println("Erster Termin: " + ersterTermin.getKey() + " um " + ersterTermin.getValue());
+        System.out.println("Letzter Termin: " + letzterTermin.getKey() + " um " + letzterTermin.getValue());
+
+        // sequencedKeySet() - SequencedSet der Schlüssel
+        SequencedSet<String> keySet = agenda.sequencedKeySet();
+        System.out.println("Erster Key: " + keySet.getFirst());
+        System.out.println("Keys reversed: " + keySet.reversed());
+
+        // sequencedValues() - SequencedCollection der Werte
+        SequencedCollection<Integer> values = agenda.sequencedValues();
+        System.out.println("Erster Wert: " + values.getFirst());
+        System.out.println("Letzter Wert: " + values.getLast());
+
+        // sequencedEntrySet() - SequencedSet der Einträge
+        SequencedSet<Map.Entry<String, Integer>> entries = agenda.sequencedEntrySet();
+        System.out.println("Letzter Entry: " + entries.getLast());
+
+        // reversed() - umgekehrte View der Map
+        SequencedMap<String, Integer> reversed = agenda.reversed();
+        System.out.println("Reversed erster Key: " + reversed.firstEntry().getKey());
+    }
+}
+```
+
+### 8.2 Map.Entry – Iteration und Mutation [Fortgeschritten]
+
+`Map.Entry<K,V>` repräsentiert einen einzelnen Schlüssel-Wert-Eintrag. Beim Durchlaufen mit `entrySet()` kann `setValue()` den Wert direkt in der Map ändern. `Map.entry()` erzeugt unveränderliche Einträge für Factory-Methoden.
+
+```java
+import java.util.*;
+
+public class MapEntryDemo {
+    public static void main(String[] args) {
+        Map<String, Integer> lagerbestand = new HashMap<>();
+        lagerbestand.put("Äpfel", 50);
+        lagerbestand.put("Bananen", 30);
+        lagerbestand.put("Kirschen", 20);
+
+        // entrySet()-Iteration mit getValue() und getKey()
+        System.out.println("Bestand:");
+        for (Map.Entry<String, Integer> eintrag : lagerbestand.entrySet()) {
+            System.out.println("  " + eintrag.getKey() + ": " + eintrag.getValue() + " Stück");
+        }
+
+        // setValue() - Wert direkt über Map.Entry mutieren (ändert die Map!)
+        for (Map.Entry<String, Integer> eintrag : lagerbestand.entrySet()) {
+            if (eintrag.getValue() < 25) {
+                // Nachbestellung: Bestand verdoppeln
+                eintrag.setValue(eintrag.getValue() * 2);
+            }
+        }
+        System.out.println("Nach Nachbestellung: " + lagerbestand);
+
+        // Map.entry() - unveränderliches Entry (Java 9+)
+        Map.Entry<String, Integer> festEintrag = Map.entry("Datteln", 100);
+        System.out.println("Fester Eintrag: " + festEintrag.getKey() + "=" + festEintrag.getValue());
+        // festEintrag.setValue(200); // UnsupportedOperationException!
+
+        // Map.ofEntries() mit Map.entry() Factory
+        Map<String, String> konfiguration = Map.ofEntries(
+            Map.entry("host", "localhost"),
+            Map.entry("port", "8080"),
+            Map.entry("db", "myapp")
+        );
+        konfiguration.entrySet().stream()
+            .sorted(Map.Entry.comparingByKey())
+            .forEach(e -> System.out.println(e.getKey() + " = " + e.getValue()));
+    }
+}
+```
+
+### 8.3 Collections-Wrapper für Set und Map [Anfänger]
+
+`Collections` bietet unveränderliche und synchronisierte Wrapper nicht nur für `List`, sondern auch für `Set` und `Map`. Diese sind relevant wenn Legacy-Code oder bibliothekenübergreifende APIs keinen Zugriff auf `Set.of()` / `Map.of()` erwarten.
+
+```java
+import java.util.*;
+
+public class CollectionsWrapperSetMapDemo {
+    public static void main(String[] args) {
+        // --- Unveränderliche Wrapper ---
+        Set<String> originalSet = new HashSet<>(Arrays.asList("A", "B", "C"));
+        Set<String> unveraenderlichSet = Collections.unmodifiableSet(originalSet);
+        // unveraenderlichSet.add("D"); // UnsupportedOperationException!
+        System.out.println("Unmodifiable Set: " + unveraenderlichSet);
+
+        Map<String, Integer> originalMap = new HashMap<>();
+        originalMap.put("x", 1);
+        originalMap.put("y", 2);
+        Map<String, Integer> unveraenderlichMap = Collections.unmodifiableMap(originalMap);
+        // unveraenderlichMap.put("z", 3); // UnsupportedOperationException!
+        System.out.println("Unmodifiable Map: " + unveraenderlichMap);
+
+        // --- Synchronisierte Wrapper (Thread-Safety) ---
+        Set<String> syncSet = Collections.synchronizedSet(new HashSet<>());
+        syncSet.add("Thread-sicher");
+        System.out.println("Synchronized Set: " + syncSet);
+
+        Map<String, Integer> syncMap = Collections.synchronizedMap(new HashMap<>());
+        syncMap.put("key", 42);
+        System.out.println("Synchronized Map: " + syncMap);
+
+        // Hinweis: Iteration über synchronized Collections benötigt externen Lock!
+        synchronized (syncSet) {
+            for (String element : syncSet) {
+                System.out.println("Element: " + element);
+            }
+        }
+    }
+}
+```
+
+---
+
+## Übungsaufgaben
+
+### Übung 9-1: Deque als Palindrom-Prüfer [Fortgeschritten]
+
+Implementieren Sie einen Palindrom-Prüfer mit `ArrayDeque`, der Zeichen von beiden Enden vergleicht.
+
+```java
+import java.util.*;
+
+public class PalindromPruefer {
+    public static boolean istPalindrom(String wort) {
+        Deque<Character> deque = new ArrayDeque<>();
+        for (char c : wort.toLowerCase().toCharArray()) {
+            deque.offerLast(c);
+        }
+        while (deque.size() > 1) {
+            if (!deque.pollFirst().equals(deque.pollLast())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(istPalindrom("Rennfahrer")); // true
+        System.out.println(istPalindrom("Java"));       // false
+        System.out.println(istPalindrom("Regallager")); // true
+    }
+}
+```
+
+### Übung 9-2: Comparable für Rangliste [Fortgeschritten]
+
+Implementieren Sie eine `Spieler`-Klasse mit natürlicher Ordnung (höchste Punktzahl zuerst).
+
+```java
+import java.util.*;
+
+public class RanglisteDemo {
+
+    static class Spieler implements Comparable<Spieler> {
+        String name;
+        int punkte;
+
+        Spieler(String name, int punkte) {
+            this.name = name;
+            this.punkte = punkte;
+        }
+
+        @Override
+        public int compareTo(Spieler anderer) {
+            // Absteigende Reihenfolge: höchste Punktzahl zuerst
+            return Integer.compare(anderer.punkte, this.punkte);
+        }
+
+        @Override
+        public String toString() {
+            return name + ": " + punkte + " Pkt";
+        }
+    }
+
+    public static void main(String[] args) {
+        List<Spieler> rangliste = new ArrayList<>(List.of(
+            new Spieler("Alice", 1200),
+            new Spieler("Bob", 950),
+            new Spieler("Carol", 1500),
+            new Spieler("Dave", 1100)
+        ));
+
+        Collections.sort(rangliste); // nutzt compareTo()
+        System.out.println("Rangliste:");
+        for (int i = 0; i < rangliste.size(); i++) {
+            System.out.println((i + 1) + ". " + rangliste.get(i));
+        }
+        // 1. Carol: 1500 Pkt, 2. Alice: 1200 Pkt, ...
+    }
+}
+```
+
+---
+
 ## Zusammenfassung
 
 ### Wichtige Punkte
@@ -1089,6 +1537,10 @@ public class WarenkorbSystem {
 6. **Iterator**: Sicheres Entfernen während Iteration; `removeIf()` als Modern-Alternative
 7. **Collections-Klasse**: Sortieren, Mischen, Min/Max, Suche, Wrapper
 8. **Java 21**: `SequencedCollection` für einheitliche Erst/Letzt-Operationen
+9. **Queue/Deque**: `Queue` für FIFO, `Deque` für beidseitige Operationen; `ArrayDeque` bevorzugen
+10. **Comparable**: Natürliche Ordnung in der Klasse selbst via `compareTo()`; `Comparator` für externe/alternative Sortierung
+11. **SequencedMap**: `putFirst/putLast`, `sequencedKeySet/sequencedValues/sequencedEntrySet` für geordnete Maps
+12. **Map.Entry**: `setValue()` mutiert Map direkt; `Map.entry()` erzeugt unveränderliche Einträge
 
 ### Entscheidungsbaum
 
@@ -1100,4 +1552,105 @@ Benötige ich Schlüssel-Wert-Paare?
             NEIN -> Brauche ich Einfügereihenfolge?
                       JA -> LinkedHashSet (Set) oder ArrayList (List)
                       NEIN -> HashSet (Set, keine Duplikate) oder ArrayList (List, Duplikate OK)
+
+Brauche ich Stack (LIFO) oder Queue (FIFO)?
+  Stack -> ArrayDeque (push/pop/peek)
+  Queue -> ArrayDeque (offer/poll/peek) oder LinkedList
+  Beides (Deque) -> ArrayDeque mit offerFirst/offerLast/pollFirst/pollLast
 ```
+
+---
+
+## Multiple-Choice-Fragen
+
+**Frage 1:** Welche Methode des `Queue`-Interface liest das erste Element, ohne es zu entfernen, und gibt `null` zurück wenn die Queue leer ist?
+
+- A) `element()`
+- **B) `peek()`** ✓
+- C) `getFirst()`
+- D) `front()`
+
+**Frage 2:** Was ist der Hauptvorteil von `ArrayDeque` gegenüber `LinkedList` als Stack oder Queue?
+
+- A) `ArrayDeque` erlaubt `null`-Werte, `LinkedList` nicht
+- B) `ArrayDeque` implementiert das `List`-Interface
+- **C) `ArrayDeque` ist schneller durch bessere Cache-Lokalität und keinen Zeiger-Overhead** ✓
+- D) `ArrayDeque` unterstützt mehr Methoden als `LinkedList`
+
+**Frage 3:** Welche `Deque`-Methode fügt ein Element am Anfang ein und gibt `false` zurück (statt Exception) wenn nicht möglich?
+
+- A) `addFirst(e)`
+- B) `push(e)`
+- **C) `offerFirst(e)`** ✓
+- D) `prepend(e)`
+
+**Frage 4:** Was muss eine Klasse tun, um mit `Collections.sort()` ohne expliziten `Comparator` sortierbar zu sein?
+
+- A) Das `Comparator`-Interface implementieren
+- B) Eine statische `sort()`-Methode bereitstellen
+- **C) Das `Comparable`-Interface implementieren und `compareTo()` überschreiben** ✓
+- D) Die Klasse als `record` deklarieren
+
+**Frage 5:** Welchen Wert soll `compareTo(other)` zurückgeben wenn `this` kleiner als `other` ist?
+
+- **A) Einen negativen `int`-Wert** ✓
+- B) `0`
+- C) Einen positiven `int`-Wert
+- D) `false`
+
+**Frage 6:** Wie unterscheidet sich `Comparable` von `Comparator`?
+
+- A) `Comparable` ist für primitive Typen, `Comparator` für Objekte
+- B) `Comparable` kann nur aufsteigend sortieren, `Comparator` auch absteigend
+- **C) `Comparable` definiert die natürliche Ordnung in der Klasse selbst; `Comparator` ist eine externe, austauschbare Sortierlogik** ✓
+- D) `Comparator` ist veraltet – `Comparable` ist der moderne Ersatz
+
+**Frage 7:** Welche Methode von `SequencedMap` fügt einen Eintrag an der letzten Position ein?
+
+- A) `append(k, v)`
+- B) `addLast(k, v)`
+- **C) `putLast(k, v)`** ✓
+- D) `offerLast(k, v)`
+
+**Frage 8:** Was gibt `sequencedKeySet()` einer `SequencedMap` zurück?
+
+- A) Eine `List<K>` mit allen Schlüsseln
+- B) Ein `Set<K>` ohne definierte Reihenfolge
+- **C) Ein `SequencedSet<K>` mit geordneten Schlüsseln** ✓
+- D) Eine `Collection<K>` ohne Index-Zugriff
+
+**Frage 9:** Was bewirkt `eintrag.setValue(newValue)` auf einem `Map.Entry`-Objekt während einer `entrySet()`-Iteration?
+
+- A) Es erzeugt eine ConcurrentModificationException
+- B) Es ändert nur die lokale Kopie des Eintrags, nicht die Map
+- **C) Es ändert den Wert direkt in der zugrunde liegenden Map** ✓
+- D) Es ist verboten und wirft UnsupportedOperationException
+
+**Frage 10:** Wie erzeugt man ein unveränderliches `Set` aus einer bestehenden `HashSet`-Instanz mit der `Collections`-Klasse?
+
+- A) `Collections.immutableSet(original)`
+- **B) `Collections.unmodifiableSet(original)`** ✓
+- C) `Set.copyOf()` ist die einzige Möglichkeit
+- D) `Collections.frozenSet(original)`
+
+**Frage 11:** Welche Aussage über `Collections.synchronizedMap()` ist korrekt?
+
+- A) Die zurückgegebene Map ist vollständig thread-sicher, auch bei Iteration ohne externen Lock
+- **B) Einzelne Methodenaufrufe sind synchronisiert, aber Iterationen benötigen einen externen `synchronized`-Block** ✓
+- C) Sie erzeugt eine unveränderliche Map
+- D) Sie ist äquivalent zu `ConcurrentHashMap`
+
+---
+
+## Skill Check: Collections – Erweiterte Themen
+
+Zur Prüfungsvorbereitung sollten Sie folgende Fähigkeiten nachweisen können:
+
+- [ ] `Queue`-Interface-Methoden benennen und den Unterschied zwischen Exception-Variante (`add/remove/element`) und Sonderwert-Variante (`offer/poll/peek`) erklären
+- [ ] `ArrayDeque` als Stack und Queue einsetzen und gegenüber `LinkedList` bevorzugen können
+- [ ] `Deque`-spezifische Methoden (`offerFirst`, `offerLast`, `pollFirst`, `pollLast`, `peekFirst`, `peekLast`) korrekt anwenden
+- [ ] Das `Comparable`-Interface implementieren und den `compareTo()`-Vertrag (negativ/null/positiv) erklären
+- [ ] Den Unterschied zwischen natürlicher Ordnung (`Comparable`) und externer Sortierung (`Comparator`) erläutern
+- [ ] `SequencedMap`-Methoden (`putFirst`, `putLast`, `sequencedKeySet`, `sequencedValues`, `sequencedEntrySet`) anwenden
+- [ ] `Map.Entry.setValue()` zur Mutation von Map-Werten während der Iteration einsetzen
+- [ ] `Collections.unmodifiableSet()`, `Collections.unmodifiableMap()`, `Collections.synchronizedSet()` und `Collections.synchronizedMap()` korrekt verwenden

@@ -897,3 +897,536 @@ hallo-jre/bin/hallo
 | `opens ... to`      | Reflection nur für bestimmtes Modul         |
 | `uses`              | Service-Interface konsumieren               |
 | `provides ... with` | Service-Implementierung bereitstellen       |
+
+---
+
+## 14. Compact Source Files und Instance Main Methods [Java 21+]
+
+### 14.1 Compact Source Files (Single-File Programs) [Anfänger]
+
+Seit Java 11 können einfache Java-Programme mit `java MeinProgramm.java` direkt ausgeführt werden, ohne vorheriges Kompilieren. Java 21 hat dieses Konzept unter dem Namen **Compact Source Files** (JEP 445 Preview, JEP 463 Second Preview) weiter ausgebaut. Es erlaubt, eine vollständige Anwendung in einer einzigen `.java`-Datei zu schreiben, wobei Imports, Klasse und Methode auf das Nötigste reduziert werden. In Java 25 ist das Feature final (JEP 495). Der Compiler erkennt automatisch, ob es sich um ein normales oder ein Compact-Programm handelt.
+
+```java
+// HelloWorld.java – minimales Compact-Source-File (kein explizites class-Schlüsselwort nötig)
+// Seit Java 25 final (JEP 495: Simple Source Files and Instance Main Methods)
+
+void main() {
+    System.out.println("Hallo, Welt!");
+}
+```
+
+```java
+// Ausführen ohne vorheriges Kompilieren:
+// java HelloWorld.java
+
+// Komplexeres Beispiel: Imports und Methoden auf Datei-Ebene erlaubt
+import java.util.List;
+
+void main() {
+    var namen = List.of("Anna", "Ben", "Clara");
+    namen.forEach(name -> System.out.println("Hallo, " + name + "!"));
+}
+```
+
+**Praktische Hinweise:**
+- Geeignet für Lernprogramme, kleine Skripte und Demos.
+- Die Datei muss nach der öffentlichen Klasse (falls vorhanden) oder nach dem Dateinamen benannt sein.
+- Kein `public class`, kein `public static void main(String[] args)` erforderlich.
+- Compact Source Files laufen im **Unnamed Package** und können nicht auf Klassen anderer Pakete zugreifen.
+
+---
+
+### 14.2 Instance Main Methods [Anfänger]
+
+Java 21 führte **Instance Main Methods** (JEP 445) ein, die in Java 25 final sind (JEP 495). Statt der klassischen `public static void main(String[] args)`-Signatur kann die Main-Methode jetzt als Instanzmethode ohne `static`, ohne `public` und ohne Parameter deklariert werden. Die JVM wählt die passendste Main-Methode nach einer festgelegten Priorität aus. Dies senkt die Einstiegshürde für Lernende erheblich.
+
+```java
+// Klassisch (weiterhin gültig):
+public class KlassischMain {
+    public static void main(String[] args) {
+        System.out.println("Klassisch");
+    }
+}
+
+// Neu seit Java 25 (Instance Main Method):
+class ModernMain {
+    void main() {
+        System.out.println("Moderne Instance Main Method");
+    }
+}
+
+// Auch möglich: mit args-Parameter (aber static weglassen)
+class FlexMain {
+    void main(String[] args) {
+        System.out.println("Args: " + args.length);
+    }
+}
+```
+
+```java
+// Prioritätsreihenfolge der JVM beim Suchen der Main-Methode:
+// 1. static void main(String[] args)   – klassisch, höchste Priorität
+// 2. static void main()                – ohne Parameter
+// 3. void main(String[] args)          – Instanz mit args
+// 4. void main()                       – Instanz ohne Parameter, niedrigste Priorität
+
+// In Compact Source Files (ohne class-Deklaration) wird die Datei
+// implizit in eine anonyme Klasse eingebettet:
+void main() {
+    greet("Welt");
+}
+
+void greet(String name) {
+    System.out.println("Hallo, " + name + "!");
+}
+```
+
+**Praktische Hinweise:**
+- Instance Main Methods können Instanzfelder und Instanzmethoden direkt nutzen – kein `static` mehr notwendig.
+- Die klassische `public static void main(String[] args)`-Variante bleibt vollständig kompatibel.
+- Für Produktionscode in modularen Projekten wird weiterhin die explizite Klasse empfohlen.
+
+---
+
+### 14.3 Multi-File Source-Code Programs [Fortgeschritten]
+
+**Multi-File Source Programs** (JEP 458, Java 22+, in Java 25 final) erlauben es, eine aus mehreren `.java`-Dateien bestehende Anwendung direkt mit `java` zu starten, ohne vorher mit `javac` zu kompilieren. Der Java Launcher übernimmt die Kompilierung automatisch im Hintergrund. Dies ist besonders nützlich für Prototypen und Lernprojekte, die etwas größer sind als ein einzelnes File, aber noch keine vollständige Build-Infrastruktur rechtfertigen.
+
+```
+Projektstruktur (kein Build-Tool nötig):
+greet-app/
+├── Main.java
+├── Greeter.java
+└── Formatter.java
+```
+
+```java
+// Greeter.java
+public class Greeter {
+    private final Formatter formatter;
+
+    public Greeter(Formatter formatter) {
+        this.formatter = formatter;
+    }
+
+    public String greet(String name) {
+        return formatter.format("Hallo, " + name + "!");
+    }
+}
+
+// Formatter.java
+public class Formatter {
+    public String format(String text) {
+        return "*** " + text + " ***";
+    }
+}
+
+// Main.java – Einstiegspunkt
+void main() {
+    var formatter = new Formatter();
+    var greeter = new Greeter(formatter);
+    System.out.println(greeter.greet("Welt"));
+}
+```
+
+```bash
+# Direkt starten – kein javac nötig!
+java Main.java
+
+# Ausgabe:
+# *** Hallo, Welt! ***
+
+# Alle referenzierten Dateien im selben Verzeichnis werden automatisch mitgekompiliert.
+# Wichtig: Die Startat-Datei muss als erstes Argument angegeben werden.
+```
+
+**Praktische Hinweise:**
+- Der Launcher kompiliert alle referenzierten Klassen im selben Verzeichnis automatisch.
+- Es gibt keine `module-info.java` – das Programm läuft im Unnamed Module.
+- Für größere Projekte mit Abhängigkeiten bleibt `javac` + `java --module-path` oder Maven/Gradle notwendig.
+- Klassen dürfen nicht in Paketen liegen (Unnamed Package).
+
+---
+
+## 15. Modulare vs. Nicht-modulare JARs
+
+### 15.1 Vergleich: Modular vs. Non-modular JAR [Fortgeschritten]
+
+Ein **modulares JAR** enthält eine `module-info.class`-Datei im Root-Verzeichnis und deklariert damit seine Abhängigkeiten, exportierten Pakete und weiteren Modul-Metadaten explizit. Ein **nicht-modulares JAR** (auch *Plain JAR*) hat keine `module-info.class` und verhält sich je nach Platzierung entweder als **Unnamed Module** (auf dem Classpath) oder als **Automatic Module** (auf dem Modulpfad).
+
+| Merkmal                      | Modulares JAR                         | Nicht-modulares JAR (Classpath)       | Nicht-modulares JAR (Modulpfad = Automatic) |
+|------------------------------|---------------------------------------|---------------------------------------|---------------------------------------------|
+| Enthält `module-info.class`  | Ja                                    | Nein                                  | Nein                                        |
+| Modul-Typ                    | Named Module                          | Unnamed Module                        | Automatic Module                            |
+| Kapselung                    | Stark (nur exportierte Pakete)        | Keine                                 | Keine (alle Pakete exportiert)              |
+| Kann von Named Module required werden | Ja                          | Nein                                  | Ja (Name aus Dateiname oder Manifest)       |
+| Kann andere Named Modules sehen | Ja (via `requires`)              | Alle (transitiv)                      | Alle (automatisch)                          |
+| `requires`-Direktive nötig   | Ja                                    | Nein                                  | Nein                                        |
+| Einsatz                      | Neue, modularisierte Bibliotheken     | Legacy-Code, Migration                | Bibliotheken ohne JPMS-Support              |
+
+```bash
+# Modulares JAR identifizieren
+jar --describe-module --file mylib.jar
+# Ausgabe: com.mylib@1.0 jar:file:///pfad/mylib.jar!/module-info.class
+# requires java.base mandated
+# exports com.mylib.api
+
+# Nicht-modulares JAR auf Modulpfad (Automatic Module)
+jar --describe-module --file legacy.jar
+# Ausgabe: No module descriptor found. Derived automatic module.
+# legacy@0.0 automatic
+# requires java.base mandated
+# contains com.legacy
+
+# Classpath-Nutzung (Unnamed Module – kein Modulname)
+java -cp legacy.jar:. com.legacy.Main
+```
+
+```java
+// Automatic-Module-Name im Manifest setzen (empfohlene Praxis für Bibliotheks-Autoren)
+// META-INF/MANIFEST.MF:
+// Automatic-Module-Name: com.mylib.legacy
+//
+// → Stabilisiert den Modulnamen, unabhängig vom JAR-Dateinamen
+// → Erlaubt anderen Modulen, requires com.mylib.legacy zu schreiben,
+//    ohne dass sich der Name bei Umbenennung ändert.
+
+module com.mein.app {
+    requires com.mylib.legacy;  // Automatic Module via Manifest-Name
+}
+```
+
+**Praktische Hinweise:**
+- Unnamed Module kann alle anderen Module sehen, aber **kein Named Module kann Unnamed Module required**.
+- Automatic Module ist der Übergangsweg für nicht-modularisierte Bibliotheken.
+- Für neue Bibliotheken sollte immer ein `module-info.java` erstellt werden.
+
+---
+
+## 16. Erweiterte Kommandozeilen-Flags
+
+### 16.1 javac und java mit Classpath [Anfänger]
+
+Neben `--module-path` unterstützen `javac` und `java` weiterhin den klassischen Classpath. Beide Varianten können auch kombiniert werden (gemischte Projekte).
+
+```bash
+# Kompilieren mit klassischem Classpath (-cp oder --class-path)
+javac -cp libs/jackson.jar:libs/slf4j.jar \
+      -d out \
+      src/com/mein/Main.java
+
+# Ausführen mit Classpath
+java -cp out:libs/jackson.jar:libs/slf4j.jar \
+     com.mein.Main
+
+# Windows: Semikolon als Trennzeichen statt Doppelpunkt
+javac -cp "libs\jackson.jar;libs\slf4j.jar" -d out src\com\mein\Main.java
+java -cp "out;libs\jackson.jar;libs\slf4j.jar" com.mein.Main
+
+# Gemischt: Modulpfad + Classpath
+java --module-path mods \
+     --class-path legacy-libs/ \
+     --module com.mein.app/com.mein.app.Main
+```
+
+---
+
+### 16.2 --add-exports und --add-opens [Fortgeschritten]
+
+Diese Flags erlauben es, **zur Laufzeit** Pakete zu exportieren oder für Reflection zu öffnen, ohne die `module-info.java` zu ändern. Sie werden vor allem bei der Migration und bei Framework-Kompatibilität eingesetzt.
+
+```bash
+# --add-exports: Paket für ein anderes Modul oder ALL-UNNAMED sichtbar machen
+# Syntax: --add-exports <Modul>/<Paket>=<Zielmodul>
+java --add-exports java.base/sun.nio.ch=ALL-UNNAMED \
+     -jar myapp.jar
+
+# --add-opens: Paket für Deep Reflection öffnen
+# Syntax: --add-opens <Modul>/<Paket>=<Zielmodul>
+java --add-opens java.base/java.lang=ALL-UNNAMED \
+     --add-opens java.base/java.util=com.mein.framework \
+     -jar myapp.jar
+
+# Für mehrere Module gleichzeitig (häufig bei Spring Boot / Hibernate nötig):
+java --add-opens java.base/java.lang=ALL-UNNAMED \
+     --add-opens java.base/java.lang.reflect=ALL-UNNAMED \
+     --add-opens java.base/java.io=ALL-UNNAMED \
+     --add-opens java.rmi/sun.rmi.transport=ALL-UNNAMED \
+     --module-path mods \
+     --module com.shop.app/com.shop.app.Main
+```
+
+```java
+// Unterschied --add-exports vs. --add-opens:
+// --add-exports: Macht Paket sichtbar für normalen Zugriff (public API)
+//                Entspricht 'exports P to M' in module-info.java
+//
+// --add-opens:   Öffnet Paket für Deep Reflection (private Felder, Methoden)
+//                Entspricht 'opens P to M' in module-info.java
+//                Beinhaltet automatisch auch exports-Effekt
+
+// In module-info.java (bevorzugt für eigenen Code):
+module com.mein.modul {
+    exports com.mein.intern to com.mein.test;   // nur Compile-Time + normaler Zugriff
+    opens   com.mein.intern to com.mein.test;   // zusätzlich Deep Reflection
+}
+```
+
+---
+
+### 16.3 --add-modules und --add-reads [Fortgeschritten]
+
+```bash
+# --add-modules: Zusätzliche Module in den Modul-Graph aufnehmen
+# Nützlich wenn ein Modul nicht direkt im requires-Graph steht
+java --add-modules java.xml.bind,java.activation \
+     --module-path mods \
+     --module com.mein.app/com.mein.app.Main
+
+# ALL-SYSTEM: alle System-Module hinzufügen
+java --add-modules ALL-SYSTEM -jar myapp.jar
+
+# ALL-DEFAULT: alle Default-Module (wie JDK ohne jdk.*-interne Module)
+java --add-modules ALL-DEFAULT -jar myapp.jar
+
+# --add-reads: Modul A darf von Modul B lesen (ohne requires in module-info)
+# Syntax: --add-reads <Modul>=<anderes-Modul>
+java --add-reads com.mein.app=com.fremde.lib \
+     --module-path mods \
+     --module com.mein.app/com.mein.app.Main
+```
+
+---
+
+### 16.4 --patch-module [Professionell]
+
+`--patch-module` erlaubt es, Klassen eines Moduls durch eigene Versionen zu ersetzen oder zu ergänzen – hauptsächlich für Tests und Migrations-Szenarien eingesetzt.
+
+```bash
+# --patch-module: Klassen in ein Modul einpatchen
+# Syntax: --patch-module <Modul>=<Pfad>
+# Nützlich um Test-Stubs in das zu testende Modul einzuschleusen
+
+javac --patch-module com.mein.modul=test-patches/src \
+      --module-path mods \
+      -d test-out \
+      test-patches/src/com/mein/modul/TestHelper.java
+
+java --patch-module com.mein.modul=test-out \
+     --module-path mods \
+     --module com.mein.app/com.mein.app.Main
+
+# Typischer Einsatz: JUnit-Tests für Named Module
+# ohne das Modul zu öffnen (opens in module-info.java)
+java --patch-module com.mein.modul=target/test-classes \
+     --add-opens com.mein.modul/com.mein.intern=ALL-UNNAMED \
+     --module-path mods \
+     --add-modules org.junit.platform.launcher \
+     --module org.junit.platform.launcher/... 
+```
+
+---
+
+## 17. Unnamed Module und Automatic Module im Detail
+
+### 17.1 Unnamed Module – Verhalten aus Named-Module-Perspektive [Fortgeschritten]
+
+Das **Unnamed Module** fasst alle JARs und Klassen zusammen, die auf dem Classpath liegen. Es hat keinen Namen, exportiert alle seine Pakete und kann alle anderen Module lesen. **Kein Named Module kann jedoch das Unnamed Module mit `requires` einbinden** – das ist die zentrale Einschränkung bei der Migration.
+
+```
+Sichtbarkeitsregeln:
+┌────────────────────┐         ┌──────────────────────┐
+│   Named Module A   │──────>  │   Named Module B     │  Möglich via: requires B
+│  (module-info.java)│         │  (module-info.java)  │
+└────────────────────┘         └──────────────────────┘
+         │                              │
+         │ NICHT MÖGLICH                │ MÖGLICH (lesen)
+         ▼                              ▼
+┌────────────────────┐         ┌──────────────────────┐
+│   Unnamed Module   │──────>  │   Named Module C     │  Unnamed kann alles lesen
+│   (Classpath)      │         │                      │
+└────────────────────┘         └──────────────────────┘
+```
+
+```java
+// Unnamed Module: kein module-info.java
+// Liest: java.base und alle anderen Platform-Module
+//        alle Automatic Module
+//        alle anderen Named Module (wenn diese exportieren)
+// Kann gelesen werden von: Automatic Modules, anderen Unnamed Modules
+// Kann NICHT gelesen werden von: Named Modules (kein 'requires ALL-UNNAMED')
+
+// Workaround für Named Module, das Unnamed Module-Code aufrufen muss:
+// Option 1: Code in Named Module verschieben
+// Option 2: --add-reads-Flag nutzen (Runtime-Patch)
+// Option 3: Service-Loader-Muster verwenden
+```
+
+```bash
+# Named Module auf Unnamed Module zugreifen lassen (Workaround, nur Migration):
+java --add-reads com.mein.named=ALL-UNNAMED \
+     --module-path mods \
+     --class-path legacy.jar \
+     --module com.mein.named/com.mein.Main
+```
+
+---
+
+### 17.2 Automatic Module – Naming und Fallstricke [Fortgeschritten]
+
+```bash
+# Automatic-Module-Name wird in folgender Reihenfolge bestimmt:
+# 1. Manifest-Attribut: Automatic-Module-Name (bevorzugt, stabil)
+# 2. JAR-Dateiname: Bindestriche und Versionsstrings werden normalisiert
+#    jackson-databind-2.15.3.jar → jackson.databind (Versionsteil entfernt)
+#    log4j-core-2.20.0.jar      → log4j.core
+
+# Wichtiger Unterschied zu Named Modules:
+# Automatic Module exportiert ALLE seine Pakete (keine Kontrolle möglich)
+# Automatic Module hat implizit 'requires' auf ALLE anderen Module im Modul-Graph
+# → Kann zu unerwartetem Zugriff führen!
+
+# Empfehlung für Bibliotheks-Autoren:
+# Immer Automatic-Module-Name im MANIFEST.MF setzen:
+jar --create \
+    --file mylib.jar \
+    --manifest manifest.txt \
+    -C classes .
+
+# manifest.txt:
+# Manifest-Version: 1.0
+# Automatic-Module-Name: com.meine.bibliothek
+```
+
+---
+
+## 18. Übungsaufgaben
+
+### Aufgabe 1: Compact Source File erstellen
+
+Schreiben Sie ein Compact Source File `Rechner.java` (ohne explizite Klassen-Deklaration), das zwei Zahlen addiert und das Ergebnis ausgibt. Führen Sie es direkt mit `java Rechner.java` aus.
+
+**Lösung:**
+```java
+// Rechner.java
+void main() {
+    int a = 42;
+    int b = 58;
+    System.out.println(a + " + " + b + " = " + (a + b));
+}
+// Ausführen: java Rechner.java
+// Ausgabe: 42 + 58 = 100
+```
+
+### Aufgabe 2: Instance Main Method
+
+Schreiben Sie eine Klasse `Begruessung`, die eine Instanzvariable `String name` hat und eine `void main()`-Methode, die `"Hallo, <name>!"` ausgibt.
+
+**Lösung:**
+```java
+// Begruessung.java
+class Begruessung {
+    String name = "Java 25";
+
+    void main() {
+        System.out.println("Hallo, " + name + "!");
+    }
+}
+// Ausführen: java Begruessung.java
+// Ausgabe: Hallo, Java 25!
+```
+
+### Aufgabe 3: Modular vs. Non-modular JAR
+
+Erklären Sie, was passiert, wenn Sie eine Legacy-JAR ohne `module-info.class`:
+a) auf den Classpath legen
+b) auf den Modulpfad legen
+
+Nennen Sie den Modultyp und beschreiben Sie je zwei Eigenschaften.
+
+**Lösung:**
+- a) Unnamed Module: kein Modulname, exportiert alle Pakete, kann von Named Modules nicht required werden
+- b) Automatic Module: Name aus Dateiname/Manifest, exportiert alle Pakete, kann von Named Modules required werden
+
+---
+
+## 19. Multiple-Choice-Fragen
+
+**Frage 1:** Welche Aussage zu Compact Source Files in Java 25 ist korrekt?
+
+- A) Sie erfordern zwingend eine `public class`-Deklaration.
+- B) Sie müssen mit `javac` vorkompiliert werden, bevor `java` sie ausführt.
+- **C) Eine `void main()`-Methode ohne Klasse genügt als vollständiges Programm.** ✓
+- D) Sie können nur eine einzige Methode enthalten.
+
+**Frage 2:** In welcher Reihenfolge sucht die JVM die Main-Methode bei Instance Main Methods (höchste Priorität zuerst)?
+
+- A) `void main()` → `void main(String[])` → `static void main()` → `static void main(String[])`
+- **B) `static void main(String[])` → `static void main()` → `void main(String[])` → `void main()`** ✓
+- C) `static void main(String[])` → `void main(String[])` → `static void main()` → `void main()`
+- D) Die JVM wählt immer die erste Methode namens `main` in der Datei.
+
+**Frage 3:** Was erlaubt `java Main.java` mit Multi-File Source Programs (JEP 458)?
+
+- A) Nur `Main.java` wird kompiliert; andere Dateien müssen separat mit `javac` kompiliert werden.
+- B) Alle `.java`-Dateien des gesamten Projekts werden automatisch kompiliert.
+- **C) Der Launcher kompiliert automatisch alle referenzierten Klassen aus dem selben Verzeichnis.** ✓
+- D) Die Dateien müssen explizit mit `--source-files` angegeben werden.
+
+**Frage 4:** Was ist der Hauptunterschied zwischen `--add-exports` und `--add-opens`?
+
+- A) `--add-exports` wirkt nur zur Compile-Zeit, `--add-opens` nur zur Laufzeit.
+- B) `--add-exports` erlaubt Reflection auf private Felder, `--add-opens` nur öffentlichen Zugriff.
+- **C) `--add-opens` erlaubt Deep Reflection (auch private Member), `--add-exports` nur normalen öffentlichen Zugriff.** ✓
+- D) Beide sind identisch, nur der Name unterscheidet sich.
+
+**Frage 5:** Welche Aussage über das Unnamed Module ist korrekt?
+
+- A) Named Modules können das Unnamed Module mit `requires ALL-UNNAMED` direkt einbinden.
+- B) Das Unnamed Module sieht nur `java.base`.
+- C) Das Unnamed Module ist das Äquivalent zu einem Automatic Module auf dem Modulpfad.
+- **D) Das Unnamed Module kann alle anderen Module lesen, aber kein Named Module kann es via `requires` einbinden.** ✓
+
+**Frage 6:** Wie wird der Name eines Automatic Module bestimmt, wenn keine `Automatic-Module-Name`-Angabe im Manifest vorhanden ist?
+
+- A) Der Name wird vom JDK zufällig generiert.
+- B) Der Name entspricht dem ersten Paket im JAR.
+- **C) Der Name wird aus dem JAR-Dateinamen abgeleitet (Bindestriche zu Punkten, Versionsstring entfernt).** ✓
+- D) Das JAR wird als Unnamed Module behandelt, nicht als Automatic Module.
+
+**Frage 7:** Wofür wird `--patch-module` hauptsächlich verwendet?
+
+- A) Um den Modulpfad zur Laufzeit zu erweitern.
+- **B) Um Klassen eines bestehenden Moduls durch eigene Versionen zu ersetzen oder zu ergänzen (z. B. für Tests).** ✓
+- C) Um Abhängigkeiten zwischen Modulen zur Laufzeit hinzuzufügen.
+- D) Um exportierte Pakete eines Moduls zu überschreiben.
+
+**Frage 8:** Welche Aussage zu modularen vs. nicht-modularen JARs ist korrekt?
+
+- A) Nicht-modulare JARs können nicht mit Java 25 verwendet werden.
+- B) Modulare JARs auf dem Classpath verhalten sich wie Automatic Modules.
+- **C) Nicht-modulare JARs auf dem Modulpfad werden als Automatic Module behandelt und exportieren alle Pakete.** ✓
+- D) Modulare JARs auf dem Classpath werden als Named Module behandelt.
+
+---
+
+## 20. Skill Check: Modules and Deployment
+
+Stellen Sie sicher, dass Sie folgende Fähigkeiten beherrschen (mind. 80 % der Fragen korrekt):
+
+- [ ] `module-info.java` mit allen Direktiven schreiben (`requires`, `exports`, `opens`, `uses`, `provides`)
+- [ ] Den Unterschied zwischen Named, Unnamed, Automatic und Platform Module erklären
+- [ ] Ein Mehr-Modul-Projekt mit `javac` und `java` kompilieren und ausführen
+- [ ] Modulare JARs mit `jar` erstellen und beschreiben
+- [ ] `jdeps` zur Abhängigkeitsanalyse und für jlink-Vorbereitung einsetzen
+- [ ] Eine Custom JRE mit `jlink` erstellen
+- [ ] Einen nativen Installer mit `jpackage` erstellen
+- [ ] Classpath (`-cp`) und Modulpfad (`--module-path`) korrekt einsetzen und kombinieren
+- [ ] `--add-exports`, `--add-opens`, `--add-modules` und `--add-reads` erklären und anwenden
+- [ ] `--patch-module` für Test-Szenarien einsetzen
+- [ ] Ein Compact Source File (Single-File Program) schreiben und mit `java` direkt ausführen
+- [ ] Instance Main Methods schreiben und die Prioritätsreihenfolge der JVM erklären
+- [ ] Ein Multi-File Source Program ohne `javac` starten
+- [ ] Den Unterschied zwischen modularen und nicht-modularen JARs in einer Vergleichstabelle erklären
+- [ ] Migrationsstrategien (Bottom-up, Top-down) und den Einsatz von Automatic Modules beschreiben
+- [ ] `Automatic-Module-Name` im Manifest setzen und dessen Bedeutung erklären

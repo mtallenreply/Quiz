@@ -146,6 +146,36 @@ public class StreamErstellen {
         rangeClosed.forEach(n -> System.out.print(n + " "));
         System.out.println();
 
+        // LongStream.range und rangeClosed (analog zu IntStream, für long-Werte)
+        LongStream longRange = LongStream.range(1L, 6L);         // 1, 2, 3, 4, 5
+        LongStream longRangeClosed = LongStream.rangeClosed(1L, 5L); // 1, 2, 3, 4, 5
+
+        System.out.print("LongStream range: ");
+        longRange.forEach(n -> System.out.print(n + " "));
+        System.out.println();
+
+        // LongStream summaryStatistics
+        LongSummaryStatistics longStats = LongStream.rangeClosed(1L, 10L)
+            .summaryStatistics();
+        System.out.println("LongStream Stats - Min: " + longStats.getMin()
+            + ", Max: " + longStats.getMax()
+            + ", Sum: " + longStats.getSum()
+            + ", Avg: " + longStats.getAverage()
+            + ", Count: " + longStats.getCount());
+
+        // DoubleStream summaryStatistics
+        DoubleSummaryStatistics doubleStats = DoubleStream.of(1.5, 2.5, 3.0, 4.0, 5.0)
+            .summaryStatistics();
+        System.out.printf("DoubleStream Stats - Min: %.1f, Max: %.1f, Sum: %.1f, Avg: %.2f%n",
+            doubleStats.getMin(), doubleStats.getMax(),
+            doubleStats.getSum(), doubleStats.getAverage());
+
+        // DoubleStream.generate und limit
+        DoubleStream zufallsDoubles = DoubleStream.generate(Math::random).limit(5);
+        System.out.print("5 zufällige Doubles: ");
+        zufallsDoubles.forEach(d -> System.out.printf("%.3f ", d));
+        System.out.println();
+
         // Boxen: primitiver Stream -> Object Stream
         Stream<Integer> geboxed = IntStream.range(1, 4).boxed();
         List<Integer> geboxedListe = geboxed.collect(Collectors.toList());
@@ -647,6 +677,24 @@ public class GrundlegendeCollectors {
         List<String> immutableListe = namen.stream()
             .distinct()
             .collect(Collectors.toUnmodifiableList());
+
+        // Stream.toList() - direkte Terminaloperation seit Java 16 (kürzer als collect)
+        // Gibt eine unveränderliche Liste zurück, keine null-Elemente erlaubt
+        List<String> direkteListe = namen.stream()
+            .distinct()
+            .sorted()
+            .toList(); // kein Collectors.toList() nötig!
+        System.out.println("Stream.toList(): " + direkteListe);
+
+        // Unterschied: Stream.toList() vs. Collectors.toList()
+        // Stream.toList()               -> unmodifiable (UnsupportedOperationException bei add/remove)
+        // Collectors.toList()           -> Implementierungsabhängig (meist mutable ArrayList)
+        // Collectors.toUnmodifiableList() -> garantiert unmodifiable
+        try {
+            direkteListe.add("Frank"); // wirft UnsupportedOperationException
+        } catch (UnsupportedOperationException e) {
+            System.out.println("Stream.toList() ist unveränderlich!");
+        }
 
         // toSet() - in Set (Reihenfolge nicht garantiert)
         Set<String> menge = namen.stream()
@@ -1235,3 +1283,89 @@ Collectors:
 | `flatMap(function)` | Gibt Optional zurück wenn vorhanden |
 | `filter(predicate)` | Leert Optional wenn Bedingung nicht erfüllt |
 | `stream()` | Optional als Stream (Java 9+) |
+
+---
+
+## Multiple-Choice-Fragen
+
+**Frage 1:** Welche Methode gibt es bei `LongStream`, die auch bei `IntStream` existiert, bei `DoubleStream` aber nicht?
+
+- A) `summaryStatistics()`
+- **B) `range(long startInclusive, long endExclusive)` ✓**
+- C) `average()`
+- D) `sum()`
+
+> `LongStream.range()` und `LongStream.rangeClosed()` existieren analog zu `IntStream`. `DoubleStream` hat kein `range()`, da Gleitkommazahlen keinen sinnvollen diskreten Bereich erzeugen. Alle drei primitiven Streams bieten `summaryStatistics()`, `average()` und `sum()`.
+
+---
+
+**Frage 2:** Was gibt `LongStream.rangeClosed(1L, 5L).summaryStatistics().getSum()` zurück?
+
+- A) 10
+- **B) 15 ✓**
+- C) 5
+- D) 14
+
+> `rangeClosed(1, 5)` erzeugt die Werte 1, 2, 3, 4, 5 (inklusiv beide Grenzen). Die Summe ist 1+2+3+4+5 = 15.
+
+---
+
+**Frage 3:** Welche Aussage über `DoubleStream.summaryStatistics()` ist korrekt?
+
+- A) Es gibt nur `getMin()` und `getMax()` im `DoubleSummaryStatistics`-Objekt
+- B) `summaryStatistics()` ist eine Intermediate Operation
+- **C) `DoubleSummaryStatistics` liefert Minimum, Maximum, Summe, Durchschnitt und Anzahl in einem Aufruf ✓**
+- D) `DoubleStream` hat keine `summaryStatistics()`-Methode
+
+> `DoubleSummaryStatistics` (wie auch `IntSummaryStatistics` und `LongSummaryStatistics`) fasst fünf statistische Kennzahlen zusammen: `getMin()`, `getMax()`, `getSum()`, `getAverage()` und `getCount()`. `summaryStatistics()` ist eine Terminaloperation.
+
+---
+
+**Frage 4:** Was ist der Hauptunterschied zwischen `stream.toList()` (Java 16) und `stream.collect(Collectors.toList())`?
+
+- A) `toList()` ist langsamer als `collect(Collectors.toList())`
+- **B) `toList()` gibt immer eine unveränderliche Liste zurück; `Collectors.toList()` gibt eine mutierbare Liste zurück ✓**
+- C) `toList()` erlaubt `null`-Elemente; `Collectors.toList()` nicht
+- D) Es gibt keinen Unterschied, es ist nur syntaktischer Zucker
+
+> `Stream.toList()` (Java 16) gibt eine unveränderliche Liste zurück und wirft `UnsupportedOperationException` bei Änderungsversuchen. `Collectors.toList()` liefert implementierungsabhängig (typischerweise eine `ArrayList`) eine mutierbare Liste. Außerdem erlaubt `toList()` keine `null`-Elemente.
+
+---
+
+**Frage 5:** Welche der folgenden Code-Varianten kompiliert und erzeugt eine unveränderliche Liste in Java 25?
+
+- A) `list.stream().filter(s -> s.length() > 3).collect(Collectors.toImmutableList())`
+- B) `list.stream().filter(s -> s.length() > 3).toUnmodifiableList()`
+- **C) `list.stream().filter(s -> s.length() > 3).toList()` ✓**
+- D) `list.stream().filter(s -> s.length() > 3).collect(Collectors.toFixedList())`
+
+> Seit Java 16 ist `Stream.toList()` eine direkte Terminaloperation, die eine unveränderliche Liste zurückgibt. Die anderen Optionen existieren nicht in dieser Form. `Collectors.toUnmodifiableList()` existiert, muss aber über `collect()` aufgerufen werden.
+
+---
+
+**Frage 6:** Was gibt folgender Code aus?
+```java
+List<String> result = Stream.of("A", "B", "C").toList();
+result.add("D");
+```
+
+- A) `[A, B, C, D]`
+- B) `[A, B, C]` (die `add`-Operation wird still ignoriert)
+- **C) `UnsupportedOperationException` wird geworfen ✓**
+- D) `NullPointerException` wird geworfen
+
+> `Stream.toList()` liefert eine unveränderliche Liste. Jeder Versuch, sie zu verändern (`add`, `remove`, `set`), wirft eine `UnsupportedOperationException`.
+
+---
+
+## Skill Check: Streams
+
+Mindestens **80%** der folgenden Aufgaben müssen korrekt gelöst werden.
+
+- [ ] Erkläre den Unterschied zwischen `LongStream.range()` und `LongStream.rangeClosed()` und nenne je ein Anwendungsbeispiel
+- [ ] Schreibe Code, der `LongStream.rangeClosed(1L, 100L).summaryStatistics()` verwendet und alle fünf Kennzahlen ausgibt
+- [ ] Erkläre, warum `DoubleStream` keine `range()`-Methode hat, aber `summaryStatistics()` anbietet
+- [ ] Demonstriere `DoubleStream.of(...).summaryStatistics()` mit `getMin()`, `getMax()`, `getSum()`, `getAverage()` und `getCount()`
+- [ ] Erkläre den Unterschied zwischen `Stream.toList()`, `Collectors.toList()` und `Collectors.toUnmodifiableList()`
+- [ ] Schreibe eine Stream-Pipeline, die `Stream.toList()` als Terminaloperation verwendet und zeige, dass das Ergebnis unveränderlich ist
+- [ ] Nenne die Java-Version, ab der `Stream.toList()` verfügbar ist, und begründe warum es gegenüber `collect(Collectors.toList())` bevorzugt werden kann

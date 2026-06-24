@@ -603,7 +603,9 @@ class BenutzerService {
 }
 ```
 
-### 4.3 Exception Chaining
+### 4.3 Exception Chaining [Fortgeschritten]
+
+Exception Chaining bewahrt die ursprüngliche Fehlerursache, wenn eine Exception in eine andere verpackt wird. Es gibt zwei Wege, die Ursache zu setzen: den `cause`-Konstruktor (bevorzugt, da die Ursache unveränderlich festgelegt wird) und die Methode `initCause()` (für Fälle, in denen kein passender Konstruktor verfügbar ist). Mit `getCause()` lässt sich die gesamte Exception-Kette zur Diagnose traversieren.
 
 ```java
 import java.sql.*;
@@ -618,7 +620,7 @@ public class ExceptionChaining {
         try {
             datenbankOperation();
         } catch (SQLException sqlEx) {
-            // Checked -> Checked: Ursache verpacken
+            // Methode 1 (bevorzugt): cause über Konstruktor setzen
             throw new GeschaeftsfehlerException(
                 "Benutzer konnte nicht gespeichert werden: " + name,
                 sqlEx  // WICHTIG: Ursache weitergeben!
@@ -630,7 +632,7 @@ public class ExceptionChaining {
         try {
             throw new java.io.IOException("Datei nicht lesbar: " + pfad);
         } catch (java.io.IOException e) {
-            // Checked -> Unchecked: mit initCause oder cause-Konstruktor
+            // Checked -> Unchecked: cause-Konstruktor von RuntimeException
             throw new RuntimeException("Systemfehler beim Lesen", e);
         }
     }
@@ -649,7 +651,7 @@ public class ExceptionChaining {
                 System.out.println("Ursache: " + ursache.getMessage());
             }
 
-            // Vollständige Chain
+            // Vollständige Chain traversieren
             System.out.println("\n--- Exception Chain ---");
             Throwable current = e;
             int tiefe = 0;
@@ -671,6 +673,94 @@ public class ExceptionChaining {
     }
 }
 ```
+
+### 4.4 initCause() – nachträgliches Setzen der Ursache [Fortgeschritten]
+
+`initCause(Throwable cause)` ist die Alternative zum cause-Konstruktor für Situationen, in denen kein Konstruktor mit `Throwable`-Parameter existiert — etwa bei älteren oder fremden Exception-Klassen. Die Methode darf nur **einmal** aufgerufen werden; ein zweiter Aufruf wirft `IllegalStateException`. Wurde die Ursache bereits über den Konstruktor gesetzt, schlägt `initCause()` ebenfalls fehl. Der Rückgabewert ist `this`, was Method Chaining ermöglicht.
+
+```java
+public class InitCauseDemo {
+    // Alte Exception ohne cause-Konstruktor (simuliert Legacy-Code)
+    static class LegacyException extends Exception {
+        public LegacyException(String message) {
+            super(message); // kein Konstruktor mit Throwable!
+        }
+    }
+
+    // initCause() verwenden, wenn kein cause-Konstruktor verfügbar ist
+    static void legacyOperation() throws LegacyException {
+        try {
+            int ergebnis = 10 / 0; // ArithmeticException
+        } catch (ArithmeticException e) {
+            LegacyException le = new LegacyException("Berechnung fehlgeschlagen");
+            le.initCause(e); // Ursache nachträglich setzen
+            throw le;
+        }
+    }
+
+    // initCause() gibt 'this' zurück -> Method Chaining möglich
+    static void chainedInitCause() throws Exception {
+        try {
+            String s = null;
+            s.length(); // NullPointerException
+        } catch (NullPointerException e) {
+            // Rückgabewert this erlaubt direkte Verwendung im throw
+            throw (RuntimeException) new RuntimeException("Null-Zugriff").initCause(e);
+        }
+    }
+
+    // FEHLER: initCause() nur einmal erlaubt
+    static void initCauseZweimalFehler() {
+        RuntimeException ex = new RuntimeException("Nachricht");
+        ex.initCause(new IllegalArgumentException("Ursache 1"));
+        try {
+            ex.initCause(new IllegalStateException("Ursache 2")); // wirft IllegalStateException!
+        } catch (IllegalStateException ise) {
+            System.out.println("Fehler: " + ise.getMessage()); // cause already initialized
+        }
+    }
+
+    // FEHLER: initCause() schlägt fehl, wenn cause im Konstruktor gesetzt wurde
+    static void initCauseNachKonstruktorFehler() {
+        Throwable ursache = new ArithmeticException("Division");
+        RuntimeException ex = new RuntimeException("Nachricht", ursache); // cause gesetzt
+        try {
+            ex.initCause(new IllegalArgumentException("Andere Ursache")); // IllegalStateException!
+        } catch (IllegalStateException ise) {
+            System.out.println("Fehler: " + ise.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Legacy-Exception mit initCause
+        try {
+            legacyOperation();
+        } catch (LegacyException e) {
+            System.out.println("LegacyException: " + e.getMessage());
+            System.out.println("Ursache: " + e.getCause().getClass().getSimpleName()
+                + " - " + e.getCause().getMessage());
+        }
+
+        // Method Chaining mit initCause
+        try {
+            chainedInitCause();
+        } catch (Exception e) {
+            System.out.println("Chained: " + e.getMessage()
+                + " <- " + e.getCause().getClass().getSimpleName());
+        }
+
+        // Fehlerszenarien demonstrieren
+        initCauseZweimalFehler();
+        initCauseNachKonstruktorFehler();
+    }
+}
+```
+
+**Praktische Hinweise:**
+- Bevorzuge immer den `cause`-Konstruktor (`new MyException("msg", cause)`) — er ist kürzer, unveränderlich und explizit.
+- `initCause()` nur verwenden, wenn kein passender Konstruktor existiert (Legacy-Code, fremde Bibliotheken).
+- `getCause()` gibt `null` zurück, wenn keine Ursache gesetzt wurde — immer prüfen, bevor auf `getCause()` zugegriffen wird.
+- Beide Methoden gehören zur Klasse `Throwable` und sind damit für alle Exceptions und Errors verfügbar.
 
 ---
 
@@ -1363,3 +1453,60 @@ try { ... } finally { ... }
 - Exception-Chaining mit `cause`-Konstruktor verwenden
 - Checked Exception: wenn Aufrufer sinnvoll reagieren kann
 - Unchecked Exception: wenn Fehler auf Programmierfehler hindeutet
+
+---
+
+## Multiple-Choice-Fragen
+
+**Frage 1:** Welche Aussage zu `initCause()` ist korrekt?
+
+- A) `initCause()` kann beliebig oft aufgerufen werden, um die Ursache zu aktualisieren.
+- **B) `initCause()` wirft `IllegalStateException`, wenn die Ursache bereits gesetzt wurde — entweder durch einen vorherigen `initCause()`-Aufruf oder durch den Konstruktor.** ✓
+- C) `initCause()` ist nur in `RuntimeException` verfügbar, nicht in `Exception`.
+- D) `initCause()` gibt `null` zurück und kann daher nicht für Method Chaining genutzt werden.
+
+**Frage 2:** Wann sollte `initCause()` anstelle des cause-Konstruktors verwendet werden?
+
+- A) Wenn die Ursache eine `RuntimeException` ist, immer `initCause()` bevorzugen.
+- B) Bei checked Exceptions ist `initCause()` Pflicht.
+- **C) Wenn die Exception-Klasse keinen Konstruktor mit `Throwable`-Parameter besitzt, z. B. bei Legacy- oder Fremd-Exceptions.** ✓
+- D) `initCause()` ist identisch mit dem cause-Konstruktor und kann immer austauschbar verwendet werden.
+
+**Frage 3:** Was gibt `getCause()` zurück, wenn keine Ursache gesetzt wurde?
+
+- A) Eine leere `RuntimeException` ohne Nachricht.
+- B) `Optional.empty()`
+- **C) `null`** ✓
+- D) Eine `IllegalStateException` mit der Meldung "no cause".
+
+**Frage 4:** Gegeben sei folgender Code:
+```java
+RuntimeException ex = new RuntimeException("Msg", new ArithmeticException("Division"));
+ex.initCause(new IllegalArgumentException("Andere"));
+```
+Was passiert beim Aufruf von `initCause()`?
+
+- A) Die Ursache wird auf `IllegalArgumentException` aktualisiert.
+- B) Der Code kompiliert nicht, weil `initCause()` nur auf `Exception` aufgerufen werden kann.
+- **C) Es wird eine `IllegalStateException` geworfen, weil die Ursache bereits im Konstruktor gesetzt wurde.** ✓
+- D) Die ursprüngliche `ArithmeticException` wird als Suppressed Exception hinzugefügt.
+
+**Frage 5:** Welche Methode durchläuft korrekt eine vollständige Exception-Chain?
+
+- A) `e.getStackTrace()` liefert alle verketteten Exceptions.
+- B) `e.getSuppressed()` enthält alle Ursachen in der Kette.
+- **C) Iterativ `getCause()` aufrufen, bis `null` zurückgegeben wird.** ✓
+- D) `e.getMessage()` gibt automatisch die vollständige Chain als String aus.
+
+---
+
+## Skill Check: Exception Chaining und initCause
+
+Nach Abschluss dieses Abschnitts solltest du folgendes können:
+
+- [ ] Den Unterschied zwischen constructor-based chaining und `initCause()` erklären
+- [ ] `initCause()` korrekt einsetzen, wenn kein cause-Konstruktor verfügbar ist
+- [ ] Wissen, dass `initCause()` nur einmal aufgerufen werden darf
+- [ ] Mit `getCause()` eine Exception-Chain manuell traversieren
+- [ ] Den Rückgabewert `this` von `initCause()` für Method Chaining nutzen
+- [ ] Eine Exception-Chain im Stack Trace lesen und die Wurzelursache identifizieren

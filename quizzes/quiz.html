@@ -87,6 +87,7 @@ body { background: #f0f2f5; }
               </th>
               <th>Modul</th>
               <th class="text-end text-muted fw-normal small">Fragen</th>
+              <th class="text-end text-muted fw-normal small">Stats</th>
             </tr></thead>
             <tbody id="module-checks"></tbody>
           </table>
@@ -336,19 +337,28 @@ function onLoaded(data) {
 
 function buildFilters() {
   const modules = [...new Set(allQuestions.map(q => q.module))].sort((a,b)=>a-b);
-  const moduleNames = {}, moduleCounts = {};
+  const moduleNames = {}, moduleCounts = {}, moduleCorrect = {}, moduleWrong = {};
   allQuestions.forEach(q => {
-    moduleNames[q.module] = q.module_name;
-    moduleCounts[q.module] = (moduleCounts[q.module] || 0) + 1;
+    moduleNames[q.module]   = q.module_name;
+    moduleCounts[q.module]  = (moduleCounts[q.module]  || 0) + 1;
+    moduleCorrect[q.module] = (moduleCorrect[q.module] || 0) + (q.stats_correct || 0);
+    moduleWrong[q.module]   = (moduleWrong[q.module]   || 0) + (q.stats_wrong   || 0);
   });
   const c = document.getElementById('module-checks');
   c.innerHTML = '';
   modules.forEach(m => {
+    const sc = moduleCorrect[m] || 0, sw = moduleWrong[m] || 0;
+    const answered = allQuestions.filter(q => q.module === m && ((q.stats_correct || 0) + (q.stats_wrong || 0)) > 0).length;
+    const unknown  = moduleCounts[m] - answered;
+    const statsHtml = (sc || sw || unknown < moduleCounts[m])
+      ? `<span class="text-success fw-semibold">✓${sc}</span> <span class="text-danger fw-semibold">✗${sw}</span>${unknown ? ` <span class="text-muted">?${unknown}</span>` : ''}`
+      : `<span class="text-muted">?${unknown}</span>`;
     c.innerHTML += `
       <tr>
         <td><input class="form-check-input" type="checkbox" value="${m}" checked id="m-${m}" onchange="updateSelectAll()"></td>
         <td><label class="form-check-label w-100" for="m-${m}">${escHtml(moduleNames[m] || 'Module ' + m)}</label></td>
         <td class="text-end text-muted small">${moduleCounts[m]}</td>
+        <td class="text-end small" style="white-space:nowrap">${statsHtml}</td>
       </tr>`;
   });
   document.getElementById('m-all').checked = true;

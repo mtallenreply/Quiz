@@ -2,6 +2,8 @@
 
 ## Übersicht
 
+<audio controls="1" controlslist="nodownload nofullscreen noremoteplayback" src="hier die URL der Audio-Quelle eintragen">Your browser does not support the audio tag.</audio>
+
 Dieses Modul legt das Fundament für die gesamte Java-Schulung. Es beginnt mit der Geschichte von Java, erklärt die Kernkonzepte der objektorientierten Programmierung und führt durch das Erstellen, Kompilieren und Ausführen eines ersten Java-Programms.
 
 | Thema | Dauer |

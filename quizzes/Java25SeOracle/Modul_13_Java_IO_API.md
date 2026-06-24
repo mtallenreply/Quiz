@@ -786,6 +786,84 @@ while (!gueltig) {
 System.out.println("Eingegebene Zahl: " + zahl);
 ```
 
+### 9.5 java.io.Console – Sichere Konsoleneingabe [Fortgeschritten]
+
+Die Klasse `java.io.Console` bietet eine direkte Schnittstelle zur Systemkonsole und ist der einzige standardmäßige Weg in Java, Passwörter **ohne Echo** einzulesen. Im Gegensatz zu `Scanner` ist `Console` auf eine echte Terminal-Verbindung angewiesen – in IDEs und bei Umleitungen über Pipes gibt `System.console()` `null` zurück. `Console` wird über `System.console()` bezogen (kein `new`-Aufruf möglich).
+
+```java
+import java.io.Console;
+
+public class ConsoleDemo {
+    public static void main(String[] args) {
+
+        Console console = System.console();
+
+        if (console == null) {
+            System.err.println("Kein Terminal verfügbar (IDE oder Pipe).");
+            return;
+        }
+
+        // Normale Eingabe – readLine() gibt null zurück wenn EOF erreicht
+        String benutzername = console.readLine("Benutzername: ");
+
+        // Passwort-Eingabe – Echo ist unterdrückt; gibt char[] zurück
+        char[] passwort = console.readPassword("Passwort: ");
+
+        console.printf("Anmeldung für: %s%n", benutzername);
+
+        // char[] nach Verwendung sofort überschreiben (Sicherheit!)
+        java.util.Arrays.fill(passwort, '\0');
+    }
+}
+```
+
+#### Formatierte Ausgabe mit Console
+
+```java
+Console console = System.console();
+if (console != null) {
+    // printf/format – wie System.out.printf
+    console.printf("%-15s %5d EUR%n", "Gehalt:", 3500);
+
+    // writer() liefert einen PrintWriter für weitere Operationen
+    java.io.PrintWriter writer = console.writer();
+    writer.println("Log-Meldung über Console.writer()");
+
+    // reader() liefert einen BufferedReader
+    java.io.BufferedReader reader = console.reader();
+}
+```
+
+#### readLine() mit Format-String
+
+```java
+Console console = System.console();
+if (console != null) {
+    // Format-String direkt in readLine() – Eingabeaufforderung formatieren
+    String stadt = console.readLine("Stadt [%s]: ", "Berlin");
+    int alter    = Integer.parseInt(
+                       console.readLine("Alter (1-120): "));
+
+    // readPassword mit Format-String
+    char[] pin = console.readPassword("PIN für Konto %d: ", 12345);
+    java.util.Arrays.fill(pin, '\0');
+}
+```
+
+#### Console vs. Scanner – Vergleich
+
+| Merkmal                      | `Scanner(System.in)`             | `java.io.Console`                     |
+|------------------------------|----------------------------------|---------------------------------------|
+| Passwort ohne Echo           | Nicht möglich                    | `readPassword()` unterdrückt Echo     |
+| Rückgabetyp Passwort         | `String` (bleibt im Heap)        | `char[]` (kann überschrieben werden)  |
+| Verfügbarkeit in IDEs        | Immer verfügbar                  | Gibt `null` zurück (kein Terminal)    |
+| Erhalt über                  | `new Scanner(System.in)`         | `System.console()` (Singleton)        |
+| Typ-sichere Eingabe          | `nextInt()`, `nextDouble()` usw. | Nur `readLine()` / `readPassword()`   |
+| Thread-Sicherheit            | Nicht thread-safe                | Thread-safe                           |
+| Flush nach Prompt            | Manuell nötig                    | Automatisch                           |
+
+> **Prüfungstipp:** `System.console()` kann `null` zurückgeben – immer auf `null` prüfen! Für Passwörter ist `char[]` sicherer als `String`, weil Arrays im Heap überschrieben werden können, `String`-Objekte hingegen immutable im String-Pool verbleiben können.
+
 ---
 
 ## 10. Try-with-Resources und AutoCloseable
@@ -954,6 +1032,72 @@ List<String> zeilen = Files.readAllLines(Path.of("datei.txt"),
 | Verzeichnis auflisten        | `Files.list()` (try-with-resources!)      |
 | Rekursiv traversieren        | `Files.walk()` / `Files.find()`           |
 | Objekte persistieren         | `ObjectOutputStream` / `ObjectInputStream`|
-| Konsoleneingabe              | `Scanner` mit `System.in`                 |
+| Konsoleneingabe (einfach)    | `Scanner` mit `System.in`                 |
+| Konsoleneingabe (sicher)     | `System.console()` / `Console.readPassword()` |
 | Datei-Metadaten              | `Files.readAttributes()`                  |
 | Dateiänderungen beobachten   | `WatchService`                            |
+
+---
+
+## 14. Multiple-Choice-Fragen
+
+**Frage 1:** Welche Aussage zu `System.console()` ist korrekt?
+
+- A) `System.console()` erzeugt immer ein gültiges `Console`-Objekt.
+- B) `Console` kann mit `new Console()` instanziiert werden.
+- **C) `System.console()` gibt `null` zurück, wenn kein Terminal verfügbar ist (z. B. in IDEs oder bei I/O-Umleitung).** ✓
+- D) `Console` ist ein Interface im Paket `java.io`.
+
+**Frage 2:** Welchen Rückgabetyp hat `Console.readPassword()`?
+
+- A) `String`
+- **B) `char[]`** ✓
+- C) `byte[]`
+- D) `StringBuilder`
+
+**Frage 3:** Warum ist `Console.readPassword()` sicherer als das Einlesen eines Passworts mit `Scanner`?
+
+- A) `readPassword()` verschlüsselt die Eingabe automatisch mit AES.
+- B) `Scanner` kann keine Passwörter einlesen.
+- C) `readPassword()` speichert die Eingabe im SecureRandom-Pool.
+- **D) Der Rückgabetyp `char[]` kann nach der Verwendung im Speicher überschrieben werden; ein `String` ist immutable und bleibt im Heap.** ✓
+
+**Frage 4:** Welche Methode der Klasse `Console` liest eine Zeile Text von der Konsole?
+
+- A) `Console.readLine()` – sie ist eine statische Methode.
+- **B) `console.readLine(String fmt, Object... args)` – Instanzmethode mit optionalem Format-String.** ✓
+- C) `console.nextLine()`
+- D) `Console.read()`
+
+**Frage 5:** Wie erhält man eine `Console`-Instanz in Java?
+
+- A) `Console c = new Console();`
+- B) `Console c = Console.getInstance();`
+- **C) `Console c = System.console();`** ✓
+- D) `Console c = System.getConsole();`
+
+**Frage 6:** Ein Programm wird in einer IDE gestartet, die keine echte Terminalverbindung bereitstellt. Was gibt `System.console()` zurück?
+
+- **A) `null`** ✓
+- B) Eine `Console`-Instanz, die auf `System.in`/`System.out` umleitet.
+- C) Eine leere `Console`-Instanz.
+- D) Es wird eine `ConsoleNotFoundException` geworfen.
+
+---
+
+## 15. Skill Check: IO API
+
+Stellen Sie sicher, dass Sie folgende Aufgaben lösen können (Ziel: ≥ 80 %):
+
+- [ ] Byte-Streams von Character-Streams unterscheiden und die richtigen Klassen benennen.
+- [ ] `FileInputStream` / `FileOutputStream` und `BufferedReader` / `BufferedWriter` korrekt mit try-with-resources verwenden.
+- [ ] `Path.of()`, `Files.readAllLines()`, `Files.writeString()` und `Files.lines()` anwenden.
+- [ ] `StandardOpenOption`-Werte (`APPEND`, `CREATE_NEW`, `TRUNCATE_EXISTING`) erklären.
+- [ ] Ein Verzeichnis rekursiv mit `Files.walk()` traversieren.
+- [ ] Ein Java-Objekt mit `ObjectOutputStream` serialisieren und mit `ObjectInputStream` deserialisieren.
+- [ ] `transient` und `serialVersionUID` im Kontext der Serialisierung erklären.
+- [ ] `Scanner` für Konsoleneingaben und Dateien einsetzen, inklusive Eingabevalidierung.
+- [ ] `System.console()` aufrufen, auf `null` prüfen und `Console.readLine()` sowie `Console.readPassword()` verwenden.
+- [ ] Den Unterschied zwischen `String`-Rückgabe (Scanner) und `char[]`-Rückgabe (`readPassword`) im Sicherheitskontext erläutern.
+- [ ] Erklären, warum `System.console()` in IDEs `null` zurückgibt.
+- [ ] `WatchService` für Dateiänderungs-Benachrichtigungen einsetzen.

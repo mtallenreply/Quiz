@@ -152,14 +152,17 @@ public class BankKonto {
 }
 ```
 
-### 1.4 Local Class (Lokale Klasse)
+### 1.4 Local Class (Lokale Klasse) [Fortgeschritten]
 
-Eine lokale Klasse wird innerhalb eines Methodenrumpfes definiert. Sie kann auf effektiv finale lokale Variablen der Methode zugreifen.
+Eine lokale Klasse wird innerhalb eines Methodenrumpfes definiert. Sie kann auf effektiv finale lokale Variablen der Methode zugreifen. Lokale Klassen können Interfaces implementieren oder andere Klassen erweitern – auch abstrakte und konkrete. Wichtig für die Prüfung: In einer **statischen** Methode hat die lokale Klasse keinen Zugriff auf Instanzfelder der äußeren Klasse; in einer **Instanzmethode** dagegen schon.
 
 ```java
 import java.util.*;
 
 public class LocalClassDemo {
+    private String instanzFeld = "Ich bin ein Instanzfeld";
+
+    // --- Lokale Klasse in einer INSTANZ-Methode ---
     public List<String> filtereNamen(List<String> namen, int minLaenge) {
         // Lokale Klasse - nur innerhalb dieser Methode sichtbar
         class NameFilter {
@@ -180,9 +183,15 @@ public class LocalClassDemo {
                 return name.trim().substring(0, 1).toUpperCase()
                     + name.trim().substring(1).toLowerCase();
             }
+
+            // Lokale Klasse in Instanzmethode: darf auf Instanzfeld zugreifen
+            void debug() {
+                System.out.println("Kontext: " + instanzFeld); // OK!
+            }
         }
 
         NameFilter filter = new NameFilter();
+        filter.debug();
         List<String> ergebnis = new ArrayList<>();
         for (String name : namen) {
             if (filter.gueltig(name)) {
@@ -192,13 +201,50 @@ public class LocalClassDemo {
         return ergebnis;
     }
 
+    // --- Lokale Klasse in einer STATISCHEN Methode ---
+    public static void statischeMethode() {
+        String lokaleFinal = "Nur lokal";
+
+        // Lokale Klasse kann Interface implementieren:
+        interface Meldbar {
+            void melden();
+        }
+
+        class Meldung implements Meldbar {
+            private final String text;
+            Meldung(String text) { this.text = text; }
+
+            @Override
+            public void melden() {
+                System.out.println("Meldung: " + text + " / " + lokaleFinal);
+                // instanzFeld  <- COMPILERFEHLER: statische Methode, kein this
+            }
+        }
+
+        // Lokale Klasse kann auch konkrete Klasse erweitern:
+        class BunteMeldung extends Meldung {
+            BunteMeldung(String text) { super("[BUNT] " + text); }
+        }
+
+        Meldbar m = new Meldung("Test");
+        m.melden();
+        new BunteMeldung("Farbe").melden();
+    }
+
     public static void main(String[] args) {
         LocalClassDemo demo = new LocalClassDemo();
         List<String> namen = Arrays.asList("alice", "Bo", "CHARLIE", "  ", "d", "Emma");
         System.out.println(demo.filtereNamen(namen, 3)); // [Alice, Charlie, Emma]
+        statischeMethode();
     }
 }
 ```
+
+**Merksätze für die Prüfung:**
+- Lokale Klassen in **statischen** Methoden: kein Zugriff auf `this` / Instanzfelder der äußeren Klasse.
+- Lokale Klassen in **Instanzmethoden**: vollständiger Zugriff auf Instanzfelder der äußeren Klasse.
+- Lokale Klassen dürfen Interfaces implementieren und Klassen (auch konkrete) erweitern.
+- Zugriff auf lokale Variablen nur wenn **effektiv final** (nie neu zugewiesen).
 
 ### 1.5 Vergleich: Static Nested vs. Inner Class
 
@@ -278,7 +324,114 @@ public class AnonymousClassDemo {
 }
 ```
 
-### 2.2 Anonyme Klassen vs. Lambda
+### 2.2 Anonyme Klasse – konkrete Klasse erweitern [Fortgeschritten]
+
+Anonyme Klassen können nicht nur Interfaces implementieren oder abstrakte Klassen erweitern, sondern auch **konkrete (nicht-abstrakte) Klassen** erweitern. Dabei können beliebige Methoden überschrieben werden. Der Konstruktor der konkreten Superklasse wird mit den entsprechenden Argumenten aufgerufen.
+
+```java
+public class AnonymousExtendsConcreteDemo {
+
+    // Konkrete (nicht-abstrakte) Klasse
+    static class Rechteck {
+        protected int breite;
+        protected int hoehe;
+
+        Rechteck(int breite, int hoehe) {
+            this.breite = breite;
+            this.hoehe = hoehe;
+        }
+
+        int flaeche() {
+            return breite * hoehe;
+        }
+
+        String beschreibung() {
+            return "Rechteck " + breite + "x" + hoehe;
+        }
+    }
+
+    public static void main(String[] args) {
+        // Anonyme Klasse erweitert KONKRETE Klasse Rechteck
+        Rechteck quadrat = new Rechteck(5, 5) {
+            // Methode überschreiben
+            @Override
+            String beschreibung() {
+                return "Quadrat " + breite + "x" + hoehe + " (Fläche: " + flaeche() + ")";
+            }
+
+            // Neue Methode in anonymer Klasse (nur via Object-Ref nicht aufrufbar)
+            int umfang() {
+                return 4 * breite;
+            }
+        };
+
+        System.out.println(quadrat.beschreibung()); // Quadrat 5x5 (Fläche: 25)
+        System.out.println("Fläche: " + quadrat.flaeche()); // 25
+
+        // Weiteres Beispiel: java.util.TimerTask ist eine konkrete Klasse
+        java.util.TimerTask einmaligeAufgabe = new java.util.TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("TimerTask ausgeführt (anonyme Subklasse von TimerTask)");
+            }
+        };
+        einmaligeAufgabe.run(); // direkt aufrufen für Demo
+    }
+}
+```
+
+### 2.3 Anonyme Klassen vs. Lambda – `this` im Vergleich [Fortgeschritten]
+
+Ein wesentlicher Unterschied zwischen anonymer Klasse und Lambda ist die Bedeutung von `this`. In einer anonymen Klasse verweist `this` auf die anonyme Instanz selbst. In einem Lambda verweist `this` auf die umschließende Instanz der äußeren Klasse. Dieser Unterschied ist prüfungsrelevant.
+
+```java
+public class ThisVergleich {
+    private String name = "AeussereKlasse";
+
+    @FunctionalInterface
+    interface Identifizierbar {
+        String wer();
+    }
+
+    public void demonstrieren() {
+        // Anonyme Klasse: this = die anonyme Instanz
+        Identifizierbar anon = new Identifizierbar() {
+            private String name = "AnonymeKlasse"; // eigenes Feld
+
+            @Override
+            public String wer() {
+                // this bezieht sich auf die anonyme Instanz
+                return "Anon.this.name = " + this.name
+                    + " | Äußeres: " + ThisVergleich.this.name;
+            }
+        };
+
+        // Lambda: this = die äußere Instanz (ThisVergleich)
+        Identifizierbar lambda = () -> {
+            // Kein eigenes 'this' für das Lambda selbst
+            return "Lambda: this.name = " + this.name; // this = ThisVergleich-Instanz
+        };
+
+        System.out.println(anon.wer());
+        // → Anon.this.name = AnonymeKlasse | Äußeres: AeussereKlasse
+
+        System.out.println(lambda.wer());
+        // → Lambda: this.name = AeussereKlasse
+    }
+
+    public static void main(String[] args) {
+        new ThisVergleich().demonstrieren();
+    }
+}
+```
+
+**Merksätze für die Prüfung:**
+- `this` in **anonymer Klasse** = die anonyme Instanz selbst. Zugriff auf äußere Instanz: `AeussereKlasse.this`.
+- `this` in **Lambda** = immer die umschließende Instanz der äußeren Klasse (kein eigenes `this`).
+- Anonyme Klassen können **konkrete** Klassen erweitern – der Superklassen-Konstruktor wird aufgerufen.
+- Anonyme Klassen können eigene Felder und Methoden deklarieren, diese sind aber nur über eine Typcast-Variable zugänglich.
+
+### 2.4 Anonyme Klassen vs. Lambda – Gegenüberstellung
 
 ```java
 import java.util.*;
@@ -307,11 +460,8 @@ public class AnonVsLambda {
         // Wann anonyme Klassen noch sinnvoll sind:
         // 1. Wenn das Interface mehr als eine Methode hat
         // 2. Wenn Zustand (Felder) benötigt wird
-        // 3. Wenn Methoden der Superklasse überschrieben werden müssen
-        // 4. Wenn der Typ der Instanz (this) wichtig ist
-
-        // this in Lambda = äußere Instanz
-        // this in anon. Klasse = anonyme Instanz selbst
+        // 3. Wenn die eigene Identität (this) der anonymen Instanz benötigt wird
+        // 4. Wenn eine konkrete Klasse erweitert werden soll
     }
 }
 ```
@@ -544,9 +694,14 @@ public class LambdaSyntaxDemo {
 }
 ```
 
-### 4.2 Variable Capture in Lambdas
+### 4.2 Variable Capture in Lambdas [Fortgeschritten]
+
+Lambdas können auf lokale Variablen des umgebenden Kontexts zugreifen, aber nur wenn diese **effektiv final** sind – d.h. nach der Initialisierung nie neu zugewiesen werden. Jede Neuzuweisung **nach** der Deklaration, auch nach dem Lambda, macht die Variable nicht mehr effektiv final. Das ist besonders bei Schleifenvariablen und Exception-Szenarien prüfungsrelevant.
 
 ```java
+import java.util.function.*;
+import java.util.*;
+
 public class VariableCapture {
     private String instanzFeld = "Instanzfeld";
     private static String statischesFeld = "Statisches Feld";
@@ -564,7 +719,7 @@ public class VariableCapture {
         // Zugriff auf statische Felder (immer erlaubt)
         Runnable r3 = () -> System.out.println(statischesFeld);
 
-        // FEHLER: lokaleVariable = "Geändert"; // nicht effektiv final!
+        // COMPILERFEHLER: lokaleVariable = "Geändert"; → nicht mehr effektiv final!
 
         // Effektiv final: nie explizit als final deklariert, aber auch nie geändert
         int[] zaehler = {0}; // Trick für mutable state (Workaround, vermeiden!)
@@ -581,11 +736,66 @@ public class VariableCapture {
         r5.run();
     }
 
+    // --- Prüfungsszenarien: effektiv final ---
+    public static void examScenarios() {
+        // Szenario 1: Schleifenvariable
+        // COMPILERFEHLER: for-Schleifenzähler ist NICHT effektiv final
+        // for (int i = 0; i < 3; i++) {
+        //     Runnable r = () -> System.out.println(i); // FEHLER: i wird hochgezählt
+        // }
+
+        // Korrekt: neue Variable im Schleifenrumpf erzeugen (effektiv final)
+        for (int i = 0; i < 3; i++) {
+            final int snapshot = i; // effektiv final (nur einmal zugewiesen)
+            Runnable r = () -> System.out.println(snapshot);
+            r.run(); // 0, 1, 2
+        }
+
+        // Szenario 2: Zuweisung nach Lambda-Definition ist ebenfalls ein Fehler
+        // int wert = 10;
+        // Runnable r = () -> System.out.println(wert); // würde Fehler geben...
+        // wert = 20; // ...weil diese Zeile wert nicht mehr effektiv final macht
+
+        // Szenario 3: Bedingte Zuweisung – auch Compilerfehler
+        // int x;
+        // if (Math.random() > 0.5) x = 1; else x = 2;
+        // Runnable r = () -> System.out.println(x); // FEHLER: x könnte mehrfach zugewiesen sein
+
+        // Szenario 4: Effektiv final in try-catch
+        String nachricht;
+        try {
+            nachricht = "Erfolg";
+        } catch (Exception e) {
+            nachricht = "Fehler"; // ZWEI mögliche Zuweisungen → nicht effektiv final!
+            // Runnable r = () -> System.out.println(nachricht); // COMPILERFEHLER hier
+            return;
+        }
+        // Hier: nur ein Pfad → nachricht ist effektiv final
+        Runnable r = () -> System.out.println(nachricht); // OK
+        r.run();
+
+        // Szenario 5: for-each – Schleifenvariable IST effektiv final pro Iteration
+        List<String> namen = List.of("Alice", "Bob");
+        for (String name : namen) {
+            // name wird pro Iteration einmal zugewiesen, nie geändert → effektiv final
+            Runnable ausgabe = () -> System.out.println(name);
+            ausgabe.run();
+        }
+    }
+
     public static void main(String[] args) {
         new VariableCapture().demonstrieren();
+        examScenarios();
     }
 }
 ```
+
+**Merksätze für die Prüfung:**
+- **Effektiv final** = nach Initialisierung nie neu zugewiesen. `final` als Schlüsselwort ist optional.
+- Eine Neuzuweisung **irgendwo** im selben Scope (auch nach dem Lambda) macht die Variable ungültig.
+- `for (int i = ...)` – `i` ist **nicht** effektiv final (wird jede Iteration inkrementiert).
+- `for (String s : collection)` – `s` **ist** effektiv final pro Iteration.
+- Instanz- und Klassenfelder unterliegen dieser Einschränkung **nicht** – sie sind immer zugänglich.
 
 ---
 
@@ -1101,3 +1311,212 @@ Instanz (best. Objekt):    object::instanceMethod
 Instanz (bel. Objekt):     ClassName::instanceMethod
 Konstruktor:               ClassName::new
 ```
+
+---
+
+## Übungsaufgaben
+
+### Aufgabe 1: Lokale Klassen – Zugriff [Fortgeschritten]
+
+Welche der folgenden lokalen Klassen kompiliert fehlerfrei?
+
+```java
+public class Outer {
+    private int instanzWert = 10;
+
+    public static void statisch() {
+        int x = 5;
+        class A {
+            void methode() {
+                System.out.println(x); // (a)
+                // System.out.println(instanzWert); // (b)
+            }
+        }
+    }
+
+    public void instanz() {
+        int y = 7;
+        class B {
+            void methode() {
+                System.out.println(y);          // (c)
+                System.out.println(instanzWert); // (d)
+            }
+        }
+    }
+}
+```
+
+**Antwort:** (a), (c) und (d) kompilieren. (b) ist ein Compilerfehler, weil `instanzWert` ein Instanzfeld ist und `statisch()` eine statische Methode – kein `this` verfügbar.
+
+---
+
+### Aufgabe 2: Effectively Final – was kompiliert? [Fortgeschritten]
+
+Markieren Sie jede Variable als effektiv final (EF) oder nicht (NEF):
+
+```java
+public static void test() {
+    int a = 1;                        // (1)
+    int b = 2; b = 3;                 // (2)
+    final int c = 4;                  // (3)
+    int d;                            // (4)
+    if (true) d = 5; else d = 6;      // (4) Zuweisung
+    String e = "x";                   // (5)
+
+    Runnable r1 = () -> System.out.println(a); // OK?
+    Runnable r2 = () -> System.out.println(b); // OK?
+    Runnable r3 = () -> System.out.println(c); // OK?
+    Runnable r4 = () -> System.out.println(d); // OK?
+    Runnable r5 = () -> System.out.println(e); // OK?
+}
+```
+
+**Antwort:** (1) EF → r1 OK. (2) NEF → r2 FEHLER. (3) EF (explizit final) → r3 OK. (4) NEF (zwei mögliche Zuweisungen) → r4 FEHLER. (5) EF → r5 OK.
+
+---
+
+## Multiple-Choice-Fragen
+
+### Lokale Klassen
+
+**Frage 1:** Eine lokale Klasse wird innerhalb einer **statischen** Methode definiert. Welche Aussage ist korrekt?
+
+- A) Sie kann auf Instanzfelder der äußeren Klasse zugreifen, wenn sie `OuterClass.this` verwendet.
+- B) Sie kann keine Interfaces implementieren.
+- **C) Sie hat keinen Zugriff auf Instanzfelder der äußeren Klasse, aber auf effektiv finale lokale Variablen.** ✓
+- D) Sie kann statische Methoden definieren.
+
+**Frage 2:** Welche Aussage über lokale Klassen ist FALSCH?
+
+- A) Sie können andere Klassen (auch konkrete) erweitern.
+- B) Sie können Interfaces implementieren.
+- **C) Sie sind außerhalb ihrer Methode per vollständigem Klassennamen erreichbar.** ✓
+- D) Sie können auf effektiv finale Parameter der umgebenden Methode zugreifen.
+
+**Frage 3:** Eine lokale Klasse in einer Instanzmethode möchte auf das Feld `name` der äußeren Klasse zugreifen. Wie referenziert sie es korrekt?
+
+- A) `super.name`
+- B) `outer.name`
+- **C) Direkt als `name` oder `OuterClass.this.name`** ✓
+- D) Nur über einen Konstruktor-Parameter
+
+---
+
+### Effectively Final in Lambdas
+
+**Frage 4:** Welcher Code kompiliert fehlerfrei?
+
+```java
+// Option A
+int x = 5;
+x = 6;
+Runnable r = () -> System.out.println(x);
+
+// Option B
+int y = 5;
+Runnable r = () -> System.out.println(y);
+
+// Option C
+for (int i = 0; i < 3; i++) {
+    Runnable r = () -> System.out.println(i);
+}
+
+// Option D
+int z = 5;
+Runnable r = () -> System.out.println(z);
+z = 6;
+```
+
+- A) Option A
+- **B) Option B** ✓
+- C) Option C
+- D) Option D
+
+**Frage 5:** Was gibt folgender Code aus?
+
+```java
+List<Runnable> tasks = new ArrayList<>();
+for (int i = 0; i < 3; i++) {
+    final int snap = i;
+    tasks.add(() -> System.out.println(snap));
+}
+tasks.forEach(Runnable::run);
+```
+
+- A) Compilerfehler, `snap` ist nicht effektiv final.
+- B) 0 0 0
+- **C) 0 1 2** ✓
+- D) 2 2 2
+
+**Frage 6:** Welche Variable ist effektiv final?
+
+```java
+String a = "x";                   // (1)
+String b = "x"; b = "y";          // (2)
+String c;
+c = "z";                          // (3) – nur einmal zugewiesen
+```
+
+- A) Nur (1)
+- B) Nur (2)
+- **C) (1) und (3)** ✓
+- D) Alle drei
+
+---
+
+### Anonyme Klassen
+
+**Frage 7:** Eine anonyme Klasse `new Basis() { ... }` wobei `Basis` eine **konkrete** (nicht-abstrakte) Klasse ist. Welche Aussage ist korrekt?
+
+- A) Das ist ein Compilerfehler – anonyme Klassen können nur Interfaces implementieren.
+- B) Das ist ein Compilerfehler – anonyme Klassen können nur abstrakte Klassen erweitern.
+- **C) Es ist erlaubt; der Konstruktor von `Basis` wird aufgerufen.** ✓
+- D) Es ist erlaubt, aber keine Methoden von `Basis` können überschrieben werden.
+
+**Frage 8:** Was gibt folgender Code aus?
+
+```java
+public class Outer {
+    String name = "Outer";
+
+    void run() {
+        Runnable lambda = () -> System.out.println(this.name);
+
+        Runnable anon = new Runnable() {
+            String name = "Anon";
+            public void run() {
+                System.out.println(this.name);
+            }
+        };
+
+        lambda.run();
+        anon.run();
+    }
+
+    public static void main(String[] args) { new Outer().run(); }
+}
+```
+
+- A) Outer / Outer
+- B) Anon / Anon
+- **C) Outer / Anon** ✓
+- D) Outer / null
+
+**Frage 9:** Welche Eigenschaft unterscheidet eine anonyme Klasse von einem Lambda-Ausdruck?
+
+- A) Lambda-Ausdrücke können keine lokalen Variablen erfassen.
+- B) Anonyme Klassen können nur Interfaces implementieren.
+- **C) `this` verweist in einer anonymen Klasse auf die anonyme Instanz, im Lambda auf die äußere Instanz.** ✓
+- D) Lambda-Ausdrücke können immer anonyme Klassen vollständig ersetzen.
+
+---
+
+## Skill Check: Nested Classes und Lambda (Erweiterung)
+
+Zusätzlich zum Basis-Skill-Check sollten Sie nach diesem Modul folgende Fähigkeiten demonstrieren können:
+
+- [ ] Lokale Klasse in einer statischen Methode definieren, die ein Interface implementiert, ohne Zugriff auf Instanzfelder zu benötigen
+- [ ] Erklären, warum `for (int i = 0; ...)` keine effektiv finale Schleifenvariable erzeugt, und das Problem mit einem `final`-Snapshot lösen
+- [ ] Den Unterschied zwischen `this` in einer anonymen Klasse und `this` in einem Lambda an einem kompilierbaren Beispiel erklären
+- [ ] Eine anonyme Klasse schreiben, die eine **konkrete** (nicht-abstrakte) Klasse erweitert und eine Methode überschreibt
+- [ ] Einen `try-catch`-Block analysieren und beurteilen, ob eine darin initialisierte Variable effektiv final ist

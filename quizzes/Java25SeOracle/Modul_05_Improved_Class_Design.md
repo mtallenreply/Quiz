@@ -318,6 +318,171 @@ p = null;
 
 ---
 
+## 5. Methoden überladen (Method Overloading)
+
+### **[Anfänger]** Grundregeln der Methoden-Überladung
+
+Mehrere Methoden dürfen denselben Namen haben, wenn sie sich in der **Parameterliste** unterscheiden (Anzahl, Typen oder Reihenfolge der Parameter). Der Rückgabetyp allein reicht nicht zur Unterscheidung:
+
+```java
+public class Calculator {
+    // Gleicher Name, unterschiedliche Parametertypen
+    int add(int a, int b)        { return a + b; }
+    double add(double a, double b) { return a + b; }
+    int add(int a, int b, int c) { return a + b + c; } // unterschiedliche Anzahl
+
+    // FEHLER – nur Rückgabetyp unterscheidet sich (kein gültiges Überladen):
+    // double add(int a, int b) { return a + b; }
+}
+
+Calculator calc = new Calculator();
+System.out.println(calc.add(1, 2));        // 3   – int-Version
+System.out.println(calc.add(1.5, 2.5));    // 4.0 – double-Version
+System.out.println(calc.add(1, 2, 3));     // 6   – drei-Parameter-Version
+```
+
+Java wählt die passende Methode zur **Kompilierzeit** anhand der Argumenttypen (statisches Dispatch).
+
+### **[Fortgeschritten]** Überladungsauflösung und Typpromotion
+
+Gibt es keine exakte Übereinstimmung, versucht Java automatisch Typen zu erweitern (widening):
+
+```java
+public class Printer {
+    void print(int n)    { System.out.println("int: " + n);    }
+    void print(double d) { System.out.println("double: " + d); }
+    void print(Object o) { System.out.println("Object: " + o); }
+}
+
+Printer p = new Printer();
+p.print(42);       // "int: 42"      – exakte Übereinstimmung
+p.print(3.14);     // "double: 3.14" – exakte Übereinstimmung
+byte b = 5;
+p.print(b);        // "int: 5"       – byte → int (widening)
+p.print("Hallo");  // "Object: Hallo"– String passt zu Object
+```
+
+Wichtige Regeln:
+- Widening (z.B. `int` → `long` → `double`) hat Vorrang vor Autoboxing (`int` → `Integer`).
+- Autoboxing hat Vorrang vor Varargs.
+- Bei Mehrdeutigkeit gibt es einen Kompilierungsfehler.
+
+### **[Professionell]** Überladung in der Praxis und Fallstricke
+
+```java
+public class Formatter {
+    String format(String s, int repeat) {
+        return s.repeat(repeat);
+    }
+
+    String format(String s, String separator) {
+        return s + separator;
+    }
+
+    // Überladung mit null ist mehrdeutig:
+    // format(null, 2)   → String-Version (null passt zu String)
+    // format(null, null) → KOMPILIERUNGSFEHLER (mehrdeutig)
+}
+
+// Konstruktoren überladen folgt denselben Regeln wie Methoden:
+public class Product {
+    Product(String name)                      { this(name, 0.0, 1); }
+    Product(String name, double price)        { this(name, price, 1); }
+    Product(String name, double price, int r) { /* Haupt-Konstruktor */ }
+}
+```
+
+Merkhilfe für die Prüfung: Überladen = gleicher Name, **andere Signatur** (Parametertypen/-anzahl/-reihenfolge). Rückgabetyp und `throws`-Klausel zählen **nicht** zur Signatur.
+
+---
+
+## 6. Varargs-Methoden
+
+### **[Anfänger]** Varargs – variable Argumentanzahl
+
+Mit `...` (Ellipsis) nimmt eine Methode eine beliebige Anzahl von Argumenten desselben Typs entgegen. Intern wird daraus ein Array:
+
+```java
+public class Stats {
+    int sum(int... numbers) {        // "numbers" ist ein int[]
+        int total = 0;
+        for (int n : numbers) total += n;
+        return total;
+    }
+}
+
+Stats s = new Stats();
+System.out.println(s.sum());            // 0   – null Argumente
+System.out.println(s.sum(1, 2, 3));     // 6
+System.out.println(s.sum(10, 20, 30, 40)); // 100
+
+// Auch ein bestehendes Array darf übergeben werden:
+int[] arr = {5, 10, 15};
+System.out.println(s.sum(arr));         // 30
+```
+
+### **[Fortgeschritten]** Varargs-Regeln und Einschränkungen
+
+```java
+public class Logger {
+    // Varargs muss der LETZTE Parameter sein:
+    void log(String level, String... messages) {
+        for (String msg : messages) {
+            System.out.println("[" + level + "] " + msg);
+        }
+    }
+
+    // Länge und null-Sicherheit prüfen:
+    double average(double... values) {
+        if (values == null || values.length == 0) return 0.0;
+        double sum = 0;
+        for (double v : values) sum += v;
+        return sum / values.length;
+    }
+}
+
+Logger log = new Logger();
+log.log("INFO", "Start", "Running", "Done");  // drei Meldungen
+log.log("WARN");                               // Varargs-Array ist leer (length == 0)
+
+// FEHLER – nur ein Varargs-Parameter erlaubt, muss am Ende stehen:
+// void wrong(int... a, String... b) { }   // Kompilierungsfehler
+// void wrong(int... a, String b)    { }   // Kompilierungsfehler
+```
+
+Wichtige Einschränkungen:
+- Pro Methode ist nur **ein** Varargs-Parameter erlaubt.
+- Varargs muss der **letzte** Parameter der Methode sein.
+- Varargs und Überladung können mehrdeutig werden – der Compiler warnt.
+
+### **[Professionell]** Varargs, Überladung und Heap Pollution
+
+```java
+public class Combiner {
+    // Wenn Varargs und eine Überladung ohne Varargs existieren,
+    // hat die exakte Überladung Vorrang:
+    String join(String a, String b)    { return a + "-" + b; }       // (1)
+    String join(String... parts)       { return String.join("-", parts); } // (2)
+
+    // join("x", "y") ruft (1) auf – exakte Übereinstimmung hat Vorrang
+    // join("x", "y", "z") ruft (2) auf
+}
+
+// Heap Pollution: Generics + Varargs können unsichere Situationen erzeugen.
+// @SafeVarargs unterdrückt die Warnung, wenn die Methode typsicher ist:
+@SafeVarargs
+static <T> java.util.List<T> listOf(T... items) {
+    return java.util.Arrays.asList(items);
+}
+
+java.util.List<String> names = listOf("Alice", "Bob", "Charlie");
+System.out.println(names); // [Alice, Bob, Charlie]
+```
+
+Merkhilfe für die Prüfung: Varargs = letzter Parameter + `Type...` + wird intern zum Array. Überladungsauflösung bevorzugt exakte Methoden vor Varargs-Methoden.
+
+---
+
 ## Übungsaufgaben
 
 ### **[Anfänger]** Practice 5-1: Create Enumeration to Represent Product Rating (ca. 11 Minuten)
@@ -462,19 +627,74 @@ p = null;
 
 ---
 
+**Frage 10:** Welche der folgenden Methoden-Definitionen stellt ein gültiges Überladen dar?
+
+- A) `int add(int a, int b)` und `double add(int a, int b)` (nur Rückgabetyp verschieden)
+- B) `void print(String s)` und `void print(String s)` (identisch)
+- C) **`void print(int n)` und `void print(double d)` (unterschiedliche Parametertypen)** ✓
+- D) `int add(int a, int b)` und `int add(int b, int a)` (nur Parameternamen vertauscht)
+
+> *Nur Unterschiede in Parametertypen, -anzahl oder -reihenfolge (bei verschiedenen Typen) sind gültig. Rückgabetyp und Parameternamen zählen nicht.*
+
+---
+
+**Frage 11:** In welcher Reihenfolge versucht Java Methoden-Überladung aufzulösen?
+
+- A) Autoboxing → Widening → Varargs
+- B) Varargs → Widening → Autoboxing
+- C) **Widening → Autoboxing → Varargs** ✓
+- D) Autoboxing → Varargs → Widening
+
+> *Java bevorzugt Widening vor Autoboxing, und Autoboxing vor Varargs.*
+
+---
+
+**Frage 12:** Welche Regel gilt für Varargs-Parameter?
+
+- A) Eine Methode darf beliebig viele Varargs-Parameter haben
+- B) Varargs kann an beliebiger Position in der Parameterliste stehen
+- C) Varargs ist immer mindestens 1 Element lang
+- D) **Eine Methode darf höchstens einen Varargs-Parameter haben, und dieser muss der letzte sein** ✓
+
+---
+
+**Frage 13:** Was trifft auf den Aufruf `log("INFO")` zu, wenn die Signatur `void log(String level, String... messages)` lautet?
+
+- A) Kompilierungsfehler, da `messages` mindestens einen Wert braucht
+- B) Laufzeitfehler (NullPointerException)
+- C) **Gültig – `messages` ist ein leeres Array (length == 0)** ✓
+- D) Gültig – `messages` ist `null`
+
+---
+
+**Frage 14:** Was bewirkt `@SafeVarargs` bei einer Varargs-Methode mit generischem Typ?
+
+- A) Es erzwingt zur Laufzeit Typprüfungen
+- B) Es verbietet die Übergabe von Arrays
+- C) Es macht die Methode automatisch thread-sicher
+- D) **Es unterdrückt die Compiler-Warnung über potenzielle Heap Pollution bei typsicherer Implementierung** ✓
+
+---
+
 ## Skill Check: Typische Prüfungsfragen
 
 ### [Anfänger]
 1. Was ist der Unterschied zwischen einem Konstruktor und einer Methode?
 2. Was ist ein Enum und wann setzt man ihn ein?
 3. Was passiert mit einem Objekt, wenn die Methode endet, die es erstellt hat?
+4. Was ist Method Overloading und welche Bedingungen müssen erfüllt sein?
+5. Was ist ein Varargs-Parameter und wie deklariert man ihn?
 
 ### [Fortgeschritten]
-4. Warum ist `this()` nützlich beim Überladen von Konstruktoren?
-5. Was sind die vier Eigenschaften einer immutable Klasse?
-6. Was bedeutet "Java ist Pass by Value" — auch für Objekte?
+6. Warum ist `this()` nützlich beim Überladen von Konstruktoren?
+7. Was sind die vier Eigenschaften einer immutable Klasse?
+8. Was bedeutet "Java ist Pass by Value" — auch für Objekte?
+9. In welcher Reihenfolge löst Java Überladung auf (Widening, Autoboxing, Varargs)?
+10. Welche Einschränkungen gelten für Varargs-Parameter in einer Methodensignatur?
 
 ### [Professionell]
-7. Was ist der Unterschied zwischen einem Record und einer immutable Klasse mit `final`-Feldern?
-8. Was ist der Vorteil von Flexible Constructor Bodies in Java 25 gegenüber früheren Versionen?
-9. Erkläre den Unterschied zwischen `WeakReference`, `SoftReference` und einer normalen starken Referenz.
+11. Was ist der Unterschied zwischen einem Record und einer immutable Klasse mit `final`-Feldern?
+12. Was ist der Vorteil von Flexible Constructor Bodies in Java 25 gegenüber früheren Versionen?
+13. Erkläre den Unterschied zwischen `WeakReference`, `SoftReference` und einer normalen starken Referenz.
+14. Warum kann die Kombination aus Varargs und Überladung problematisch sein? Nenne ein Beispiel.
+15. Was bedeutet Heap Pollution im Kontext von Generics und Varargs, und wie verhindert `@SafeVarargs` die Warnung?
