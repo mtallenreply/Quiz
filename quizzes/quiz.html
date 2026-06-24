@@ -217,8 +217,12 @@ body { background: #f0f2f5; }
     </div>
   </div>
 
-  <div class="text-center mb-4">
+  <div class="d-flex justify-content-center gap-2 mb-4 flex-wrap">
     <button class="btn btn-outline-secondary" onclick="resetToStart()">← New Quiz</button>
+    <button class="btn btn-outline-primary d-none" id="btn-save-stats" onclick="exportJson()">💾 Stats speichern</button>
+  </div>
+  <div class="d-none alert alert-warning text-center small py-2" id="save-hint">
+    📥 Heruntergeladen. Originaldatei in questions.json umbenennen / ersetzen.
   </div>
 </div>
 
@@ -235,6 +239,7 @@ let current      = 0;
 let submitted    = false;
 let lang         = localStorage.getItem('quiz-lang') || 'en';
 let loadedMeta   = {};
+let fileHandle   = null;
 
 // ── i18n ───────────────────────────────────────────────────────────────────
 const T = {
@@ -521,7 +526,11 @@ function showResults() {
 
   renderReview('wrong');
   saveResults();
-  exportJson();
+  if (fileHandle) {
+    exportJson(); // silent — kein Picker nötig
+  } else {
+    document.getElementById('btn-save-stats').classList.remove('d-none');
+  }
 }
 
 let reviewFilter = 'wrong';
@@ -731,25 +740,47 @@ async function tryAutoLoad() {
 }
 
 async function exportJson() {
-  const json = JSON.stringify({meta: loadedMeta, questions: allQuestions}, null, 2);
+  const json = JSON.stringify({meta: loadedMeta, questions: allQuestions}, null, 4);
+
+  const download = () => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([json], {type: 'application/json'}));
+    a.download = 'questions.json'; a.click();
+    URL.revokeObjectURL(a.href);
+    document.getElementById('save-hint')?.classList.remove('d-none');
+  };
+
+  // gespeicherter Handle → silent save
+  if (fileHandle) {
+    try {
+      const w = await fileHandle.createWritable();
+      await w.write(json); await w.close();
+      return;
+    } catch (e) {
+      console.warn('[exportJson] fileHandle write failed:', e);
+      fileHandle = null;
+    }
+  }
+  // Chrome/Edge: showSaveFilePicker
   if (window.showSaveFilePicker) {
     try {
-      const fh = await window.showSaveFilePicker({
+      fileHandle = await window.showSaveFilePicker({
         suggestedName: 'questions.json',
         types: [{description: 'JSON', accept: {'application/json': ['.json']}}]
       });
-      const w = await fh.createWritable();
-      await w.write(json);
-      await w.close();
+      const w = await fileHandle.createWritable();
+      await w.write(json); await w.close();
       return;
-    } catch (e) { if (e.name === 'AbortError') return; }
+    } catch (e) {
+      if (e.name === 'AbortError') return;
+      console.error('[exportJson] showSaveFilePicker:', e.name, e.message);
+      // Kein return → Download-Fallback
+    }
   }
-  // Fallback (Firefox etc.)
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([json], {type: 'application/json'}));
-  a.download = 'questions.json';
-  a.click();
-  URL.revokeObjectURL(a.href);
+  // Firefox unterstützt showOpenFilePicker nicht (Mozilla-Designentscheidung)
+  // → direktes Schreiben in lokale Dateien nicht möglich
+  // Letzter Fallback: Download
+  download();
 }
 
 function resetQuestionStats(id) {
@@ -769,6 +800,7 @@ function resetAllStats() {
   localStorage.setItem('quiz-results', '{"questions":{},"history":[]}');
   updateRetryBtn();
   if (questions.length) { renderStrip(); renderQuestion(); }
+  exportJson();
 }
 
 function openFeedback() {
